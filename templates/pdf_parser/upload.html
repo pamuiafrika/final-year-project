@@ -1,0 +1,57 @@
+<!-- pdf_parser/templates/pdf_parser/upload.html -->
+{% extends "base.html" %}
+
+{% block title %}Upload PDF File{% endblock %}
+
+{% block content %}
+<div class="bg-white p-6 rounded-lg shadow-md">
+    <h1 class="text-2xl font-bold mb-6">Upload PDF for Analysis</h1>
+    
+    <form method="post" enctype="multipart/form-data" class="space-y-6">
+        {% csrf_token %}
+        
+        <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
+            <div class="mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                </svg>
+                <p class="mt-1 text-sm text-gray-500">Drag and drop your PDF file here or click to browse</p>
+                <p class="text-xs text-gray-400 mt-1">Max file size: 10MB</p>
+            </div>
+            
+            <div class="relative">
+                <input type="file" name="file" accept=".pdf" 
+                       class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                       required>
+                <button type="button" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium py-2 px-4 rounded-md">
+                    Browse Files
+                </button>
+            </div>
+        </div>
+        
+        <div id="file-selected" class="hidden p-3 bg-blue-50 rounded-md">
+            <div class="flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-500 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clip-rule="evenodd" />
+                </svg>
+                <span id="file-name" class="text-sm">No file selected</span>
+            </div>
+        </div>
+        
+        <div class="mt-6">
+            <button type="submit" class="w-full bg-[var(--dark)] hover:text-gray-300 text-white font-medium py-2 px-4 rounded-md shadow-sm transition duration-200">
+                Analyze PDF
+            </button>
+        </div>
+    </form>
+</div>
+
+<script>
+    // Show selected file name
+    document.querySelector('input[type="file"]').addEventListener('change', function(e) {
+        const fileName = e.target.files[0]?.name || 'No file selected';
+        document.getElementById('file-name').textContent = fileName;
+        document.getElementById('file-selected').classList.remove('hidden');
+    });
+</script>
+{% endblock %}

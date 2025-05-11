@@ -1,0 +1,73 @@
+{% extends 'pdf_stego/base.html' %}
+{% block title %}Operation Details{% endblock %}
+{% block content %}
+<div class="w-full">
+  <div class="max-w-5xl mx-auto">
+    <div class="bg-white rounded-lg shadow p-6">
+      <div class="flex flex-col md:flex-row justify-between items-center border-b pb-4 mb-4">
+        <h2 class="text-2xl font-semibold flex items-center gap-2">
+          {% if operation.operation_type == 'hide' %}
+            <i class="bi bi-file-earmark-lock text-blue-600"></i>
+            Hide Operation
+          {% else %}
+            <i class="bi bi-file-earmark-check text-green-600"></i>
+            Extract Operation
+          {% endif %}
+        </h2>
+        <span class="text-sm px-3 py-1 rounded-full text-white
+          {% if operation.status == 'pending' %}
+            bg-gray-500
+          {% elif operation.status == 'processing' %}
+            bg-sky-500
+          {% elif operation.status == 'completed' %}
+            bg-green-600
+          {% elif operation.status == 'failed' %}
+            bg-red-600
+          {% endif %}">
+          {{ operation.get_status_display }}
+        </span>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-6 mb-4">
+        <div>
+          <p><strong>Operation ID:</strong> {{ operation.id }}</p>
+          <p><strong>Date Created:</strong> {{ operation.created_at|date:"F d, Y H:i:s" }}</p>
+          <p><strong>Method:</strong>
+            {% if operation.actual_method %}
+              {{ operation.get_actual_method_display }} ({{ operation.actual_method }})
+            {% else %}
+              {{ operation.get_method_display }} ({{ operation.method }})
+            {% endif %}
+          </p>
+        </div>
+        <div>
+          <p><strong>Status:</strong> {{ operation.get_status_display }}</p>
+          <p><strong>Completed:</strong>
+            {% if operation.completed_at %}
+              {{ operation.completed_at|date:"F d, Y H:i:s" }}
+            {% else %}
+              Not completed
+            {% endif %}
+          </p>
+          <p><strong>Processing Time:</strong>
+            {% if operation.completed_at %}
+              {{ operation.completed_at|timeuntil:operation.created_at }}
+            {% else %}
+              In progress
+            {% endif %}
+          </p>
+        </div>
+      </div>
+
+      {% if operation.extracted_png %}
+      <div class="mb-4">
+        <p class="font-semibold mb-2">Extracted Image</p>
+        <img src="{{ operation.extracted_png.url }}"
+             alt="Extracted Image"
+             class="rounded shadow max-w-xs max-h-64 object-contain">
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

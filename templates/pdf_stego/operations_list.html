@@ -1,0 +1,83 @@
+{% extends 'pdf_stego/base.html' %}
+{% block title %}Operations History{% endblock %}
+{% block content %}
+<div class="">
+  <div class="mx-auto px-4">
+    <div class="bg-white shadow rounded-lg overflow-hidden">
+      <div class="border-b px-6 py-4">
+        <h2 class="text-xl font-semibold">Operations History</h2>
+      </div>
+      <div class="p-4">
+        {% if operations %}
+          <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+              <thead class="bg-gray-100 text-sm text-gray-700">
+                <tr>
+                  <th class="px-4 py-2 text-left">Operation</th>
+                  <th class="px-4 py-2 text-left">Method</th>
+                  <th class="px-4 py-2 text-left">Status</th>
+                  <th class="px-4 py-2 text-left">Date</th>
+                  <th class="px-4 py-2 text-left">Actions</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-200 text-sm">
+                {% for op in operations %}
+                <tr class="hover:bg-gray-50">
+                  <td class="px-4 py-2 flex items-center gap-2">
+                    {% if op.operation_type == 'hide' %}
+                      <i class="bi bi-file-earmark-lock text-blue-600"></i>
+                      Hide Image
+                    {% else %}
+                      <i class="bi bi-file-earmark-check text-green-600"></i>
+                      Extract Image
+                    {% endif %}
+                  </td>
+                  <td class="px-4 py-2">
+                    {% if op.actual_method %}
+                      {{ op.get_actual_method_display }} ({{ op.actual_method }})
+                    {% else %}
+                      {{ op.get_method_display }} ({{ op.method }})
+                    {% endif %}
+                  </td>
+                  <td class="px-4 py-2">
+                    <span class="inline-flex items-center gap-1 font-medium
+                      {% if op.status == 'pending' %} text-gray-500
+                      {% elif op.status == 'processing' %} text-sky-600
+                      {% elif op.status == 'completed' %} text-green-600
+                      {% elif op.status == 'failed' %} text-red-600
+                      {% endif %}">
+                      {% if op.status == 'pending' %}
+                        <i class="bi bi-hourglass"></i>
+                      {% elif op.status == 'processing' %}
+                        <i class="bi bi-arrow-repeat"></i>
+                      {% elif op.status == 'completed' %}
+                        <i class="bi bi-check-circle"></i>
+                      {% elif op.status == 'failed' %}
+                        <i class="bi bi-x-circle"></i>
+                      {% endif %}
+                      {{ op.get_status_display }}
+                    </span>
+                  </td>
+                  <td class="px-4 py-2 text-gray-600">{{ op.created_at|date:"M d, Y H:i" }}</td>
+                  <td class="px-4 py-2">
+                    <a href="{% url 'pdf_stego:operation_detail' op.id %}"
+                       class="inline-flex items-center gap-1 px-3 py-1 border border-blue-600 text-blue-600 rounded hover:bg-blue-600 hover:text-white transition text-sm">
+                      <i class="bi bi-eye"></i> Details
+                    </a>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        {% else %}
+          <div class="bg-blue-50 border border-blue-200 text-blue-700 p-4 rounded flex items-center gap-2 mt-4">
+            <i class="bi bi-info-circle"></i>
+            <span>No operations found. Try hiding or extracting an image first.</span>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

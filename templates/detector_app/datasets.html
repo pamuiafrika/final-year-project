@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Select Dataset</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col items-center justify-center">
+    <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-md">
+        <h1 class="text-2xl font-bold mb-6 text-center text-gray-800">Select a Dataset</h1>
+        <ul class="space-y-4">
+        {% for dataset in datasets %}
+            <li class="flex items-center justify-between bg-gray-50 px-4 py-3 rounded hover:bg-gray-100 transition">
+                <span class="text-gray-700 font-medium">{{ dataset.name }}</span>
+                <a href="{% url 'train_model' dataset.id %}" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition font-semibold text-sm">Train Model</a>
+            </li>
+        {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>

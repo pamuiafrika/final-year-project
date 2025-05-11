@@ -1,0 +1,70 @@
+<!-- pdf_parser/templates/pdf_parser/index.html -->
+{% extends "base.html" %}
+
+{% block title %}Steganography Detection Tool - All Anlyses{% endblock %}
+
+{% block content %}
+<!-- Dashboard Heading -->
+  <div class="mb-6"> 
+    <div class="flex justify-between items-center">
+      <h1 class="text-3xl font-bold text-[var(--dark)] mb-2">Analysis Dashboard</h1>
+      <a href="{% url 'pdf_parser:upload' %}" class="bg-[var(--primary)] text-white px-4 py-2 rounded hover:bg-[var(--secondary)]">Start New Analysis</a>
+    </div>
+    <p class="text-gray-600">Explore detailed insights and results from steganography detection in PDF files.</p>
+  </div>
+
+
+  <!-- Data Table -->
+  <div class="bg-white shadow rounded-lg p-6 border-l-4 border-[var(--dark)] animate__animated animate__fadeInUp">
+  <h2 class="text-2xl font-semibold mb-4 text-[var(--dark)]">Latest Results</h2>
+  <div class="overflow-auto">
+    <table class="min-w-full">
+    <thead>
+      <tr>
+      <th class="px-4 py-2 text-left text-[var(--primary)]">ID</th>
+      <th class="px-4 py-2 text-left text-[var(--primary)]">File Name</th>
+      <th class="px-4 py-2 text-left text-[var(--primary)]">Status</th>
+      <th class="px-4 py-2 text-left text-[var(--primary)]">Date</th>
+      <th class="px-4 py-2 text-left text-[var(--primary)]">Actions</th>
+      </tr>
+    </thead>
+  
+    <tbody>
+    {% if pdf_documents %}
+    
+    {% for pdf in pdf_documents %}
+      <tr class="hover:bg-gray-50">
+        <td class="px-4 py-3">#PDF{{pdf.id}}</td>
+        <td class="px-4 py-3">{{pdf.title}}</td>
+        <td class="px-4 py-3 text-green-600 font-bold">
+          {% if pdf.has_anomalies %}
+          <span class="text-red-600">Flagged</span>
+          {% else %}  
+          <span class="text-green-600">Safe</span>
+          {% endif %}
+        </td>
+        <td class="px-4 py-3">{{ pdf.upload_date|date:"M d, Y" }}</td>
+        <td class="px-4 py-3">
+          <a href="{% url 'pdf_parser:pdf_detail' pdf.id %}" class="bg-[var(--primary)] text-white px-3 py-1 rounded hover:bg-[var(--secondary)]">Details</a>
+        </td>
+      </tr>
+
+    {% endfor %}
+    {% else %}
+    <tr class="hover:bg-gray-50">
+      <p class="px-4 py-3 text-center">No analysis data available yet.</p>
+    </tr>
+    {% endif %}
+    </tbody>
+    </table>
+  </div>
+  </div>
+
+  
+  <div class="flex justify-center mt-6">
+    <a href="{% url 'pdf_parser:upload' %}" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-md shadow-sm transition duration-200">
+      Start New Analysis
+    </a>
+  </div>
+
+{% endblock %}

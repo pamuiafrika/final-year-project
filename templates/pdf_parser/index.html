@@ -1,0 +1,89 @@
+<!-- pdf_parser/templates/pdf_parser/index.html -->
+{% extends "base.html" %}
+
+{% block title %}Steganography Detection Tool - Home{% endblock %}
+
+{% block content %}
+<!-- Dashboard Heading -->
+<div class="mb-6"> 
+    <div class="flex justify-between items-center">
+        <h1 class="text-3xl font-bold text-[var(--dark)] mb-2">Dashboard</h1>
+        <a href="{% url 'pdf_parser:upload' %}" class="bg-[var(--primary)] text-white px-4 py-2 rounded hover:bg-[var(--secondary)]">Upload PDF</a>
+    </div>
+    <p class="text-gray-600">Overview of steganography detection results for PDF-embedded PNGs.</p>
+  </div>
+
+  <!-- Stat Cards -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+    <div class="bg-white shadow rounded-lg p-4 border-l-4 border-[var(--dark)] animate__animated animate__fadeInUp">
+      <h2 class="font-semibold text-lg">Total Scans</h2>
+      <p class="text-2xl font-bold">{{ analysis_no }}</p>
+    </div>
+    <div class="bg-white shadow rounded-lg p-4 border-l-4 border-[var(--dark)] animate__animated animate__fadeInUp" style="animation-delay: 0.1s;">
+      <h2 class="font-semibold text-lg">Positive Detections</h2>
+      <p class="text-2xl font-bold">{{ positive_analysis }}</p>
+    </div>
+    <div class="bg-white shadow rounded-lg p-4 border-l-4 border-[var(--dark)] animate__animated animate__fadeInUp" style="animation-delay: 0.2s;">
+      <h2 class="font-semibold text-lg">False Positives</h2>
+      <p class="text-2xl font-bold">{{false_positives}}</p>
+    </div>
+    <div class="bg-white shadow rounded-lg p-4 border-l-4 border-[var(--dark)] animate__animated animate__fadeInUp" style="animation-delay: 0.3s;">
+      <h2 class="font-semibold text-lg">Pending Analysis</h2>
+      <p class="text-2xl font-bold">{{ pending_analysis }}</p>
+    </div>
+  </div>
+
+  <!-- Data Table -->
+  <div class="bg-white shadow rounded-lg p-6 border-l-4 border-[var(--dark)] animate__animated animate__fadeInUp">
+    <h2 class="text-2xl font-semibold mb-4 text-[var(--dark)]">Recent Analyses</h2>
+    <div class="overflow-auto">
+      <table class="min-w-full">
+        <thead>
+          <tr>
+            <th class="px-4 py-2 text-left text-[var(--primary)]">ID</th>
+            <th class="px-4 py-2 text-left text-[var(--primary)]">File Name</th>
+            <th class="px-4 py-2 text-left text-[var(--primary)]">Status</th>
+            <th class="px-4 py-2 text-left text-[var(--primary)]">Date</th>
+            <th class="px-4 py-2 text-left text-[var(--primary)]">Actions</th>
+          </tr>
+        </thead>
+  
+        <tbody>
+        {% if recent_pdfs %}
+        
+        {% for pdf in recent_pdfs %}
+            <tr class="hover:bg-gray-50">
+                <td class="px-4 py-3">#RPT{{pdf.id}}</td>
+                <td class="px-4 py-3">{{pdf.title}}</td>
+                <td class="px-4 py-3 text-green-600 font-bold">
+                    {% if pdf.has_anomalies %}
+                    <span class="text-red-600">Suspicious</span>
+                    {% else %}  
+                    <span class="text-green-600">Clean</span>
+                    {% endif %}
+                </td>
+                <td class="px-4 py-3">{{ pdf.upload_date|date:"M d, Y" }}</td>
+                <td class="px-4 py-3">
+                  <a href="{% url 'pdf_parser:pdf_detail' pdf.id %}" class="bg-[var(--primary)] text-white px-3 py-1 rounded hover:bg-[var(--secondary)]">View</a>
+                </td>
+            </tr>
+
+        {% endfor %}
+        {% else %}
+        <tr class="hover:bg-gray-50">
+            <p class="px-4 py-3 text-center">No PDF files have been analyzed yet.</p>
+        </tr>
+        {% endif %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+    
+    <div class="flex justify-center mt-6">
+        <a href="{% url 'pdf_parser:upload' %}" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-md shadow-sm transition duration-200">
+            Upload PDF for Analysis
+        </a>
+    </div>
+
+{% endblock %}

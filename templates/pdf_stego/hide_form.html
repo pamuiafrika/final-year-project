@@ -1,0 +1,140 @@
+{% extends 'pdf_stego/base.html' %}
+{% block title %}Hide PNG in PDF{% endblock %}
+{% block content %}
+<div class="">
+  <div class="">
+    <div class="bg-white shadow-md rounded-lg overflow-hidden">
+      <div class="bg-blue-600 text-white px-6 py-4">
+        <h2 class="text-xl font-semibold mb-0">Hide PNG in PDF</h2>
+      </div>
+      <div class="p-6">
+        <form method="post" enctype="multipart/form-data" id="hideForm">
+          {% csrf_token %}
+
+          <div class="mb-4">
+            <label for="{{ form.method.id_for_label }}" class="block text-sm font-medium text-gray-700">
+              Steganography Technique
+            </label>
+            {{ form.method }}
+            <p class="text-sm text-gray-500 mt-1">{{ form.method.help_text }}</p>
+            {% if form.method.errors %}
+              <div class="mt-2 p-2 bg-red-100 text-red-700 rounded text-sm">
+                {{ form.method.errors }}
+              </div>
+            {% endif %}
+          </div>
+
+          <div class="mb-4">
+            <label for="{{ form.input_pdf.id_for_label }}" class="block text-sm font-medium text-gray-700">
+              PDF Document
+            </label>
+            {{ form.input_pdf }}
+            <p class="text-sm text-gray-500 mt-1">{{ form.input_pdf.help_text }}</p>
+            {% if form.input_pdf.errors %}
+              <div class="mt-2 p-2 bg-red-100 text-red-700 rounded text-sm">
+                {{ form.input_pdf.errors }}
+              </div>
+            {% endif %}
+          </div>
+
+          <div class="mb-4">
+            <label for="{{ form.input_png.id_for_label }}" class="block text-sm font-medium text-gray-700">
+              PNG Image to Hide
+            </label>
+            {{ form.input_png }}
+            <p class="text-sm text-gray-500 mt-1">{{ form.input_png.help_text }}</p>
+            {% if form.input_png.errors %}
+              <div class="mt-2 p-2 bg-red-100 text-red-700 rounded text-sm">
+                {{ form.input_png.errors }}
+              </div>
+            {% endif %}
+          </div>
+
+          <div class="mb-4 hidden" id="compatibilityCheck">
+            <div class="flex items-center bg-blue-100 border border-blue-300 text-blue-800 text-sm p-3 rounded">
+              <svg class="animate-spin h-5 w-5 text-blue-500 mr-3" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+              </svg>
+              <span>Checking compatibility...</span>
+            </div>
+          </div>
+
+          <div class="mb-4 hidden" id="compatibilityResult">
+            <!-- JS will insert result here -->
+          </div>
+
+          <div class="text-center mt-6 space-x-4">
+            <button type="submit"
+              class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded-lg text-lg"
+              id="submitButton">
+              Hide Image
+            </button>
+            <button type="button"
+              class="border border-gray-400 text-gray-700 hover:bg-gray-100 px-6 py-2 rounded-lg text-lg"
+              id="checkButton">
+              Check Compatibility
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const checkButton = document.getElementById('checkButton');
+    const methodSelect = document.getElementById('id_method');
+    const pdfInput = document.getElementById('id_input_pdf');
+    const pngInput = document.getElementById('id_input_png');
+    const compatibilityCheck = document.getElementById('compatibilityCheck');
+    const compatibilityResult = document.getElementById('compatibilityResult');
+
+    checkButton.addEventListener('click', function () {
+      if (!pdfInput.files.length || !pngInput.files.length) {
+        alert('Please select both a PDF document and PNG image first.');
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append('method', methodSelect.value);
+      formData.append('pdf', pdfInput.files[0]);
+      formData.append('png', pngInput.files[0]);
+      formData.append('csrfmiddlewaretoken', document.querySelector('[name=csrfmiddlewaretoken]').value);
+
+      compatibilityCheck.classList.remove('hidden');
+      compatibilityResult.classList.add('hidden');
+
+      fetch('/check-compatibility/', {
+        method: 'POST',
+        body: formData,
+        credentials: 'same-origin'
+      })
+        .then(response => response.json())
+        .then(data => {
+          compatibilityCheck.classList.add('hidden');
+          compatibilityResult.classList.remove('hidden');
+          compatibilityResult.innerHTML = data.compatible
+            ? `<div class="p-3 bg-green-100 text-green-800 rounded text-sm">
+                  <strong>Compatible:</strong> ${data.message}
+               </div>`
+            : `<div class="p-3 bg-red-100 text-red-800 rounded text-sm">
+                  <strong>Incompatible:</strong> ${data.message}
+               </div>`;
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          compatibilityCheck.classList.add('hidden');
+          compatibilityResult.classList.remove('hidden');
+          compatibilityResult.innerHTML = `
+            <div class="p-3 bg-red-100 text-red-800 rounded text-sm">
+              Error checking compatibility. Please try again.
+            </div>`;
+        });
+    });
+  });
+</script>
+{% endblock %}

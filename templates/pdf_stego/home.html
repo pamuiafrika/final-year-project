@@ -1,0 +1,131 @@
+{% extends 'pdf_stego/base.html' %}
+{% block title %}PDF Steganography - Home{% endblock %}
+{% block content %}
+<div class="flex justify-center">
+  <div class="w-full max-w-6xl">
+    <div class="bg-white p-8">
+      <h1 class="text-3xl font-bold text-center mb-4">PDF Steganography Tool</h1>
+      <p class="text-lg text-center text-gray-600">
+        Hide PNG images within PDF documents using advanced steganography techniques.
+      </p>
+      <hr class="my-6 border-gray-300">
+
+      <div class="grid md:grid-cols-2 gap-6 mt-6">
+        <div class="bg-gray-50 rounded-lg shadow-md p-6 hover:shadow-lg transition-all duration-200">
+          <div class="text-center">
+            <h3 class="text-xl font-semibold mb-2 flex items-center justify-center gap-2">
+              <i class="bi bi-file-earmark-image text-blue-500"></i>
+              Hide PNG in PDF
+            </h3>
+            <p class="text-gray-600 mb-4">
+              Conceal PNG images within PDF documents using various steganography techniques.
+            </p>
+            <a href="{% url 'pdf_stego:hide_form' %}"
+               class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium px-5 py-2 rounded">
+              Hide Image
+            </a>
+          </div>
+        </div>
+
+        <div class="bg-gray-50 rounded-lg shadow-md p-6 hover:shadow-lg transition-all duration-200">
+          <div class="text-center">
+            <h3 class="text-xl font-semibold mb-2 flex items-center justify-center gap-2">
+              <i class="bi bi-file-earmark-check text-green-500"></i>
+              Extract PNG from PDF
+            </h3>
+            <p class="text-gray-600 mb-4">
+              Extract hidden PNG images from steganographically modified PDF documents.
+            </p>
+            <a href="{% url 'pdf_stego:extract_form' %}"
+               class="inline-block bg-green-600 hover:bg-green-700 text-white font-medium px-5 py-2 rounded">
+              Extract Image
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-10">
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-2xl font-bold">Available Steganography Techniques</h2>
+            <button class="bg-blue-500 text-white px-4 py-2 rounded" id="toggle-techniques">
+                Toggle Techniques
+            </button>
+          <!-- <i class="bi bi-chevron-down text-xl cursor-pointer transition text-gray-700" id="toggle-techniques"></i> -->
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-4 hidden" id="techniques-container">
+          <div class="bg-white shadow rounded-lg p-4">
+            <h5 class="text-lg font-semibold flex items-center gap-2 mb-2">
+              <i class="bi bi-layers text-blue-500"></i>
+              Object Stream Manipulation
+            </h5>
+            <p class="text-gray-600">
+              Embeds data directly into PDF object streams, providing excellent capacity.
+            </p>
+          </div>
+
+          <div class="bg-white shadow rounded-lg p-4">
+            <h5 class="text-lg font-semibold flex items-center gap-2 mb-2">
+              <i class="bi bi-tag text-indigo-500"></i>
+              Metadata Embedding
+            </h5>
+            <p class="text-gray-600">
+              Hides data within PDF metadata fields, which are often overlooked.
+            </p>
+          </div>
+
+          <div class="bg-white shadow rounded-lg p-4">
+            <h5 class="text-lg font-semibold flex items-center gap-2 mb-2">
+              <i class="bi bi-distribute-horizontal text-yellow-500"></i>
+              White Space and Comment Exploitation
+            </h5>
+            <p class="text-gray-600">
+              Uses comments and whitespace within the PDF structure.
+            </p>
+          </div>
+
+          <div class="bg-white shadow rounded-lg p-4">
+            <h5 class="text-lg font-semibold flex items-center gap-2 mb-2">
+              <i class="bi bi-boxes text-purple-500"></i>
+              Document Components
+            </h5>
+            <p class="text-gray-600">
+              Utilizes PDF annotations and other document components to store data.
+            </p>
+          </div>
+
+          <div class="bg-white shadow rounded-lg p-4">
+            <h5 class="text-lg font-semibold flex items-center gap-2 mb-2">
+              <i class="bi bi-code text-pink-500"></i>
+              JavaScript Integration
+            </h5>
+            <p class="text-gray-600">
+              Embeds data within JavaScript objects in the PDF.
+            </p>
+          </div>
+
+          <div class="bg-white shadow rounded-lg p-4">
+            <h5 class="text-lg font-semibold flex items-center gap-2 mb-2">
+              <i class="bi bi-shuffle text-teal-500"></i>
+              Random Selection
+            </h5>
+            <p class="text-gray-600">
+              Automatically selects the best technique based on the files.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        document.getElementById('toggle-techniques').addEventListener('click', function () {
+          const container = document.getElementById('techniques-container');
+          const chevron = this;
+          container.classList.toggle('hidden');
+          chevron.classList.toggle('bi-chevron-down');
+          chevron.classList.toggle('bi-chevron-up');
+        });
+      </script>
+    </div>
+  </div>
+</div>
+{% endblock %}

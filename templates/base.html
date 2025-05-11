@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en" @click.away="profileOpen = false; notifOpen = false">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Steganography Detection Tool{% endblock %}</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Boxicons -->
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <!-- Animate.css -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Space+Grotesk:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+      :root {
+        --primary: #309975;
+        --secondary: #58b368;
+        --accent: #dad873;
+        --light: #efeeb4;
+        --dark: #454d66;
+      }
+      body {
+        font-family: "Space Grotesk", sans-serif;
+      }
+      h1,
+      h2,
+      h3 {
+        font-family: "Montserrat", sans-serif;
+      }
+      [x-cloak] {
+        display: none !important;
+      }
+    </style>
+  </head>
+  <body
+    class="bg-gray-100 text-gray-900"
+    x-data="{ sidebarOpen: false, profileOpen: false, notifOpen: false }"
+  >
+    <!-- Sidebar: Fixed on left on medium and up; overlays on smaller screens -->
+    <aside
+      class="fixed inset-y-0 left-0 w-64 bg-[var(--dark)] text-white transform transition-transform duration-300 ease-in-out z-50"
+      :class="{'-translate-x-full': !sidebarOpen, 'translate-x-0': sidebarOpen}"
+      x-cloak
+    >
+      <div class="p-2 space-y-6">
+        <div class="flex items-center space-x-4 mt-11">
+          <i
+            class="bx bx-shield-quarter text-3xl text-[var(--accent)] animate__animated animate__pulse animate__infinite"
+          ></i>
+          <span class="text-xl font-semibold">StegaDetect AI</span>
+          <!-- Only show the toggle on small screens -->
+          <button
+            @click="sidebarOpen = !sidebarOpen"
+            class="block md:hidden text-2xl focus:outline-none"
+          >
+            <i class="bx bx-menu"></i>
+          </button>
+        </div>
+        <nav class="space-y-2">
+          <a
+            href="{% url 'pdf_parser:index' %}"
+            class="flex items-center px-3 py-2 rounded-md hover:bg-[var(--primary)] transition"
+          >
+            <i class="bx bx-home text-xl mr-3"></i> Dashboard
+          </a>
+          <a
+            href="{% url 'pdf_parser:upload' %}"
+            class="flex items-center px-3 py-2 rounded-md hover:bg-[var(--primary)] transition"
+          >
+            <i class="bx bx-search-alt text-xl mr-3"></i> Detection
+          </a>
+            <a
+            href="{% url 'pdf_parser:analysis_list' %}"
+            class="flex items-center px-3 py-2 rounded-md hover:bg-[var(--primary)] transition"
+            >
+            <i class="bx bx-analyse text-xl mr-3"></i> Analyses
+            </a>
+          <a
+            href="{% url 'pdf_stego:home' %}"
+            class="flex items-center px-3 py-2 rounded-md hover:bg-[var(--primary)] transition"
+          >
+            <i class="bx bx-hide text-xl mr-3"></i> PDF Stego Tool
+          </a>
+          <a
+            href="reports.html"
+            class="flex items-center px-3 py-2 rounded-md hover:bg-[var(--primary)] transition"
+          >
+            <i class="bx bx-bar-chart-alt-2 text-xl mr-3"></i> Reports
+          </a>
+          <a
+            href="settings.html"
+            class="flex items-center px-3 py-2 rounded-md hover:bg-[var(--primary)] transition"
+          >
+            <i class="bx bx-cog text-xl mr-3"></i> Settings
+          </a>
+        </nav>
+      </div>
+    </aside>
+
+    <!-- Main Content: Adjusts its margin on medium screens when sidebar is visible -->
+    <div
+      class="flex flex-col flex-1 transition-all duration-300 p-6 overflow-auto"
+      :class="{'md:ml-64': sidebarOpen}"
+    >
+      <!-- Header -->
+      <header
+        class="bg-[var(--dark)] text-white flex items-center justify-between px-6 py-3 rounded-lg shadow-md mb-4"
+      >
+        <!-- Sidebar Toggle Button -->
+      <div class="flex items-center justify-start space-x-4 space-y-0">
+        <button @click="sidebarOpen = !sidebarOpen" class="text-2xl focus:outline-none space-y-4">
+          <i class="bx bx-menu"></i>
+        </button>
+        <!-- Page Title -->
+        <h2 class="text-2xl font-semibold">StegoDetect</h2>
+      </div>
+
+        <!-- Right Side Controls -->
+        <div class="flex items-center space-x-4 relative">
+          <!-- Notification Button -->
+          <div class="relative">
+            <button
+              @click.stop="notifOpen = !notifOpen"
+              class="p-2 text-[var(--light)] hover:text-[var(--secondary)] transition"
+            >
+              <i class="bx bx-bell"></i>
+            </button>
+            <!-- Notification Dropdown -->
+            <div
+              x-show="notifOpen"
+              x-transition
+              class="absolute right-0 mt-2 w-64 bg-white text-black rounded shadow z-50 p-4 space-y-2"
+            >
+              <div class="text-sm font-semibold">Notifications</div>
+              <div class="text-sm border-b pb-2">
+                📄 New file scanned:
+                <span class="font-medium">Invoice.pdf</span>
+              </div>
+              <div class="text-sm border-b pb-2">
+                ⚠️ Suspicious activity in
+                <span class="font-medium">Report.pdf</span>
+              </div>
+              <div class="text-sm">
+                ✅ Scan completed: <span class="font-medium">Scan123</span>
+              </div>
+            </div>
+          </div>
+          <!-- Profile Dropdown -->
+          <div class="relative">
+            <button @click.stop="profileOpen = !profileOpen">
+              <img
+                src="https://builder.bootstrapmade.com/static/img/profile/profile-square-1.webp"
+                class="h-12 w-12 rounded-full border-2 border-[var(--dark)]"
+                alt="Profile"
+              />
+            </button>
+            <div
+              x-show="profileOpen"
+              x-transition
+              class="absolute right-0 mt-2 w-40 bg-white text-black rounded shadow overflow-hidden z-50"
+            >
+              <a href="#" class="block px-4 py-2 hover:bg-gray-100">Account</a>
+              <a href="#" class="block px-4 py-2 hover:bg-gray-100">Logout</a>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Page Content: Detection Form -->
+      <main class="py-4">
+        <!-- CONTENT -->
+        {% if messages %}
+        <div class="mb-4">
+          {% for message in messages %}
+          <div
+            class="p-4 mb-2 rounded {% if message.tags == 'error' %}bg-red-100 text-red-700{% elif message.tags == 'success' %}bg-green-100 text-green-700{% else %}bg-blue-100 text-blue-700{% endif %}"
+          >
+            {{ message }}
+          </div>
+          {% endfor %}
+        </div>
+        {% endif %} 
+        {% block content %}{% endblock %}
+        <!-- END OF CONTENT -->
+
+        <!-- Footer -->
+        <footer class="mt-8 text-center text-gray-500 text-sm">
+          &copy; {% now "Y" %} StegaDetect AI. All rights reserved.
+        </footer>
+      </main>
+    </div>
+
+    <!-- AlpineJS for interactivity -->
+    <script
+      src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"
+      defer
+    ></script>
+  </body>
+</html>

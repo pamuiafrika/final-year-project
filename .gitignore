@@ -1,0 +1,5 @@
+steg_env
+steg_env/
+win_venv/
+.env 
+venv git

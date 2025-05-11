@@ -1,0 +1,60 @@
+{% extends 'pdf_stego/base.html' %}
+{% block title %}Extract PNG from PDF{% endblock %}
+{% block content %}
+<div class="flex justify-center">
+  <div class="w-full max-w-3xl">
+    <div class="bg-white shadow-md rounded-lg overflow-hidden">
+      <div class="bg-green-600 text-white px-6 py-4">
+        <h2 class="text-xl font-semibold mb-0">Extract PNG from PDF</h2>
+      </div>
+      <div class="p-6">
+        <form method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+
+          <div class="mb-4">
+            <label for="{{ form.method.id_for_label }}" class="block text-sm font-medium text-gray-700">
+              Extraction Technique
+            </label>
+            {{ form.method }}
+            <p class="text-sm text-gray-500 mt-1">{{ form.method.help_text }}</p>
+            {% if form.method.errors %}
+              <div class="mt-2 p-2 bg-red-100 text-red-700 rounded text-sm">
+                {{ form.method.errors }}
+              </div>
+            {% endif %}
+          </div>
+
+          <div class="mb-4">
+            <label for="{{ form.stego_pdf.id_for_label }}" class="block text-sm font-medium text-gray-700">
+              PDF Document with Hidden Image
+            </label>
+            {{ form.stego_pdf }}
+            <p class="text-sm text-gray-500 mt-1">{{ form.stego_pdf.help_text }}</p>
+            {% if form.stego_pdf.errors %}
+              <div class="mt-2 p-2 bg-red-100 text-red-700 rounded text-sm">
+                {{ form.stego_pdf.errors }}
+              </div>
+            {% endif %}
+          </div>
+
+          <div class="mb-6 p-4 bg-blue-100 border border-blue-300 text-blue-800 rounded">
+            <div class="flex items-center space-x-2">
+              <i class="bi bi-info-circle-fill"></i>
+              <p>
+                <strong>Tip:</strong> If you're not sure which technique was used, select "Random Selection" to try all methods.
+              </p>
+            </div>
+          </div>
+
+          <div class="text-center">
+            <button type="submit"
+              class="bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-2 rounded-lg text-lg">
+              Extract Image
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

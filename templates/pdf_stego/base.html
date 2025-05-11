@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}PDF Stego Tool {% endblock %}</title>
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Space+Grotesk:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      :root {
+        --primary: #309975;
+        --secondary: #58b368;
+        --accent: #dad873;
+        --light: #efeeb4;
+        --dark: #454d66;
+      }
+      body {
+        font-family: "Space Grotesk", sans-serif;
+      }
+      h1,
+      h2,
+      h3 {
+        font-family: "Montserrat", sans-serif;
+      }
+      .header-logo {
+        font-weight: bold;
+        font-size: 1.5rem;
+      }
+      .footer {
+        margin-top: 2rem;
+        padding: 1rem 0;
+        border-top: 1px solid #e5e5e5;
+      }
+      .card-hover:hover {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: box-shadow 0.3s ease-in-out;
+      }
+      .method-icon {
+        font-size: 1.5rem;
+        margin-right: 0.5rem;
+      }
+      .operation-status {
+        font-weight: bold;
+      }
+      .status-pending {
+        color: #6c757d;
+      }
+      .status-processing {
+        color: #3b82f6;
+      }
+      .status-completed {
+        color: #22c55e;
+      }
+      .status-failed {
+        color: #ef4444;
+      }
+    </style>
+    {% block extra_css %}{% endblock %}
+  </head>
+  <body class="bg-white text-gray-900 min-h-screen flex flex-col">
+    <nav class="bg-gray-800 text-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center py-4">
+          <a href="{% url 'pdf_stego:home' %}" class="header-logo flex items-center space-x-2">
+            <i class="bi bi-file-earmark-lock"></i>
+            <span>PDF Stego Tool</span>
+          </a>
+          <button
+            class="lg:hidden text-white focus:outline-none"
+            onclick="document.getElementById('mobile-menu').classList.toggle('hidden')"
+          >
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2"
+              viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+          <ul class="hidden lg:flex space-x-6" id="navbarNav">
+            <li><a class="{% if request.path == '/' %}text-primary-500{% else %}hover:text-gray-300{% endif %}" href="{% url 'pdf_parser:index' %}">Home</a></li>
+            <li><a class="{% if '/hide/' in request.path %}text-primary-500{% else %}hover:text-gray-300{% endif %}" href="{% url 'pdf_stego:hide_form' %}">Hide Image</a></li>
+            <li><a class="{% if '/extract/' in request.path %}text-primary-500{% else %}hover:text-gray-300{% endif %}" href="{% url 'pdf_stego:extract_form' %}">Extract Image</a></li>
+            <li><a class="{% if '/operations/' in request.path %}text-primary-500{% else %}hover:text-gray-300{% endif %}" href="{% url 'pdf_stego:operations_list' %}">Operations</a></li>
+          </ul>
+        </div>
+        <div class="lg:hidden hidden" id="mobile-menu">
+          <ul class="flex flex-col space-y-2 mt-2">
+            <li><a class="{% if request.path == '/' %}text-primary-500{% else %}hover:text-gray-300{% endif %}" href="{% url 'pdf_parser:index' %}">Home</a></li>
+            <li><a class="{% if '/hide/' in request.path %}text-primary-500{% else %}hover:text-gray-300{% endif %}" href="{% url 'pdf_stego:hide_form' %}">Hide Image</a></li>
+            <li><a class="{% if '/extract/' in request.path %}text-primary-500{% else %}hover:text-gray-300{% endif %}" href="{% url 'pdf_stego:extract_form' %}">Extract Image</a></li>
+            <li><a class="{% if '/operations/' in request.path %}text-primary-500{% else %}hover:text-gray-300{% endif %}" href="{% url 'pdf_stego:operations_list' %}">Operations</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <main class="flex-1 max-w-7xl mx-auto p-4">
+      {% if messages %}
+        {% for message in messages %}
+        <div class="mb-4 p-4 rounded border 
+          {% if message.tags == 'success' %}border-green-300 bg-green-50 text-green-700 
+          {% elif message.tags == 'error' %}border-red-300 bg-red-50 text-red-700 
+          {% elif message.tags == 'warning' %}border-yellow-300 bg-yellow-50 text-yellow-700 
+          {% else %}border-gray-300 bg-gray-50 text-gray-700{% endif %}">
+          <div class="flex justify-between">
+            <span>{{ message }}</span>
+            <button class="text-gray-500 hover:text-gray-700" onclick="this.parentElement.parentElement.remove()">×</button>
+          </div>
+        </div>
+        {% endfor %}
+      {% endif %}
+      {% block content %}{% endblock %}
+    </main>
+
+    <footer class="footer bg-gray-100 text-center text-sm text-gray-600">
+      <div class="max-w-7xl mx-auto py-4">
+        <span>PDF Stego Tool &copy; {% now "Y" %}</span>
+      </div>
+    </footer>
+
+    {% block extra_js %}{% endblock %}
+  </body>
+</html>

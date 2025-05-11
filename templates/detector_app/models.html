@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html class="bg-gray-100">
+<head>
+    <title>Trained Models</title>
+    <!-- Include Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen p-8">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-3xl font-bold text-gray-800 mb-6">Trained Models</h1>
+        <ul class="space-y-4">
+        {% if models %}
+            {% for model in models %}
+            <li class="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow">
+                <div class="flex justify-between items-center">
+                <span class="text-lg font-semibold text-gray-700">{{ model.name }}</span>
+                <div class="space-x-4">
+                    <span class="text-sm text-gray-600">Type: <span class="font-medium">{{ model.model_type }}</span></span>
+                    <span class="text-sm text-gray-600">Accuracy: <span class="font-medium">{{ model.accuracy }}</span></span>
+                </div>
+                </div>
+            
+            {% endfor %}
+        {% else %}
+            <li class="bg-white rounded-lg shadow-md p-4">
+            <p class="text-gray-600">No models available.</p>
+            </li>
+        {% endif %}
+            </li>
+        </ul>
+    </div>
+</body>
+</html>

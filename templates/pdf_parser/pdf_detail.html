@@ -1,0 +1,157 @@
+<!-- pdf_parser/templates/pdf_parser/pdf_detail.html -->
+{% extends "base.html" %}
+
+{% block title %}PDF Analysis - {{ pdf.title }}{% endblock %}
+
+{% block content %}
+<div class="bg-white p-6 rounded-lg shadow-md">
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-2xl font-bold">Analysis Results: {{ pdf.title }}</h1>
+        <span class="text-sm text-gray-500">Uploaded on {{ pdf.upload_date|date:"M d, Y" }}</span>
+    </div>
+    
+    <div class="mb-8">
+        <div class="flex items-center justify-between mb-2">
+            <h2 class="text-xl font-semibold">Detection Summary 
+                {% if pdf.has_anomalies %}
+                    <span class="ml-3 bg-red-100 text-red-800 text-xs font-medium py-1 px-2 rounded">Suspicious</span>
+                {% else %}
+                    <span class="ml-3 bg-green-100 text-green-800 text-xs font-medium py-1 px-2 rounded">Clean</span>
+                {% endif %}
+            </h2>
+            {% if pdf.has_anomalies %}
+                <span class="ml-3 bg-red-100 text-red-800 text-xs font-medium py-1 px-2 rounded">Suspicious Score: {{report.summary.suspicious_score}}</span>
+            {% else %}
+                <span class="ml-3 bg-green-100 text-green-800 text-xs font-medium py-1 px-2 rounded">Suspicious Score: {{report.summary.suspicious_score}}</span>
+            {% endif %}
+        </div>
+        
+        <p class="text-gray-700">
+            {% if pdf.has_anomalies %}
+                This PDF file contains suspicious patterns that may indicate hidden PNG files.
+            {% else %}
+                No evidence of hidden PNG files was detected in this PDF.
+            {% endif %}
+        </p>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+        <div class="bg-gray-50 p-4 rounded-md">
+            <h3 class="font-medium text-gray-800 mb-2">PDF Information</h3>
+            <dl class="space-y-2">
+                <div class="flex justify-between">
+                    <dt class="text-gray-500">File Size</dt>
+                    <dd>{{report.file_size|filesizeformat }}</dd>
+                </div>
+                <div class="flex justify-between">
+                    <dt class="text-gray-500">Pages</dt>
+                    <dd>{{ pdf.num_pages }}</dd>
+                </div>
+                <div class="flex justify-between">
+                    <dt class="text-gray-500">Author</dt>
+                    <dd>{{ pdf.author }}</dd>
+                </div>                
+            </dl>
+        </div>
+        
+        <div class="bg-gray-50 p-4 rounded-md">
+            <h3 class="font-medium text-gray-800 mb-2">Metadata</h3>
+            <dl class="space-y-2">
+                {% for key, value in metadata.items %}
+                <div class="flex justify-between">
+                    <dt class="text-gray-500">{{ key }}</dt>
+                    <dd>{{ value|default:"N/A" }}</dd>
+                </div>
+                {% empty %}
+                <div>
+                    <dt class="text-gray-500">No metadata available</dt>
+                    
+                </div>
+                {% endfor %}
+            </dl>
+        </div>
+    </div>
+    
+    <div class="space-y-6">
+        <!-- Image Detection Results -->
+        <div class="border border-gray-200 rounded-md overflow-hidden">
+            <div class="bg-gray-50 px-4 py-3 border-b border-gray-200">
+                <h3 class="font-medium text-gray-800">Image Detection Analysis</h3>
+            </div>
+            <div class="p-4">
+                <div class="mb-4">
+                    <p class="text-gray-700">
+                        {% if image_results.images_found %}
+                            Found {{ image_results.images_found }} images in the PDF.
+                            {% if image_results.suspicious_images %}
+                                <span class="text-red-600 font-medium">{{ image_results.suspicious_images }} suspicious PNG signatures detected.</span>
+                            {% else %}
+                                All images appear to be normal.
+                            {% endif %}
+                        {% else %}
+                            No images were found in this PDF.
+                        {% endif %}
+                    </p>
+                </div>
+                
+                {% if image_results.images %}
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
+                    {% for image in image_results.images %}
+                    <div class="border rounded-md overflow-hidden">
+                        <div class="h-24 bg-gray-100 flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            </svg>
+                        </div>
+                        <div class="p-2 text-xs">
+                            <p class="truncate">{{ image.name }}</p>
+                            <p class="text-gray-500">{{ image.format }} - {{ image.size|filesizeformat }}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        
+        <!-- Compression Analysis Results -->
+        <div class="border border-gray-200 rounded-md overflow-hidden">
+            <div class="bg-gray-50 px-4 py-3 border-b border-gray-200">
+                <h3 class="font-medium text-gray-800">Compression Pattern Analysis</h3>
+            </div>
+            <div class="p-4">
+                <div class="mb-4">
+                    <p class="text-gray-700">
+                        {% if compression_results.suspicious_regions %}
+                            <span class="text-red-600 font-medium">Detected {{ compression_results.suspicious_regions }} regions with unusual entropy patterns.</span>
+                            These regions may contain hidden data.
+                        {% else %}
+                            No unusual compression patterns detected. Entropy analysis shows normal distribution.
+                        {% endif %}
+                    </p>
+                </div>
+                
+                {% if compression_results.entropy_chart %}
+                <div class="mt-4">
+                    <h4 class="text-sm font-medium text-gray-700 mb-2">Entropy Distribution</h4>
+                    <div class="bg-gray-100 p-3 rounded">
+                        <img src="data:image/png;base64,{{ compression_results.entropy_chart }}" alt="Entropy Distribution Chart" class="w-full h-auto">
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <div class="mt-8 pt-6 border-t border-gray-200">
+        <div class="flex justify-between">
+            <a href="{% url 'pdf_parser:index' %}" class="text-blue-600 hover:text-blue-800">
+                &larr; Back to Home
+            </a>
+            <a href="{% url 'pdf_parser:download_report' pdf.id %}" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md shadow-sm transition duration-200">
+                Download Full Report
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
