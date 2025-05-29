@@ -3,3 +3,9 @@ steg_env/
 win_venv/
 .env 
 venv git
+datasets/
+*.pyc
+__pycache__/
+*.pyo   
+.venv/
+venv/

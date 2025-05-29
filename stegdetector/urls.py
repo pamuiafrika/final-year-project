@@ -5,9 +5,9 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('app', include('pdf_parser.urls')),
+    path('', include('pdf_parser.urls')),
     path('tools/', include('pdf_stego.urls')),
-    path('', include('detector_app.urls')),
+    # path('administrator', include('detector_app.urls')),
 ]
 
 # Add URL patterns for serving media files during development

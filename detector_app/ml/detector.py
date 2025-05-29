@@ -299,7 +299,7 @@ class StegoPDFDetector:
             if len(pred_probas.shape) > 1 and pred_probas.shape[1] > 1:
                 # Multi-class output
                 prediction = np.argmax(pred_probas, axis=1)[0]
-                confidence = float(pred_probas[0][prediction])
+                confidence = float(pred_probas[0][prediction]*100)
                 prediction_details['prediction_type'] = 'multi-class'
                 prediction_details['class_probabilities'] = {
                     i: float(prob) for i, prob in enumerate(pred_probas[0])

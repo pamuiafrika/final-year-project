@@ -25,11 +25,11 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
       :root {
-        --primary: #309975;
-        --secondary: #58b368;
-        --accent: #dad873;
-        --light: #efeeb4;
-        --dark: #454d66;
+        --primary: #2c3e50;   /* Dark blue-gray - main color */
+        --secondary: #3498db; /* Bright blue - interactive elements */
+        --accent: #ee5b4a;    /* Red - alerts and highlights */
+        --light: #ecf0f1;     /* Light gray - background */
+        --dark: #1a252f;      /* Very dark blue - headers/navbar */
       }
       body {
         font-family: "Space Grotesk", sans-serif;
@@ -41,6 +41,15 @@
       }
       [x-cloak] {
         display: none !important;
+      }
+      .text-accent{
+        color:  #ee5b4a;
+      }
+      .bg-blue{
+        background-color:  #2c3e50;
+      }
+      .bg-blue-dark{
+        background-color:  #1a252f;
       }
     </style>
   </head>
@@ -59,7 +68,7 @@
           <i
             class="bx bx-shield-quarter text-3xl text-[var(--accent)] animate__animated animate__pulse animate__infinite"
           ></i>
-          <span class="text-xl font-semibold">StegaDetect AI</span>
+          <span class="text-xl font-semibold">StegoDetect AI</span>
           <!-- Only show the toggle on small screens -->
           <button
             @click="sidebarOpen = !sidebarOpen"
@@ -71,37 +80,37 @@
         <nav class="space-y-2">
           <a
             href="{% url 'pdf_parser:index' %}"
-            class="flex items-center px-3 py-2 rounded-md hover:bg-[var(--primary)] transition"
+            class="flex items-center px-3 py-2 rounded-md hover:bg-[var(--primary)] hover:text-[var(--accent)] transition"
           >
             <i class="bx bx-home text-xl mr-3"></i> Dashboard
           </a>
           <a
             href="{% url 'pdf_parser:upload' %}"
-            class="flex items-center px-3 py-2 rounded-md hover:bg-[var(--primary)] transition"
+            class="flex items-center px-3 py-2 rounded-md hover:bg-[var(--primary)] hover:text-[var(--accent)] transition"
           >
             <i class="bx bx-search-alt text-xl mr-3"></i> Detection
           </a>
             <a
             href="{% url 'pdf_parser:analysis_list' %}"
-            class="flex items-center px-3 py-2 rounded-md hover:bg-[var(--primary)] transition"
+            class="flex items-center px-3 py-2 rounded-md hover:bg-[var(--primary)] hover:text-[var(--accent)] transition"
             >
             <i class="bx bx-analyse text-xl mr-3"></i> Analyses
             </a>
           <a
             href="{% url 'pdf_stego:home' %}"
-            class="flex items-center px-3 py-2 rounded-md hover:bg-[var(--primary)] transition"
+            class="flex items-center px-3 py-2 rounded-md hover:bg-[var(--primary)] hover:text-[var(--accent)] transition"
           >
             <i class="bx bx-hide text-xl mr-3"></i> PDF Stego Tool
           </a>
           <a
             href="reports.html"
-            class="flex items-center px-3 py-2 rounded-md hover:bg-[var(--primary)] transition"
+            class="flex items-center px-3 py-2 rounded-md hover:bg-[var(--primary)] hover:text-[var(--accent)] transition"
           >
             <i class="bx bx-bar-chart-alt-2 text-xl mr-3"></i> Reports
           </a>
           <a
             href="settings.html"
-            class="flex items-center px-3 py-2 rounded-md hover:bg-[var(--primary)] transition"
+            class="flex items-center px-3 py-2 rounded-md hover:bg-[var(--primary)] hover:text-[var(--accent)] transition"
           >
             <i class="bx bx-cog text-xl mr-3"></i> Settings
           </a>
@@ -124,7 +133,7 @@
           <i class="bx bx-menu"></i>
         </button>
         <!-- Page Title -->
-        <h2 class="text-2xl font-semibold">StegoDetect</h2>
+        <h2 class="text-2xl font-semibold">StegoDetect AI</h2>
       </div>
 
         <!-- Right Side Controls -->
@@ -145,15 +154,8 @@
             >
               <div class="text-sm font-semibold">Notifications</div>
               <div class="text-sm border-b pb-2">
-                📄 New file scanned:
-                <span class="font-medium">Invoice.pdf</span>
-              </div>
-              <div class="text-sm border-b pb-2">
-                ⚠️ Suspicious activity in
-                <span class="font-medium">Report.pdf</span>
-              </div>
-              <div class="text-sm">
-                ✅ Scan completed: <span class="font-medium">Scan123</span>
+                📄 No Notifications
+                <span class="font-medium">Now</span>
               </div>
             </div>
           </div>
@@ -197,7 +199,7 @@
 
         <!-- Footer -->
         <footer class="mt-8 text-center text-gray-500 text-sm">
-          &copy; {% now "Y" %} StegaDetect AI. All rights reserved.
+          &copy; {% now "Y" %} StegoDetect AI. All rights reserved.
         </footer>
       </main>
     </div>

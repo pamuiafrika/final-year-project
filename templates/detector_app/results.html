@@ -13,7 +13,7 @@
             </div>
             
             <div class="bg-white shadow-md rounded-lg overflow-hidden">
-                <div class="bg-blue-600 text-white px-6 py-4">
+                <div class="bg-blue text-white px-6 py-4">
                     <h1 class="text-2xl font-bold">Scan Results</h1>
                     <p class="text-blue-100">Analysis of {{ scan.filename }}</p>
                 </div>
@@ -101,7 +101,7 @@
                             </div>
                             
                             <div class="mt-8 flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
-                                <a href="/upload/" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded text-center">
+                                <a href="/upload/" class="flex-1 bg-blue hover:bg-blue-dark text-white font-medium py-2 px-4 rounded text-center">
                                     Scan Another PDF
                                 </a>
                                 <a href="/download-report/{{ scan.id }}/" class="flex-1 border border-blue-600 text-blue-600 hover:bg-blue-50 font-medium py-2 px-4 rounded text-center flex items-center justify-center">
@@ -120,7 +120,7 @@
                                 </div>
                                 <h2 class="text-xl font-bold text-red-600 mb-2">Analysis Failed</h2>
                                 <p class="text-gray-600 mb-6">There was an error processing this PDF file.</p>
-                                <a href="/upload/" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded">
+                                <a href="/upload/" class="bg-blue hover:bg-blue-dark text-white font-medium py-2 px-6 rounded">
                                     Try Again
                                 </a>
                             </div>

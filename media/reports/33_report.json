@@ -1,0 +1,116 @@
+{
+  "file_name": "ef63e37c-c26c-4460-a4ae-99c66f03d612.pdf",
+  "file_size": 3819,
+  "analysis_date": "2025-05-11T19:35:55.283447",
+  "results": {
+    "file_info": {
+      "path": "D:\\PAMUI AFRIKA\\FINAL YEAR PROJECT\\src\\media\\uploads\\pdfs\\ef63e37c-c26c-4460-a4ae-99c66f03d612.pdf",
+      "size": 3819,
+      "sha256": "0ed0c1ce08d64a25978aceb135a4ed5d649c2ae06257960271226ff5642e714a"
+    },
+    "structure": {
+      "basic_info": {
+        "num_pages": 5,
+        "file_size": 3819,
+        "has_objects": true
+      },
+      "streams": [],
+      "image_containers": [],
+      "summary": {
+        "num_streams": 0,
+        "num_image_containers": 0
+      }
+    },
+    "metadata": {
+      "raw_metadata": {
+        "Author": "anonymous",
+        "CreationDate": "2025-05-11T16:32:00",
+        "Creator": "ReportLab PDF Library - www.reportlab.com",
+        "Keywords": "",
+        "ModDate": "2025-05-11T16:32:00",
+        "Producer": "ReportLab PDF Library - www.reportlab.com",
+        "Subject": "unspecified",
+        "Title": "untitled",
+        "Trapped": "/False"
+      },
+      "anomalies": [],
+      "has_anomalies": false
+    },
+    "images": {
+      "embedded_images": [],
+      "potential_hidden_pngs": [],
+      "summary": {
+        "total_embedded_images": 0,
+        "suspicious_embedded_images": 0,
+        "potential_hidden_pngs": 0,
+        "suspicious_hidden_pngs": 0,
+        "overall_suspicion_score": 0.0
+      }
+    },
+    "compression": {
+      "entropy_analysis": {
+        "window_size": 1024,
+        "step": 512,
+        "windows": [
+          {
+            "start": 0,
+            "end": 1024,
+            "entropy": 4.986284507791681,
+            "data_sample": "255044462d312e330a25938c8b9e205265706f72"
+          },
+          {
+            "start": 512,
+            "end": 1536,
+            "entropy": 5.0422669353657525,
+            "data_sample": "6e74203120302052202f50726f63536574205b20"
+          },
+          {
+            "start": 1024,
+            "end": 2048,
+            "entropy": 5.669461630930646,
+            "data_sample": "656e646f626a0a372030206f626a0a3c3c0a2f43"
+          },
+          {
+            "start": 1536,
+            "end": 2560,
+            "entropy": 6.18031097840183,
+            "data_sample": "75626a6563742028756e73706563696669656429"
+          },
+          {
+            "start": 2048,
+            "end": 3072,
+            "entropy": 6.251500246876747,
+            "data_sample": "6f6465205d202f4c656e677468203232370a3e3e"
+          },
+          {
+            "start": 2560,
+            "end": 3584,
+            "entropy": 5.624246870965335,
+            "data_sample": "67574c21585a62643a5c526e2235285b653d5844"
+          }
+        ],
+        "statistics": {
+          "min_entropy": 4.986284507791681,
+          "max_entropy": 6.251500246876747,
+          "avg_entropy": 5.625678528388665,
+          "std_entropy": 0.49166092450300036
+        }
+      },
+      "anomalous_regions": [],
+      "compression_artifacts": [],
+      "summary": {
+        "overall_entropy": 5.788630298381341,
+        "num_anomalous_regions": 0,
+        "high_entropy_regions": 0,
+        "compression_artifacts": 0,
+        "suspicious_artifacts": 0,
+        "compression_suspicion_score": 0.0
+      }
+    }
+  },
+  "summary": {
+    "suspicious_score": 0.0,
+    "anomalies_detected": 0,
+    "recommendation": "Low risk - No significant steganographic content detected."
+  }
+}

@@ -22,7 +22,7 @@ class HomeView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['active_model'] = TrainedModel.objects.filter(is_active=True).first()
+        context['active_models'] = TrainedModel.objects.filter(is_active=True)
         return context
 
 class DatasetViewSet(viewsets.ModelViewSet):

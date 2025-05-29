@@ -11,6 +11,10 @@ class Dataset(models.Model):
     
     def __str__(self):
         return self.name
+    
+    def get_total_count(self):
+        return self.clean_pdf_count + self.stego_pdf_count
+    
 
 class TrainedModel(models.Model):
     """Model for storing information about trained ML models"""

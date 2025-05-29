@@ -1,0 +1,5376 @@
+{
+  "file_name": "03e2573f-36b2-4570-8aa5-71c13bbcf76b.pdf",
+  "file_size": 398418,
+  "analysis_date": "2025-05-29T07:11:30.282350",
+  "results": {
+    "file_info": {
+      "path": "/home/d3bugger/Projects/FINAL YEAR PROJECT/src/media/uploads/pdfs/03e2573f-36b2-4570-8aa5-71c13bbcf76b.pdf",
+      "size": 398418,
+      "sha256": "5b25dc4af93b0588f2e0d23aab9907f98cd745a7c2f90ce7cc2737c7bc952cbb"
+    },
+    "structure": {
+      "basic_info": {
+        "num_pages": 36,
+        "file_size": 398418,
+        "has_objects": true
+      },
+      "streams": [],
+      "image_containers": [
+        {
+          "type": "LTFigure",
+          "x0": 40.5,
+          "y0": 580.5021999999999,
+          "x1": 598.4924,
+          "y1": 732.78,
+          "width": 557.9924,
+          "height": 152.27780000000007
+        },
+        {
+          "type": "LTFigure",
+          "x0": 40.5,
+          "y0": 58.501299999999986,
+          "x1": 598.4924,
+          "y1": 153.54,
+          "width": 557.9924,
+          "height": 95.0387
+        },
+        {
+          "type": "LTFigure",
+          "x0": 112.494,
+          "y0": 514.2841,
+          "x1": 181.086,
+          "y1": 605.7361,
+          "width": 68.59200000000001,
+          "height": 91.452
+        },
+        {
+          "type": "LTFigure",
+          "x0": 112.494,
+          "y0": 150.444,
+          "x1": 181.086,
+          "y1": 241.956,
+          "width": 68.59200000000001,
+          "height": 91.512
+        },
+        {
+          "type": "LTFigure",
+          "x0": 112.494,
+          "y0": 474.384,
+          "x1": 181.086,
+          "y1": 565.896,
+          "width": 68.59200000000001,
+          "height": 91.51199999999994
+        },
+        {
+          "type": "LTFigure",
+          "x0": 40.5,
+          "y0": 580.5021999999999,
+          "x1": 598.4924,
+          "y1": 732.78,
+          "width": 557.9924,
+          "height": 152.27780000000007
+        },
+        {
+          "type": "LTFigure",
+          "x0": 40.5,
+          "y0": 580.5021999999999,
+          "x1": 598.4924,
+          "y1": 732.78,
+          "width": 557.9924,
+          "height": 152.27780000000007
+        },
+        {
+          "type": "LTFigure",
+          "x0": 40.5,
+          "y0": 580.5021999999999,
+          "x1": 598.4924,
+          "y1": 732.78,
+          "width": 557.9924,
+          "height": 152.27780000000007
+        },
+        {
+          "type": "LTFigure",
+          "x0": 40.5,
+          "y0": 580.5021999999999,
+          "x1": 598.4924,
+          "y1": 732.78,
+          "width": 557.9924,
+          "height": 152.27780000000007
+        },
+        {
+          "type": "LTFigure",
+          "x0": 40.5,
+          "y0": 580.5021999999999,
+          "x1": 598.4924,
+          "y1": 732.78,
+          "width": 557.9924,
+          "height": 152.27780000000007
+        },
+        {
+          "type": "LTFigure",
+          "x0": 28.5001,
+          "y0": 55.836900000000014,
+          "x1": 583.4915,
+          "y1": 736.1487,
+          "width": 554.9914,
+          "height": 680.3118
+        }
+      ],
+      "summary": {
+        "num_streams": 0,
+        "num_image_containers": 11
+      }
+    },
+    "metadata": {
+      "raw_metadata": {
+        "ModDate": "2005-04-26T11:19:00",
+        "CreationDate": "2005-04-01T23:47:00",
+        "Title": "fm.indd",
+        "Creator": "PScript5.dll Version 5.2",
+        "Author": "blackhole",
+        "Producer": "Acrobat Distiller 5.0.5 (Windows)"
+      },
+      "anomalies": [],
+      "has_anomalies": false
+    },
+    "images": {
+      "embedded_images": [],
+      "potential_hidden_pngs": [],
+      "summary": {
+        "total_embedded_images": 0,
+        "suspicious_embedded_images": 0,
+        "potential_hidden_pngs": 0,
+        "suspicious_hidden_pngs": 0,
+        "overall_suspicion_score": 0.0
+      }
+    },
+    "compression": {
+      "entropy_analysis": {
+        "window_size": 1024,
+        "step": 512,
+        "windows": [
+          {
+            "start": 0,
+            "end": 1024,
+            "entropy": 3.841300920648265,
+            "data_sample": "255044462d312e350d25e2e3cfd30d0a32363420"
+          },
+          {
+            "start": 512,
+            "end": 1536,
+            "entropy": 6.486272457142939,
+            "data_sample": "3030303038373738203030303030206e0d0a3030"
+          },
+          {
+            "start": 1024,
+            "end": 2048,
+            "entropy": 7.796776677595925,
+            "data_sample": "696c7465722f466c6174654465636f64652f4c20"
+          },
+          {
+            "start": 1536,
+            "end": 2560,
+            "entropy": 7.754811206027567,
+            "data_sample": "e59026898a20b853aa5db83f73b9e2832e5f9695"
+          },
+          {
+            "start": 2048,
+            "end": 3072,
+            "entropy": 6.860955285537236,
+            "data_sample": "bb2b7ebc50cb84f97516aff572655124e13b9d87"
+          },
+          {
+            "start": 2560,
+            "end": 3584,
+            "entropy": 5.271733691451329,
+            "data_sample": "626a0d3236362030206f626a3c3c2f5061676573"
+          },
+          {
+            "start": 3072,
+            "end": 4096,
+            "entropy": 6.875298381389789,
+            "data_sample": "315f3020323734203020522f54315f3120323735"
+          },
+          {
+            "start": 3584,
+            "end": 4608,
+            "entropy": 7.792569811836271,
+            "data_sample": "6820313136362f46696c7465722f466c61746544"
+          },
+          {
+            "start": 4096,
+            "end": 5120,
+            "entropy": 7.343099770397876,
+            "data_sample": "1760b14d18b6e4c4cb30877479eae43f52fb36e1"
+          },
+          {
+            "start": 4608,
+            "end": 5632,
+            "entropy": 5.460313670095647,
+            "data_sample": "081fd64bd5cad932ac947cd193fd754d4ed5e401"
+          },
+          {
+            "start": 5120,
+            "end": 6144,
+            "entropy": 4.4706944529758985,
+            "data_sample": "3420323034203436342034363420333730203636"
+          },
+          {
+            "start": 5632,
+            "end": 6656,
+            "entropy": 5.606233207979894,
+            "data_sample": "3535362035353620353536203535362035353620"
+          },
+          {
+            "start": 6144,
+            "end": 7168,
+            "entropy": 6.262234275100524,
+            "data_sample": "6a3c3c2f547970652f466f6e7444657363726970"
+          },
+          {
+            "start": 6656,
+            "end": 7680,
+            "entropy": 5.350002830089104,
+            "data_sample": "44657363656e74202d3230372f4974616c696341"
+          },
+          {
+            "start": 7168,
+            "end": 8192,
+            "entropy": 5.498185054877449,
+            "data_sample": "3333332036303620333333203630362035303020"
+          },
+          {
+            "start": 7680,
+            "end": 8704,
+            "entropy": 6.884440622303832,
+            "data_sample": "3333203630362033333320363036203530302033"
+          },
+          {
+            "start": 8192,
+            "end": 9216,
+            "entropy": 6.80987257443847,
+            "data_sample": "2f547970652f466f6e7444657363726970746f72"
+          },
+          {
+            "start": 8704,
+            "end": 9728,
+            "entropy": 7.277164184774796,
+            "data_sample": "cd4cf1ffe8df8c47c010587e8280d0e251a91980"
+          },
+          {
+            "start": 9216,
+            "end": 10240,
+            "entropy": 7.772927220487514,
+            "data_sample": "5861c04256f584bf9ea89e8ba500cf76d336fd74"
+          },
+          {
+            "start": 9728,
+            "end": 10752,
+            "entropy": 7.800740921866868,
+            "data_sample": "81c57eeeeb8ae68fa1cbf25849b6fad04538d6b4"
+          },
+          {
+            "start": 10240,
+            "end": 11264,
+            "entropy": 7.811998029746758,
+            "data_sample": "55c319859dbf681345dcc7f19d57787711f9cb67"
+          },
+          {
+            "start": 10752,
+            "end": 11776,
+            "entropy": 7.829718502255768,
+            "data_sample": "fc7f34b14ec881c5cdf2a0f01fab3f3418b35537"
+          },
+          {
+            "start": 11264,
+            "end": 12288,
+            "entropy": 7.7939802551895205,
+            "data_sample": "2cae49d17ef54755053520e9f64aac5b4ab6cef4"
+          },
+          {
+            "start": 11776,
+            "end": 12800,
+            "entropy": 7.767960787936494,
+            "data_sample": "8e2e61487bb060b9347caa1044d73a6e279a0c5a"
+          },
+          {
+            "start": 12288,
+            "end": 13312,
+            "entropy": 7.796299114734182,
+            "data_sample": "81fcc1485adfb6baf9524f2c0638cac0b4d8b95f"
+          },
+          {
+            "start": 12800,
+            "end": 13824,
+            "entropy": 7.808538002097022,
+            "data_sample": "2d2b4dbc9130469c7c3a3e5ea6586f48c3ccece8"
+          },
+          {
+            "start": 13312,
+            "end": 14336,
+            "entropy": 7.826412608976539,
+            "data_sample": "3c8b6d6a3af1b9c6eecb09beee466da492462f3f"
+          },
+          {
+            "start": 13824,
+            "end": 14848,
+            "entropy": 7.806367805301449,
+            "data_sample": "bfcd6e23a2ba5be01498681cf5e06d504800bed3"
+          },
+          {
+            "start": 14336,
+            "end": 15360,
+            "entropy": 7.833726345599108,
+            "data_sample": "b6549ccb78a25c0ae6c511cc4cce41d0f019f28e"
+          },
+          {
+            "start": 14848,
+            "end": 15872,
+            "entropy": 7.817553624883455,
+            "data_sample": "d3b808557c5b247e205cab7d76b2917f14e3acdc"
+          },
+          {
+            "start": 15360,
+            "end": 16384,
+            "entropy": 7.8170961023114,
+            "data_sample": "17d1e104f1c8c6ad261f2e21deb17bea4b5e679d"
+          },
+          {
+            "start": 15872,
+            "end": 16896,
+            "entropy": 7.810447366814494,
+            "data_sample": "4d317354d35d2d87598fc934cb8231e2a8ccdbc0"
+          },
+          {
+            "start": 16384,
+            "end": 17408,
+            "entropy": 7.792743178472743,
+            "data_sample": "bbfaafd52192591b25857e91fde82f3f56643423"
+          },
+          {
+            "start": 16896,
+            "end": 17920,
+            "entropy": 7.79509513077367,
+            "data_sample": "3c8da561b34e6d31e4117c97501516c00a27219f"
+          },
+          {
+            "start": 17408,
+            "end": 18432,
+            "entropy": 7.80362902725022,
+            "data_sample": "a00611c9d1aee1acc9376ae34073db85e84848b7"
+          },
+          {
+            "start": 17920,
+            "end": 18944,
+            "entropy": 7.81331056849607,
+            "data_sample": "83fb0a407f854e3c3c03165f40691c8d454f09d4"
+          },
+          {
+            "start": 18432,
+            "end": 19456,
+            "entropy": 7.794269838846437,
+            "data_sample": "c03077fa1e5141f84ff88a81a0f2837dc71b5b12"
+          },
+          {
+            "start": 18944,
+            "end": 19968,
+            "entropy": 7.805954796126226,
+            "data_sample": "98c6442de8717b900f7891148e4c410e2c1c4b89"
+          },
+          {
+            "start": 19456,
+            "end": 20480,
+            "entropy": 7.794722648107792,
+            "data_sample": "bceeff99c358d6354604436599b776722b4fcb5f"
+          },
+          {
+            "start": 19968,
+            "end": 20992,
+            "entropy": 7.829910872351043,
+            "data_sample": "d57a642e46e852eb740279855ca866e27d82ba5f"
+          },
+          {
+            "start": 20480,
+            "end": 21504,
+            "entropy": 7.820658206934866,
+            "data_sample": "9a14e2f03209da273e9d90dbe977ba0d0f5d14d7"
+          },
+          {
+            "start": 20992,
+            "end": 22016,
+            "entropy": 7.81888845391569,
+            "data_sample": "e51e4fcaa139a2795239d7b25ea39d513bd98053"
+          },
+          {
+            "start": 21504,
+            "end": 22528,
+            "entropy": 7.811300459464346,
+            "data_sample": "617bbf5879ccbca6c8da92404892bfb24a3e36eb"
+          },
+          {
+            "start": 22016,
+            "end": 23040,
+            "entropy": 7.792436729030914,
+            "data_sample": "2c227dd54ab4a610ab2939af873a9418ee8a521a"
+          },
+          {
+            "start": 22528,
+            "end": 23552,
+            "entropy": 7.825055393647195,
+            "data_sample": "5a19c5a8a44557cf7bf11d2a36bf400c446e2eda"
+          },
+          {
+            "start": 23040,
+            "end": 24064,
+            "entropy": 7.788403391117863,
+            "data_sample": "351e7b01daca3fd2aafc3c425387fa9fa0af8343"
+          },
+          {
+            "start": 23552,
+            "end": 24576,
+            "entropy": 7.793928952880112,
+            "data_sample": "9de28b24e3c1ffa8cbcf5399349b95aef3501c6a"
+          },
+          {
+            "start": 24064,
+            "end": 25088,
+            "entropy": 7.833474795451459,
+            "data_sample": "7bfab11bf27ab5c7f187d9b5e58c326ef2a0603d"
+          },
+          {
+            "start": 24576,
+            "end": 25600,
+            "entropy": 7.789765632220275,
+            "data_sample": "0cd433c56d49b502e78a66f85a761239bf6afbfd"
+          },
+          {
+            "start": 25088,
+            "end": 26112,
+            "entropy": 7.827536373579124,
+            "data_sample": "b20434ef4e1e7a60c6cc58e3544e236f7984df15"
+          },
+          {
+            "start": 25600,
+            "end": 26624,
+            "entropy": 7.8318909347124865,
+            "data_sample": "6d39961d25a641de32b0a4e6e9f498fb453c8a04"
+          },
+          {
+            "start": 26112,
+            "end": 27136,
+            "entropy": 7.830618933795277,
+            "data_sample": "b58b03695791e014acf21428545549449cae7705"
+          },
+          {
+            "start": 26624,
+            "end": 27648,
+            "entropy": 7.788089294598706,
+            "data_sample": "5c28133a6ae0201c62262495edc343ccc37ab18a"
+          },
+          {
+            "start": 27136,
+            "end": 28160,
+            "entropy": 7.827129936982903,
+            "data_sample": "6fe8dbe0ad8cd843268393c33f1f80d8e3488329"
+          },
+          {
+            "start": 27648,
+            "end": 28672,
+            "entropy": 7.806575288114641,
+            "data_sample": "54ddcfb7ede58e1453d1aa06d9d0f39e3dda18c9"
+          },
+          {
+            "start": 28160,
+            "end": 29184,
+            "entropy": 7.811944141728031,
+            "data_sample": "23f568b58b34abe9e06b64f430f5973a8dd832b5"
+          },
+          {
+            "start": 28672,
+            "end": 29696,
+            "entropy": 7.792559357420224,
+            "data_sample": "62ca96b4892d50d4705eaac12836cc338398489b"
+          },
+          {
+            "start": 29184,
+            "end": 30208,
+            "entropy": 7.79382403285813,
+            "data_sample": "d849a863337d5787698ce73a86e87a0f99ea8746"
+          },
+          {
+            "start": 29696,
+            "end": 30720,
+            "entropy": 7.833592187144583,
+            "data_sample": "b89a16dbd4be7da95726bd0723cccda522332793"
+          },
+          {
+            "start": 30208,
+            "end": 31232,
+            "entropy": 7.815707668862422,
+            "data_sample": "c775658f695e28febdf30e868361fda2f10a8442"
+          },
+          {
+            "start": 30720,
+            "end": 31744,
+            "entropy": 7.815102114049714,
+            "data_sample": "341c56ae1becc51d16ee3ec293a3c3360f35aa0d"
+          },
+          {
+            "start": 31232,
+            "end": 32256,
+            "entropy": 7.795374628521974,
+            "data_sample": "434e357642bb23d6601aeb1034f5955f15da295f"
+          },
+          {
+            "start": 31744,
+            "end": 32768,
+            "entropy": 7.768649510205839,
+            "data_sample": "226b3b5e71a16a9f220d1fbbffb5c9de3eac084c"
+          },
+          {
+            "start": 32256,
+            "end": 33280,
+            "entropy": 7.760838340678224,
+            "data_sample": "669f100ff5cb4f8cd38ebff37ba187bbaf0e8af0"
+          },
+          {
+            "start": 32768,
+            "end": 33792,
+            "entropy": 7.800395915316254,
+            "data_sample": "484476d22c039ae5affc9fe70c3cb65ea61c26c6"
+          },
+          {
+            "start": 33280,
+            "end": 34304,
+            "entropy": 7.789328621308704,
+            "data_sample": "f04f077ac0ffde4db010a673cdd119ea207c7454"
+          },
+          {
+            "start": 33792,
+            "end": 34816,
+            "entropy": 7.7870806716960175,
+            "data_sample": "0271f7c84e3e880e4098ccbfc6010e71a2935b11"
+          },
+          {
+            "start": 34304,
+            "end": 35328,
+            "entropy": 7.803285353359076,
+            "data_sample": "a6a2b079f33bcaee904fded5e3ed39ebe309709b"
+          },
+          {
+            "start": 34816,
+            "end": 35840,
+            "entropy": 7.811599782205026,
+            "data_sample": "b5054f49ebdb1cd9979656f74e725ebc7b93393d"
+          },
+          {
+            "start": 35328,
+            "end": 36352,
+            "entropy": 7.828329530052972,
+            "data_sample": "efc8ac399ccb5b1b1f12b740b8c00ea349830dd5"
+          },
+          {
+            "start": 35840,
+            "end": 36864,
+            "entropy": 7.797213095452476,
+            "data_sample": "354050d156208368056f4fd840ccdad1ffd85c71"
+          },
+          {
+            "start": 36352,
+            "end": 37376,
+            "entropy": 7.759801822074965,
+            "data_sample": "eb3ac1a9d2709ea438d9751cb919f67e48e8325a"
+          },
+          {
+            "start": 36864,
+            "end": 37888,
+            "entropy": 7.80047978273684,
+            "data_sample": "31d8c23b464db32bd1fb31a25868502f39a52d5f"
+          },
+          {
+            "start": 37376,
+            "end": 38400,
+            "entropy": 7.7877119362611475,
+            "data_sample": "ae58135eb89b6d7962515c7ab77815066de198a9"
+          },
+          {
+            "start": 37888,
+            "end": 38912,
+            "entropy": 7.806477602031353,
+            "data_sample": "755fdaebe5fce99333371e72a5d517495bce9e34"
+          },
+          {
+            "start": 38400,
+            "end": 39424,
+            "entropy": 7.819702027072072,
+            "data_sample": "7f7b79a6dc4ae0b74371e092ef155680409fba84"
+          },
+          {
+            "start": 38912,
+            "end": 39936,
+            "entropy": 7.60578870486207,
+            "data_sample": "536f1140c4d8a5fce8f398cb179a30900debdad2"
+          },
+          {
+            "start": 39424,
+            "end": 40448,
+            "entropy": 7.602366380461402,
+            "data_sample": "210d0a656e6473747265616d0d656e646f626a0d"
+          },
+          {
+            "start": 39936,
+            "end": 40960,
+            "entropy": 7.8203539545499146,
+            "data_sample": "553befedfb9c45541cee0731540287f973fc58d2"
+          },
+          {
+            "start": 40448,
+            "end": 41472,
+            "entropy": 7.820616966129486,
+            "data_sample": "9e6e88e94ccff52b0b24e43600db1cd88921f694"
+          },
+          {
+            "start": 40960,
+            "end": 41984,
+            "entropy": 7.846489813329347,
+            "data_sample": "385e5a6a393c24bd244800417154d3ca9c98ebaa"
+          },
+          {
+            "start": 41472,
+            "end": 42496,
+            "entropy": 7.813044508499392,
+            "data_sample": "6f4fef80231271173a06ed02df5b5a2d5e1a6447"
+          },
+          {
+            "start": 41984,
+            "end": 43008,
+            "entropy": 7.791851484555397,
+            "data_sample": "a3576df41d30df58a95db2b493fb3d69eb040cb4"
+          },
+          {
+            "start": 42496,
+            "end": 43520,
+            "entropy": 7.779554698158209,
+            "data_sample": "73747265616d0d0ab49ebb8a8900682d8e7168aa"
+          },
+          {
+            "start": 43008,
+            "end": 44032,
+            "entropy": 7.803439539843702,
+            "data_sample": "b3c927b488e128fa8981691681b708e067222393"
+          },
+          {
+            "start": 43520,
+            "end": 44544,
+            "entropy": 7.795945001795329,
+            "data_sample": "2b037ec7cab927fb9b272b1b85b77610e24cd790"
+          },
+          {
+            "start": 44032,
+            "end": 45056,
+            "entropy": 7.792740225292234,
+            "data_sample": "042a97b7630de860c4ae607554201faac1b5e68f"
+          },
+          {
+            "start": 44544,
+            "end": 45568,
+            "entropy": 7.79572928021465,
+            "data_sample": "47da13da4cc2cc5b83d6eb1ffe11c87bf94337bb"
+          },
+          {
+            "start": 45056,
+            "end": 46080,
+            "entropy": 7.8053503077124144,
+            "data_sample": "eb9e2efefcf1684d587b9098379ce831aeaef5d1"
+          },
+          {
+            "start": 45568,
+            "end": 46592,
+            "entropy": 7.7952036334483585,
+            "data_sample": "b92e969fb8c0688672850b8996ecf03a194867f7"
+          },
+          {
+            "start": 46080,
+            "end": 47104,
+            "entropy": 7.807315001381874,
+            "data_sample": "9c6f7137b1f4f24f3d1979816551cb4e11ddc3cf"
+          },
+          {
+            "start": 46592,
+            "end": 47616,
+            "entropy": 7.804431881802468,
+            "data_sample": "ae122dbbfa77308674b6fda0d526bd61ede3ad93"
+          },
+          {
+            "start": 47104,
+            "end": 48128,
+            "entropy": 7.79584812394978,
+            "data_sample": "c01ab26e7024086d2a494a3e77128a9eb11a35ab"
+          },
+          {
+            "start": 47616,
+            "end": 48640,
+            "entropy": 7.828946867681616,
+            "data_sample": "4fbdb33a282c2b8e84fb12cf438a6b4a07da0ed4"
+          },
+          {
+            "start": 48128,
+            "end": 49152,
+            "entropy": 7.816362973768163,
+            "data_sample": "a87915e6d87ef4f67313777f69fd5d116fedcb2c"
+          },
+          {
+            "start": 48640,
+            "end": 49664,
+            "entropy": 7.8040226564592,
+            "data_sample": "370fe1f9986bfa54c5bcd0500a96eb45bff68660"
+          },
+          {
+            "start": 49152,
+            "end": 50176,
+            "entropy": 7.799635163779706,
+            "data_sample": "1e73fb9415ec383ed3af3e90d251b8a29ea43cad"
+          },
+          {
+            "start": 49664,
+            "end": 50688,
+            "entropy": 7.798507169496807,
+            "data_sample": "7ba1bdd041fa50bfc24d819862a4700d41f53b3c"
+          },
+          {
+            "start": 50176,
+            "end": 51200,
+            "entropy": 7.808619833670843,
+            "data_sample": "dfbb4a3552c9a7c3d2b885d2f2b01c0fa9d9619d"
+          },
+          {
+            "start": 50688,
+            "end": 51712,
+            "entropy": 7.7950014570008905,
+            "data_sample": "789c81c694f6e8ca88bda8bd7b92a69ff0abf2fe"
+          },
+          {
+            "start": 51200,
+            "end": 52224,
+            "entropy": 7.789794667615095,
+            "data_sample": "e858d4794b3e4f99124ae17b27330dd77586c087"
+          },
+          {
+            "start": 51712,
+            "end": 52736,
+            "entropy": 7.809611153245408,
+            "data_sample": "58748b74a945ccd86a86b0ce9ea8086c5e105b32"
+          },
+          {
+            "start": 52224,
+            "end": 53248,
+            "entropy": 7.791589633460467,
+            "data_sample": "04365c44b8b8d3b62f5faaffdccac4845373947d"
+          },
+          {
+            "start": 52736,
+            "end": 53760,
+            "entropy": 7.793303640343455,
+            "data_sample": "f0a17d83029250878a30c061c108dc2f900961f1"
+          },
+          {
+            "start": 53248,
+            "end": 54272,
+            "entropy": 7.790348640561984,
+            "data_sample": "ee16d9c3e7e7211db0bdeda8f40972c86b81ccdc"
+          },
+          {
+            "start": 53760,
+            "end": 54784,
+            "entropy": 7.785685111545884,
+            "data_sample": "fa7ae66547c6b69023ed917ce0c57dd450b259a9"
+          },
+          {
+            "start": 54272,
+            "end": 55296,
+            "entropy": 7.787344556450608,
+            "data_sample": "ee78d1a1082384b797f8b37b42b4e0ba6a26ed26"
+          },
+          {
+            "start": 54784,
+            "end": 55808,
+            "entropy": 7.8132920904952545,
+            "data_sample": "5d3936ec7a1f94a1e5be8c8cd0d5f735c3a755e2"
+          },
+          {
+            "start": 55296,
+            "end": 56320,
+            "entropy": 7.808521826203554,
+            "data_sample": "25c27efaeb5f31280dedf3cab4d7ab083b0cb5a9"
+          },
+          {
+            "start": 55808,
+            "end": 56832,
+            "entropy": 7.808173705262282,
+            "data_sample": "90655f239b7cf7db9377b36e2a90b299daa6799e"
+          },
+          {
+            "start": 56320,
+            "end": 57344,
+            "entropy": 7.7673174757991355,
+            "data_sample": "a767ac4839ea966e4fff927d4141d2acb7b23b2b"
+          },
+          {
+            "start": 56832,
+            "end": 57856,
+            "entropy": 7.608649479313883,
+            "data_sample": "e419405daaaee1eb8c90ae24cc4f98f8ff1988ae"
+          },
+          {
+            "start": 57344,
+            "end": 58368,
+            "entropy": 7.770887066228891,
+            "data_sample": "ef1535b299abccfbabb894c21202229d93831b64"
+          },
+          {
+            "start": 57856,
+            "end": 58880,
+            "entropy": 7.588291797272657,
+            "data_sample": "8a58e06dab069cb5b36ccc885196cf7f24c8c0d3"
+          },
+          {
+            "start": 58368,
+            "end": 59392,
+            "entropy": 7.345260212104549,
+            "data_sample": "42f37ac4cfd353f08b606611cb971fad5cf4ec97"
+          },
+          {
+            "start": 58880,
+            "end": 59904,
+            "entropy": 7.721817842548026,
+            "data_sample": "c2535c285c2918135c5cde196a00e3f83a9f5c28"
+          },
+          {
+            "start": 59392,
+            "end": 60416,
+            "entropy": 7.815031092834631,
+            "data_sample": "0013507b1acd218b2d053b1dc1d8dea755183244"
+          },
+          {
+            "start": 59904,
+            "end": 60928,
+            "entropy": 7.81343974519222,
+            "data_sample": "6926cd3dfcb416eac951ec20b69a0c3c5737e5e6"
+          },
+          {
+            "start": 60416,
+            "end": 61440,
+            "entropy": 7.83165833405105,
+            "data_sample": "9a787b577cae97fe1d0172e755301dfc30996fc8"
+          },
+          {
+            "start": 60928,
+            "end": 61952,
+            "entropy": 7.836272701654971,
+            "data_sample": "3296f79baadeb6a4121dc2edadb03f3bad9618f7"
+          },
+          {
+            "start": 61440,
+            "end": 62464,
+            "entropy": 7.851588156200136,
+            "data_sample": "ae346bf7f47671c198406b6be6ec4fe24896473c"
+          },
+          {
+            "start": 61952,
+            "end": 62976,
+            "entropy": 7.823881834936899,
+            "data_sample": "71ee6d310f16a6e3f7177dca434756d32c4c06c0"
+          },
+          {
+            "start": 62464,
+            "end": 63488,
+            "entropy": 7.822335993375106,
+            "data_sample": "8e2a5bdacad109557558d01eaf34679696f1af34"
+          },
+          {
+            "start": 62976,
+            "end": 64000,
+            "entropy": 7.811805753593189,
+            "data_sample": "ea6549b014756e6e62fd0573bf60e6afc9e90ca3"
+          },
+          {
+            "start": 63488,
+            "end": 64512,
+            "entropy": 7.825500336274318,
+            "data_sample": "f6ce6b47829e7383a30acf8762ac7c0f052c758a"
+          },
+          {
+            "start": 64000,
+            "end": 65024,
+            "entropy": 7.789605558788515,
+            "data_sample": "4e2f0aa022ea851a390a9b9731a52f08a728989c"
+          },
+          {
+            "start": 64512,
+            "end": 65536,
+            "entropy": 7.793269997724633,
+            "data_sample": "e92af6df567a34b354ec393b6e796ea1c072de5e"
+          },
+          {
+            "start": 65024,
+            "end": 66048,
+            "entropy": 7.803090894480703,
+            "data_sample": "f9163a88b37e6fbc5f40150f15fdf6b58540b526"
+          },
+          {
+            "start": 65536,
+            "end": 66560,
+            "entropy": 7.784147043712858,
+            "data_sample": "e0ade3939298432f90604105e43a21bb1f9de100"
+          },
+          {
+            "start": 66048,
+            "end": 67072,
+            "entropy": 7.805310249465125,
+            "data_sample": "e7054d520acb0536445e21b3c0ff7214c821f8d3"
+          },
+          {
+            "start": 66560,
+            "end": 67584,
+            "entropy": 7.800786232178678,
+            "data_sample": "618e4ff9b365d295779eb72b782ae083d4aebe50"
+          },
+          {
+            "start": 67072,
+            "end": 68096,
+            "entropy": 7.826051856190259,
+            "data_sample": "33e13572c1017a34222c3b525651318d6f975e52"
+          },
+          {
+            "start": 67584,
+            "end": 68608,
+            "entropy": 7.801000931375146,
+            "data_sample": "7caae4f0cfa87a0012129b2704941d888ab719df"
+          },
+          {
+            "start": 68096,
+            "end": 69120,
+            "entropy": 7.8077084804894765,
+            "data_sample": "f4ddb85de66a4ad3ffa7245677d8065b52ef0d76"
+          },
+          {
+            "start": 68608,
+            "end": 69632,
+            "entropy": 7.792708145998523,
+            "data_sample": "bf1aa476dc83fcd54b88149e651d66f87d406ef6"
+          },
+          {
+            "start": 69120,
+            "end": 70144,
+            "entropy": 7.803522774568761,
+            "data_sample": "47f6b6cd7a3a620627b140346cadb0f4d1011483"
+          },
+          {
+            "start": 69632,
+            "end": 70656,
+            "entropy": 7.81966925762827,
+            "data_sample": "83383cd76952595936579f30e9dba38c7dd70d88"
+          },
+          {
+            "start": 70144,
+            "end": 71168,
+            "entropy": 7.827369271433471,
+            "data_sample": "906402c4b76983e3fd97bdb7c42df8eee8156300"
+          },
+          {
+            "start": 70656,
+            "end": 71680,
+            "entropy": 7.8260415262385585,
+            "data_sample": "16852521383df2f4f0d9069b30a9805ca06a1827"
+          },
+          {
+            "start": 71168,
+            "end": 72192,
+            "entropy": 7.808401432439139,
+            "data_sample": "fc8266131fb458f814a6e3139605bba571791c24"
+          },
+          {
+            "start": 71680,
+            "end": 72704,
+            "entropy": 7.789752513521529,
+            "data_sample": "8c5d5980c04a25cd4a5a3f6f2767714f6fccabf2"
+          },
+          {
+            "start": 72192,
+            "end": 73216,
+            "entropy": 7.811092613439548,
+            "data_sample": "9c6558111c8a625e3576aead32d6e59e92476d84"
+          },
+          {
+            "start": 72704,
+            "end": 73728,
+            "entropy": 7.83741318090484,
+            "data_sample": "da0cd8daa9b54330e8f059529e879d055946297a"
+          },
+          {
+            "start": 73216,
+            "end": 74240,
+            "entropy": 7.812580281964841,
+            "data_sample": "db05fe37d832711779f2b2aef01782bff1e0d7bc"
+          },
+          {
+            "start": 73728,
+            "end": 74752,
+            "entropy": 7.819733773873016,
+            "data_sample": "0cd18424a39319e03ad3c3930cfe01520830ce11"
+          },
+          {
+            "start": 74240,
+            "end": 75264,
+            "entropy": 7.819356159347375,
+            "data_sample": "e2ab6014fa16d0ff6e57f09039c14d9e0934a533"
+          },
+          {
+            "start": 74752,
+            "end": 75776,
+            "entropy": 7.811458172441994,
+            "data_sample": "b091119377988231bf164f3de4bd8bf07b606eef"
+          },
+          {
+            "start": 75264,
+            "end": 76288,
+            "entropy": 7.787759169064116,
+            "data_sample": "c9224ceae832715b343f9c54857d49b4fc02f50b"
+          },
+          {
+            "start": 75776,
+            "end": 76800,
+            "entropy": 7.813262851026464,
+            "data_sample": "ac300ee91593a5c4f72d38b62f944aa2e384df78"
+          },
+          {
+            "start": 76288,
+            "end": 77312,
+            "entropy": 7.803215058440987,
+            "data_sample": "2785bda8b1ee9f8acfe5508f6c9c640e7a4f8f69"
+          },
+          {
+            "start": 76800,
+            "end": 77824,
+            "entropy": 7.784381624061376,
+            "data_sample": "48d1d1e8ea8d27b852df740692a415939055e7e5"
+          },
+          {
+            "start": 77312,
+            "end": 78336,
+            "entropy": 7.826085702883049,
+            "data_sample": "81865b0cbf7490f86710235b62d2d027b388157e"
+          },
+          {
+            "start": 77824,
+            "end": 78848,
+            "entropy": 7.833397459818532,
+            "data_sample": "262e9e4dbb3c1d909b7bb77cdaf85601921d8f24"
+          },
+          {
+            "start": 78336,
+            "end": 79360,
+            "entropy": 7.835266824635489,
+            "data_sample": "b934aa86098cfd4178b49f0f1c144a7fe1834f36"
+          },
+          {
+            "start": 78848,
+            "end": 79872,
+            "entropy": 7.821481839736799,
+            "data_sample": "3ab356f4ad8a48e94212bb64049bf8715446a858"
+          },
+          {
+            "start": 79360,
+            "end": 80384,
+            "entropy": 7.781573898209839,
+            "data_sample": "d6933edbb3f52e76c612dcc14ff5c16b7166aa11"
+          },
+          {
+            "start": 79872,
+            "end": 80896,
+            "entropy": 7.810913200832892,
+            "data_sample": "a67f9d8bcd9b1466162e1275c1faa96f52d44196"
+          },
+          {
+            "start": 80384,
+            "end": 81408,
+            "entropy": 7.779155709647156,
+            "data_sample": "2a1df663d3a9194f2739e5dd6f8106211b138327"
+          },
+          {
+            "start": 80896,
+            "end": 81920,
+            "entropy": 7.736873107315924,
+            "data_sample": "68fec689912e3dad878258ff93c52726e784c190"
+          },
+          {
+            "start": 81408,
+            "end": 82432,
+            "entropy": 6.712508621370838,
+            "data_sample": "1221315b5b9d0a80c3f2d3de84105486b7c38032"
+          },
+          {
+            "start": 81920,
+            "end": 82944,
+            "entropy": 6.5609542410051995,
+            "data_sample": "30206f626a3c3c2f436f6e74656e747320322030"
+          },
+          {
+            "start": 82432,
+            "end": 83456,
+            "entropy": 7.732415373546879,
+            "data_sample": "3835203020522f4753313420323834203020522f"
+          },
+          {
+            "start": 82944,
+            "end": 83968,
+            "entropy": 7.825149711224237,
+            "data_sample": "be68e151b942b42845fcdbdea234b7ecd22dbff9"
+          },
+          {
+            "start": 83456,
+            "end": 84480,
+            "entropy": 7.8124814662598085,
+            "data_sample": "a9436140f76e8c68828e76dea7fb26aa60c215ce"
+          },
+          {
+            "start": 83968,
+            "end": 84992,
+            "entropy": 7.829997150974986,
+            "data_sample": "f08eb5d26a16d87a618534214a0a0a2e026f0cc6"
+          },
+          {
+            "start": 84480,
+            "end": 85504,
+            "entropy": 7.832857777019737,
+            "data_sample": "c76334bf0d5e529de33b19d7f397aaf1478838e4"
+          },
+          {
+            "start": 84992,
+            "end": 86016,
+            "entropy": 7.822446478960219,
+            "data_sample": "b10630665103f06dc41a5209dae38599b471af4b"
+          },
+          {
+            "start": 85504,
+            "end": 86528,
+            "entropy": 7.795892366826451,
+            "data_sample": "b58443bb85c98ec44fae0a1020b8ee38360d588e"
+          },
+          {
+            "start": 86016,
+            "end": 87040,
+            "entropy": 7.82554387918704,
+            "data_sample": "b83627e42df418fad963823403404253330ca291"
+          },
+          {
+            "start": 86528,
+            "end": 87552,
+            "entropy": 7.812080011421966,
+            "data_sample": "2504c1530ca321e27a0c799e62939f5d06e4dbbb"
+          },
+          {
+            "start": 87040,
+            "end": 88064,
+            "entropy": 7.822595585699195,
+            "data_sample": "b18c1e82e89c77de9aa16813ac6c508c90528561"
+          },
+          {
+            "start": 87552,
+            "end": 88576,
+            "entropy": 7.800462974147847,
+            "data_sample": "134ee0e3faa4654e18fc281a5e92cf53d040c3b6"
+          },
+          {
+            "start": 88064,
+            "end": 89088,
+            "entropy": 7.537066770683838,
+            "data_sample": "d93a75a30de5f673018d6c3846fc22b09de4f986"
+          },
+          {
+            "start": 88576,
+            "end": 89600,
+            "entropy": 6.437719376711394,
+            "data_sample": "3d3ac350db02dd98aaf161e63c134fb6bbb6e29e"
+          },
+          {
+            "start": 89088,
+            "end": 90112,
+            "entropy": 7.110859319063336,
+            "data_sample": "5d2f436f6f7264735b302e303835303120302030"
+          },
+          {
+            "start": 89600,
+            "end": 90624,
+            "entropy": 7.628128047999195,
+            "data_sample": "0d392030206f626a3c3c2f4c656e677468203736"
+          },
+          {
+            "start": 90112,
+            "end": 91136,
+            "entropy": 6.953922316653575,
+            "data_sample": "ad6c8f40abfa0da30915a8b5a7f9d31fb80ce3ad"
+          },
+          {
+            "start": 90624,
+            "end": 91648,
+            "entropy": 7.315679677284641,
+            "data_sample": "2e35203732342e355d2f5265736f757263657320"
+          },
+          {
+            "start": 91136,
+            "end": 92160,
+            "entropy": 7.817002968328687,
+            "data_sample": "b3bf6d31c78cc9c24c1a396e7bae3641766f2485"
+          },
+          {
+            "start": 91648,
+            "end": 92672,
+            "entropy": 7.7957810651181925,
+            "data_sample": "5d69fc16c32de17c32c49529c09036a50cc51e7d"
+          },
+          {
+            "start": 92160,
+            "end": 93184,
+            "entropy": 7.806105441785735,
+            "data_sample": "e4e3f8ca5727adc726d1cd0e233900d6af7cfb14"
+          },
+          {
+            "start": 92672,
+            "end": 93696,
+            "entropy": 7.806296209737618,
+            "data_sample": "60fc6eb54a7e71199e01baf424efa5c53548ed56"
+          },
+          {
+            "start": 93184,
+            "end": 94208,
+            "entropy": 7.810245959527856,
+            "data_sample": "8f0fa51ad289af898a810d571000ff19659130b9"
+          },
+          {
+            "start": 93696,
+            "end": 94720,
+            "entropy": 7.745142344759936,
+            "data_sample": "e8e08b9f1d3371eaaa748c5b4d672f51d816a70e"
+          },
+          {
+            "start": 94208,
+            "end": 95232,
+            "entropy": 7.772028089593737,
+            "data_sample": "6569676874203136372f42697473506572436f6d"
+          },
+          {
+            "start": 94720,
+            "end": 95744,
+            "entropy": 7.769148387411339,
+            "data_sample": "b19b57049cb74eb0d46e6f0dc2c0b5c23911262a"
+          },
+          {
+            "start": 95232,
+            "end": 96256,
+            "entropy": 7.820916718527969,
+            "data_sample": "b004831d05cf95ab106575aba7154254d51b768e"
+          },
+          {
+            "start": 95744,
+            "end": 96768,
+            "entropy": 7.8285918647782875,
+            "data_sample": "2b8a6dd728aacb5f7e34d5ece7f2c21654af7e60"
+          },
+          {
+            "start": 96256,
+            "end": 97280,
+            "entropy": 7.812185631407901,
+            "data_sample": "4e1ec81dc1fb811a32191f225b779e8e88484414"
+          },
+          {
+            "start": 96768,
+            "end": 97792,
+            "entropy": 7.765045353315923,
+            "data_sample": "e3956a9110b20cfc8d393b382ee82f0af22685e5"
+          },
+          {
+            "start": 97280,
+            "end": 98304,
+            "entropy": 7.791838286587271,
+            "data_sample": "4d425cecfdb09f78abaf97099419e835b9caa842"
+          },
+          {
+            "start": 97792,
+            "end": 98816,
+            "entropy": 7.795361509823229,
+            "data_sample": "210de9fd72d80f55361f63307b502000fe43cb5c"
+          },
+          {
+            "start": 98304,
+            "end": 99328,
+            "entropy": 7.821860045952595,
+            "data_sample": "05a02699115fbd6225dc2f4ab1f1c4cab7ac5069"
+          },
+          {
+            "start": 98816,
+            "end": 99840,
+            "entropy": 7.847425157960546,
+            "data_sample": "0fe84e8da13a363923d3b18e29d6a8da879edf54"
+          },
+          {
+            "start": 99328,
+            "end": 100352,
+            "entropy": 7.779643355827737,
+            "data_sample": "e3c336bc2a64a1a11bab7b87e520a308a063b4ac"
+          },
+          {
+            "start": 99840,
+            "end": 100864,
+            "entropy": 7.689969147364503,
+            "data_sample": "b30b682d913f1a95b47699b0b5410da861f3fd13"
+          },
+          {
+            "start": 100352,
+            "end": 101376,
+            "entropy": 7.756097718695782,
+            "data_sample": "6f6d706f6e656e7420382f436f6c6f7253706163"
+          },
+          {
+            "start": 100864,
+            "end": 101888,
+            "entropy": 7.816268453153392,
+            "data_sample": "664d47b9994e762048e27bcc712a07afb066b0d9"
+          },
+          {
+            "start": 101376,
+            "end": 102400,
+            "entropy": 7.81801460530362,
+            "data_sample": "2ce1dd64de8cb3bb2d00a9f04d0b604e04d868a3"
+          },
+          {
+            "start": 101888,
+            "end": 102912,
+            "entropy": 7.798814573018184,
+            "data_sample": "95218f2a079bf1b27ff54cfbeceef0a4811aef3a"
+          },
+          {
+            "start": 102400,
+            "end": 103424,
+            "entropy": 7.817750343005338,
+            "data_sample": "704606a647c0486b49ff32265d21ca7a817b9a58"
+          },
+          {
+            "start": 102912,
+            "end": 103936,
+            "entropy": 7.822277999104168,
+            "data_sample": "5f13fdb32fda47258093e77d0eab96b2e3b719d2"
+          },
+          {
+            "start": 103424,
+            "end": 104448,
+            "entropy": 7.810075101518423,
+            "data_sample": "d896922cd9d8029e6eb31c9ee8b8dfc0fc453fb2"
+          },
+          {
+            "start": 103936,
+            "end": 104960,
+            "entropy": 7.807958739805239,
+            "data_sample": "b968342e2fde9bf304a289c5e488f2b630e5ca4a"
+          },
+          {
+            "start": 104448,
+            "end": 105472,
+            "entropy": 7.812049866764411,
+            "data_sample": "e6ba9e0377564bed6c7c986e247ce77b254952dd"
+          },
+          {
+            "start": 104960,
+            "end": 105984,
+            "entropy": 7.815853662246993,
+            "data_sample": "bae1b7e2cd7ad4ae8c973a084702134584a3ce48"
+          },
+          {
+            "start": 105472,
+            "end": 106496,
+            "entropy": 7.778780169786554,
+            "data_sample": "7f4a92a8994905f7e11eb38a7a5ab9e3aee656e2"
+          },
+          {
+            "start": 105984,
+            "end": 107008,
+            "entropy": 7.814284483531889,
+            "data_sample": "dad7b44df13b35a762eabab5463acbdf400a9d8d"
+          },
+          {
+            "start": 106496,
+            "end": 107520,
+            "entropy": 7.705567397596901,
+            "data_sample": "bc0cd91ff04ccc56903d29d25fee17ba60145f68"
+          },
+          {
+            "start": 107008,
+            "end": 108032,
+            "entropy": 6.725242498349388,
+            "data_sample": "206f626a3c3c2f4c656e677468203334362f4669"
+          },
+          {
+            "start": 107520,
+            "end": 108544,
+            "entropy": 6.936069091927109,
+            "data_sample": "0d31372030206f626a3c3c2f436f6e74656e7473"
+          },
+          {
+            "start": 108032,
+            "end": 109056,
+            "entropy": 7.8156240677024185,
+            "data_sample": "333235322f46696c7465722f466c617465446563"
+          },
+          {
+            "start": 108544,
+            "end": 109568,
+            "entropy": 7.8024282483987175,
+            "data_sample": "406ab1d0dcce6056cae2f65d7a2409acce605b91"
+          },
+          {
+            "start": 109056,
+            "end": 110080,
+            "entropy": 7.792819111990687,
+            "data_sample": "e771e3c6980d6040d10c16e670276efd1721e49d"
+          },
+          {
+            "start": 109568,
+            "end": 110592,
+            "entropy": 7.785134456027363,
+            "data_sample": "0a0c847b64b669ed282f884987fbc2a9cff7e3c7"
+          },
+          {
+            "start": 110080,
+            "end": 111104,
+            "entropy": 7.819146644947009,
+            "data_sample": "8624382a86e8c783755924805f383f6b4be43c6f"
+          },
+          {
+            "start": 110592,
+            "end": 111616,
+            "entropy": 7.766536950232632,
+            "data_sample": "c7e45e46419968730a450007d7caadbd9d356ef6"
+          },
+          {
+            "start": 111104,
+            "end": 112128,
+            "entropy": 7.694002525811768,
+            "data_sample": "ca38b45021e481059ec498aaecf9cc124c4bc27f"
+          },
+          {
+            "start": 111616,
+            "end": 112640,
+            "entropy": 7.828718982517975,
+            "data_sample": "170d70136b7c0ed97e44d9c3a2c898ac027278fd"
+          },
+          {
+            "start": 112128,
+            "end": 113152,
+            "entropy": 7.791811944139322,
+            "data_sample": "86e86b28062b72e31ec179fecaf7872f1ab89bbe"
+          },
+          {
+            "start": 112640,
+            "end": 113664,
+            "entropy": 7.797257284356558,
+            "data_sample": "429eb87db304e4ea462812093d89bad8e9b9d67b"
+          },
+          {
+            "start": 113152,
+            "end": 114176,
+            "entropy": 7.779288038515978,
+            "data_sample": "578ebfd73ee28a155c3143151e40e4b25981ae15"
+          },
+          {
+            "start": 113664,
+            "end": 114688,
+            "entropy": 7.791784521996644,
+            "data_sample": "c5767c593ca9760812f404916801b2130284609f"
+          },
+          {
+            "start": 114176,
+            "end": 115200,
+            "entropy": 7.814839961457132,
+            "data_sample": "d1e053def9ddf0e3885bf56a0d4f81b19f8c10a6"
+          },
+          {
+            "start": 114688,
+            "end": 115712,
+            "entropy": 7.805367761141927,
+            "data_sample": "a30c73cfa2c8d1d3fc51779f183aa7482f353837"
+          },
+          {
+            "start": 115200,
+            "end": 116224,
+            "entropy": 7.80602081824152,
+            "data_sample": "9fcf58caf2cf0770dfaab0906ec42f78f89808ce"
+          },
+          {
+            "start": 115712,
+            "end": 116736,
+            "entropy": 7.78472598358438,
+            "data_sample": "095992cb3b1980514b0c90dfa419248a92128c43"
+          },
+          {
+            "start": 116224,
+            "end": 117248,
+            "entropy": 7.799012141205396,
+            "data_sample": "a2d0263dc06e5d9a18b821a00dc192b6c7b57a5f"
+          },
+          {
+            "start": 116736,
+            "end": 117760,
+            "entropy": 7.805993040628607,
+            "data_sample": "529e2efa7c407ac7fb22fae58db33f48bbae660e"
+          },
+          {
+            "start": 117248,
+            "end": 118272,
+            "entropy": 7.442066050846585,
+            "data_sample": "b6f83ec78efcf477860b4d52a675b7b14955eebc"
+          },
+          {
+            "start": 117760,
+            "end": 118784,
+            "entropy": 6.862561295755614,
+            "data_sample": "87df6f4212838623f49986f8790f256d2ec74cbc"
+          },
+          {
+            "start": 118272,
+            "end": 119296,
+            "entropy": 7.443272578028553,
+            "data_sample": "6f7572636573203234203020523e3e0d656e646f"
+          },
+          {
+            "start": 118784,
+            "end": 119808,
+            "entropy": 7.7925233322622125,
+            "data_sample": "c00570473069ed59e0e1b30d73d7f809b3f58cb7"
+          },
+          {
+            "start": 119296,
+            "end": 120320,
+            "entropy": 7.792409040627652,
+            "data_sample": "f1206d9772860c14495d07b6a5ac1c1dc4f18f46"
+          },
+          {
+            "start": 119808,
+            "end": 120832,
+            "entropy": 7.805716780003049,
+            "data_sample": "06c66647dd53d6913fcd4f5d58b343ed7472b816"
+          },
+          {
+            "start": 120320,
+            "end": 121344,
+            "entropy": 7.836654233513163,
+            "data_sample": "2d51524cfd0a19cf6d59433bf67200a15b1aa475"
+          },
+          {
+            "start": 120832,
+            "end": 121856,
+            "entropy": 7.812089600404349,
+            "data_sample": "f107c40c1af2c46b0bc01f5f8acf0eb6d6347f3d"
+          },
+          {
+            "start": 121344,
+            "end": 122368,
+            "entropy": 7.77961312613251,
+            "data_sample": "d271313a0e8f4b5024e627311a1fe4c4b73f5964"
+          },
+          {
+            "start": 121856,
+            "end": 122880,
+            "entropy": 7.130458694431806,
+            "data_sample": "9c50b787fca5849e2f4f046cb293ebef1537a6ed"
+          },
+          {
+            "start": 122368,
+            "end": 123392,
+            "entropy": 6.861004134004103,
+            "data_sample": "cfd21a8628cea54ae9696c2f47e3c76e3ae8a421"
+          },
+          {
+            "start": 122880,
+            "end": 123904,
+            "entropy": 7.74711539273958,
+            "data_sample": "4753746174653c3c2f4753312032373220302052"
+          },
+          {
+            "start": 123392,
+            "end": 124416,
+            "entropy": 7.8041031032594335,
+            "data_sample": "a345b3e7dbed8c09228840e3163ce8325915255c"
+          },
+          {
+            "start": 123904,
+            "end": 124928,
+            "entropy": 7.800277120471894,
+            "data_sample": "89762daabab7f72f44affdeb264e1bd1d96da1cb"
+          },
+          {
+            "start": 124416,
+            "end": 125440,
+            "entropy": 7.804405105651154,
+            "data_sample": "56b134611a320d38b0ea1a6465ce7a877b30766f"
+          },
+          {
+            "start": 124928,
+            "end": 125952,
+            "entropy": 7.762893652076588,
+            "data_sample": "81d53ca4273d47f02afda3a768f6230a7d8bcaa6"
+          },
+          {
+            "start": 125440,
+            "end": 126464,
+            "entropy": 6.9751116007708385,
+            "data_sample": "009bdc48023dac11710e53288343792c07557e28"
+          },
+          {
+            "start": 125952,
+            "end": 126976,
+            "entropy": 6.917920036234613,
+            "data_sample": "3c3c2f5469746c652885058856b2e6239407cd57"
+          },
+          {
+            "start": 126464,
+            "end": 127488,
+            "entropy": 7.750378872727839,
+            "data_sample": "3020522f47533420313536203020523e3e2f5072"
+          },
+          {
+            "start": 126976,
+            "end": 128000,
+            "entropy": 7.738740677801875,
+            "data_sample": "b6ebe0400bf4fa331c88237927f7ca14f666f75d"
+          },
+          {
+            "start": 127488,
+            "end": 128512,
+            "entropy": 7.544408938699299,
+            "data_sample": "9b4239d15b2ae60e38ae6d71bce7ce59586d8001"
+          },
+          {
+            "start": 128000,
+            "end": 129024,
+            "entropy": 6.284143037627901,
+            "data_sample": "0147539e5709539b589f48a14c5e4716e9f7dac3"
+          },
+          {
+            "start": 128512,
+            "end": 129536,
+            "entropy": 6.72693422175333,
+            "data_sample": "3030375d2f426c656564426f785b31362e352034"
+          },
+          {
+            "start": 129024,
+            "end": 130048,
+            "entropy": 7.805590611610847,
+            "data_sample": "33392030206f626a3c3c2f4c656e677468203131"
+          },
+          {
+            "start": 129536,
+            "end": 130560,
+            "entropy": 7.5372642183869445,
+            "data_sample": "39c996ae23cc1b0d4b108e4317e9a8040c266af6"
+          },
+          {
+            "start": 130048,
+            "end": 131072,
+            "entropy": 6.86789415576413,
+            "data_sample": "43a5a82ea86c106b047ed8ce25f300c222889a11"
+          },
+          {
+            "start": 130560,
+            "end": 131584,
+            "entropy": 7.487196629612754,
+            "data_sample": "3c3c2f436f6c6f7253706163653c3c2f43733820"
+          },
+          {
+            "start": 131072,
+            "end": 132096,
+            "entropy": 7.798781804869275,
+            "data_sample": "7a0eb81ea7df9ade40612a3c223b18a93759e8fe"
+          },
+          {
+            "start": 131584,
+            "end": 132608,
+            "entropy": 7.77790560817334,
+            "data_sample": "4831f25dbeab5555088fd4c00f7864e063a54fee"
+          },
+          {
+            "start": 132096,
+            "end": 133120,
+            "entropy": 7.501777790891974,
+            "data_sample": "31d1f520e1fdc8d78cbeaece9ca39fb83d44b504"
+          },
+          {
+            "start": 132608,
+            "end": 133632,
+            "entropy": 6.8870431297212935,
+            "data_sample": "3a73fa899d8903cb5ba377578be344d8455208a5"
+          },
+          {
+            "start": 133120,
+            "end": 134144,
+            "entropy": 7.390724255366969,
+            "data_sample": "203539352e35203734382e355d2f5472696d426f"
+          },
+          {
+            "start": 133632,
+            "end": 134656,
+            "entropy": 7.815634992567614,
+            "data_sample": "d86c070a48d16abbdfbb8167a4e2580217cd2c09"
+          },
+          {
+            "start": 134144,
+            "end": 135168,
+            "entropy": 7.82723431502773,
+            "data_sample": "829934fa8dd397ccc1aec271673fc05b0df3264e"
+          },
+          {
+            "start": 134656,
+            "end": 135680,
+            "entropy": 7.798972786145399,
+            "data_sample": "517ef7915d2c994a1dbecc7fec76b2bed208770f"
+          },
+          {
+            "start": 135168,
+            "end": 136192,
+            "entropy": 7.680561198043238,
+            "data_sample": "395cb77488e08fafa4f1f7a30f130ee0e98844d2"
+          },
+          {
+            "start": 135680,
+            "end": 136704,
+            "entropy": 6.834194683678471,
+            "data_sample": "2f46696c7465722f466c6174654465636f64653e"
+          },
+          {
+            "start": 136192,
+            "end": 137216,
+            "entropy": 7.109731983741996,
+            "data_sample": "6e7473203533203020522f547970652f50616765"
+          },
+          {
+            "start": 136704,
+            "end": 137728,
+            "entropy": 7.823195942419971,
+            "data_sample": "f92bdc85aa2a24a56225294f6b6edf54dc44a5e4"
+          },
+          {
+            "start": 137216,
+            "end": 138240,
+            "entropy": 7.807793089701605,
+            "data_sample": "de235a9cf86e1b99f8777c73bcd66cf64f4ec219"
+          },
+          {
+            "start": 137728,
+            "end": 138752,
+            "entropy": 7.784675103869602,
+            "data_sample": "9ca18f612a17bfddd420857795c2d372358bbf7a"
+          },
+          {
+            "start": 138240,
+            "end": 139264,
+            "entropy": 7.595626511368531,
+            "data_sample": "05b925d5a788cf1e090dc7e8517a30bf153c6e22"
+          },
+          {
+            "start": 138752,
+            "end": 139776,
+            "entropy": 6.94562301224216,
+            "data_sample": "c1e66d6403d47703e8d37d43b67a029cafb78e94"
+          },
+          {
+            "start": 139264,
+            "end": 140288,
+            "entropy": 7.25082512161828,
+            "data_sample": "5d2f43726f70426f785b34312e30333939393320"
+          },
+          {
+            "start": 139776,
+            "end": 140800,
+            "entropy": 7.812907350304704,
+            "data_sample": "7c69f4066b6cdce15e1cf1dd88de214a97fb87b4"
+          },
+          {
+            "start": 140288,
+            "end": 141312,
+            "entropy": 7.783657193499803,
+            "data_sample": "3a254664a339419245ccfbca2945d368cd72d9de"
+          },
+          {
+            "start": 140800,
+            "end": 141824,
+            "entropy": 7.770577635231227,
+            "data_sample": "361c7c0832b86966d68bc586ca2883098582a194"
+          },
+          {
+            "start": 141312,
+            "end": 142336,
+            "entropy": 7.567918187852355,
+            "data_sample": "d928d08c1bdcf6e700dfc94d9a5cf99a36aaf928"
+          },
+          {
+            "start": 141824,
+            "end": 142848,
+            "entropy": 6.889268486033587,
+            "data_sample": "a03f2679be0458ec38adefda628fd9a92ea0bed4"
+          },
+          {
+            "start": 142336,
+            "end": 143360,
+            "entropy": 7.286913432711739,
+            "data_sample": "32303032203732342e3332303030375d2f426c65"
+          },
+          {
+            "start": 142848,
+            "end": 143872,
+            "entropy": 7.8334876967803995,
+            "data_sample": "c35316ded555f78fbb80101494f90b0ea1a3e425"
+          },
+          {
+            "start": 143360,
+            "end": 144384,
+            "entropy": 7.791695990156128,
+            "data_sample": "94749b04d15d104b9014457f07e4921675442a9d"
+          },
+          {
+            "start": 143872,
+            "end": 144896,
+            "entropy": 7.794064658140585,
+            "data_sample": "d674f46a0335f75d8cdc3b0392214736b791adae"
+          },
+          {
+            "start": 144384,
+            "end": 145408,
+            "entropy": 7.709994175540631,
+            "data_sample": "cad8f92195454cb3424c8ad664e7a5b049150d23"
+          },
+          {
+            "start": 144896,
+            "end": 145920,
+            "entropy": 6.631619286209743,
+            "data_sample": "6174654465636f64653e3e73747265616d0d0a5a"
+          },
+          {
+            "start": 145408,
+            "end": 146432,
+            "entropy": 6.446549945701743,
+            "data_sample": "20522f547970652f506167652f506172656e7420"
+          },
+          {
+            "start": 145920,
+            "end": 146944,
+            "entropy": 7.685109689054111,
+            "data_sample": "4753313420323835203020522f47533135203238"
+          },
+          {
+            "start": 146432,
+            "end": 147456,
+            "entropy": 7.779063208359974,
+            "data_sample": "6d4234fcffa4231d73bc257f20825bd77428db4a"
+          },
+          {
+            "start": 146944,
+            "end": 147968,
+            "entropy": 7.762976144537441,
+            "data_sample": "f146b956571df2ff6ee7b3a1f37bacc162cfffeb"
+          },
+          {
+            "start": 147456,
+            "end": 148480,
+            "entropy": 7.755185964861032,
+            "data_sample": "e0b58d2bd4cbaddbf35529a94b694fda4816f370"
+          },
+          {
+            "start": 147968,
+            "end": 148992,
+            "entropy": 7.797264301961693,
+            "data_sample": "b0e69b011d4976c2c4797a02f628bf39c0d39f40"
+          },
+          {
+            "start": 148480,
+            "end": 149504,
+            "entropy": 7.808560387357893,
+            "data_sample": "7679ab12e2f9f1e84c3040e1c0cda6c522510076"
+          },
+          {
+            "start": 148992,
+            "end": 150016,
+            "entropy": 7.635288479114641,
+            "data_sample": "2a1d89359ed86b5f1134eb92d670284372ad113d"
+          },
+          {
+            "start": 149504,
+            "end": 150528,
+            "entropy": 6.879855439279776,
+            "data_sample": "ac95ebc737f1ee8160afbf8a9caafbb3dbf445ec"
+          },
+          {
+            "start": 150016,
+            "end": 151040,
+            "entropy": 6.961824077053108,
+            "data_sample": "2805faf23ae6aa400414ff222affab2ef8137ab7"
+          },
+          {
+            "start": 150528,
+            "end": 151552,
+            "entropy": 7.6818634158272125,
+            "data_sample": "523e3e2f50726f635365745b2f5044462f546578"
+          },
+          {
+            "start": 151040,
+            "end": 152064,
+            "entropy": 7.8090878504140475,
+            "data_sample": "f282bfb93623fbf0ccd61313e14da91266b3570e"
+          },
+          {
+            "start": 151552,
+            "end": 152576,
+            "entropy": 7.7643026523094765,
+            "data_sample": "0f3092eb072c1ff7a113ea86672e6c632c65e79b"
+          },
+          {
+            "start": 152064,
+            "end": 153088,
+            "entropy": 7.803650226729658,
+            "data_sample": "285d319ee2bcca7789f2ec3c1d2dd1794e22d302"
+          },
+          {
+            "start": 152576,
+            "end": 153600,
+            "entropy": 7.759058916735913,
+            "data_sample": "c81563da8d4c730fd0a0d00dc0b2393c79c5d91f"
+          },
+          {
+            "start": 153088,
+            "end": 154112,
+            "entropy": 6.851685876166052,
+            "data_sample": "5df30aa1600e7f649660592c31cd0ba236f5164d"
+          },
+          {
+            "start": 153600,
+            "end": 154624,
+            "entropy": 6.729913784976772,
+            "data_sample": "cc6e3ce9b1c37c84cf92a6fa31f06ba169ce0510"
+          },
+          {
+            "start": 154112,
+            "end": 155136,
+            "entropy": 7.72856845460225,
+            "data_sample": "47533720323834203020522f4753382032383520"
+          },
+          {
+            "start": 154624,
+            "end": 155648,
+            "entropy": 7.8255834097892505,
+            "data_sample": "43f6613b6abf389b087a915ef6a7c7e584c1c2a5"
+          },
+          {
+            "start": 155136,
+            "end": 156160,
+            "entropy": 7.808097232990532,
+            "data_sample": "f5ac64c816b122d6b687ef6bf7ba3b5a14742ea8"
+          },
+          {
+            "start": 155648,
+            "end": 156672,
+            "entropy": 7.798431382856919,
+            "data_sample": "a0aab6e6dbccb54fe442a7f02c726fcda8eb41cf"
+          },
+          {
+            "start": 156160,
+            "end": 157184,
+            "entropy": 7.752024636034058,
+            "data_sample": "29d0d8e64aabba04b860223619498d594fe7e786"
+          },
+          {
+            "start": 156672,
+            "end": 157696,
+            "entropy": 6.953533317060259,
+            "data_sample": "9cabe7f8282cbcb54f87cfd89b6572be544d3630"
+          },
+          {
+            "start": 157184,
+            "end": 158208,
+            "entropy": 7.237939497682197,
+            "data_sample": "6f785b34312e3033393939332036392e31313939"
+          },
+          {
+            "start": 157696,
+            "end": 158720,
+            "entropy": 7.778933604193112,
+            "data_sample": "53183e3ea1184e78687b0044c96acdafe36decd3"
+          },
+          {
+            "start": 158208,
+            "end": 159232,
+            "entropy": 7.758474519575049,
+            "data_sample": "f7ab2075f64389616a7bad2071ae30c0241bb7fc"
+          },
+          {
+            "start": 158720,
+            "end": 159744,
+            "entropy": 7.385900546203558,
+            "data_sample": "ca6172802e9a9476f8fe2c11697bcec7e3b03ff4"
+          },
+          {
+            "start": 159232,
+            "end": 160256,
+            "entropy": 6.883634048046402,
+            "data_sample": "6788c21cc7906486c7fcd4aaaaa3813c1ef994bc"
+          },
+          {
+            "start": 159744,
+            "end": 160768,
+            "entropy": 7.508731617933947,
+            "data_sample": "3c2f43733820323833203020523e3e2f466f6e74"
+          },
+          {
+            "start": 160256,
+            "end": 161280,
+            "entropy": 7.816062748025811,
+            "data_sample": "66f50d7d834890003f6e61507e115d3701123bd7"
+          },
+          {
+            "start": 160768,
+            "end": 161792,
+            "entropy": 7.7952384605537235,
+            "data_sample": "a0534d440880cde5a24d026fb7809b49ff31e718"
+          },
+          {
+            "start": 161280,
+            "end": 162304,
+            "entropy": 7.795858989431963,
+            "data_sample": "e936609f0f0a6a0fd1633ab1c8ea07ce7130912a"
+          },
+          {
+            "start": 161792,
+            "end": 162816,
+            "entropy": 7.461208046840173,
+            "data_sample": "a441bfdb16d8afa097024f3ceb7689b778495eb6"
+          },
+          {
+            "start": 162304,
+            "end": 163328,
+            "entropy": 6.860071158438018,
+            "data_sample": "b44b600226f27ed244c3caf936357e6710734c64"
+          },
+          {
+            "start": 162816,
+            "end": 163840,
+            "entropy": 7.447107633326423,
+            "data_sample": "72636573203930203020523e3e0d656e646f626a"
+          },
+          {
+            "start": 163328,
+            "end": 164352,
+            "entropy": 7.816596150965444,
+            "data_sample": "ea4097873a9caccb4b128bf851176566aa5d358d"
+          },
+          {
+            "start": 163840,
+            "end": 164864,
+            "entropy": 7.827942592805535,
+            "data_sample": "31616578b3de42794070d3ab52b6ad2f8e0e4420"
+          },
+          {
+            "start": 164352,
+            "end": 165376,
+            "entropy": 7.819988003671701,
+            "data_sample": "bb8dc8d60a0ba20fd3961f050777efecb518bf53"
+          },
+          {
+            "start": 164864,
+            "end": 165888,
+            "entropy": 7.788412348296928,
+            "data_sample": "505feb9ae56c32fc434e220549a074f2c91417dc"
+          },
+          {
+            "start": 165376,
+            "end": 166400,
+            "entropy": 7.432666210174227,
+            "data_sample": "1e227e51f7dca5cea13eaa53bc462b8a0a5f955b"
+          },
+          {
+            "start": 165888,
+            "end": 166912,
+            "entropy": 6.823406308124777,
+            "data_sample": "f2ff7b2ef65ea19f6d1b181bd938095505518290"
+          },
+          {
+            "start": 166400,
+            "end": 167424,
+            "entropy": 7.42137811044334,
+            "data_sample": "7572636573203935203020523e3e0d656e646f62"
+          },
+          {
+            "start": 166912,
+            "end": 167936,
+            "entropy": 7.792345630894966,
+            "data_sample": "759e01c72ea151d2b1607ce45b387d0ebdb09b33"
+          },
+          {
+            "start": 167424,
+            "end": 168448,
+            "entropy": 7.796621466540004,
+            "data_sample": "3117cb59a489af3bd47e189bd1be0ee64addd757"
+          },
+          {
+            "start": 167936,
+            "end": 168960,
+            "entropy": 7.788766070654893,
+            "data_sample": "70d1191e4dc75778cc3ea731fc4cc611cc96255d"
+          },
+          {
+            "start": 168448,
+            "end": 169472,
+            "entropy": 7.788149485926536,
+            "data_sample": "0f72b13fb5ca1a4e40196015bd87cd486753ec72"
+          },
+          {
+            "start": 168960,
+            "end": 169984,
+            "entropy": 7.817410534546657,
+            "data_sample": "e849bb262243c7c9be53717cf870c24b012b77f7"
+          },
+          {
+            "start": 169472,
+            "end": 170496,
+            "entropy": 7.82213279557968,
+            "data_sample": "302ae9105a2ce1e734100c36cf77056b206dde9c"
+          },
+          {
+            "start": 169984,
+            "end": 171008,
+            "entropy": 7.794805165313477,
+            "data_sample": "c1bfa8d83d066a24ef5b0d4bde23f5a9bd7a143a"
+          },
+          {
+            "start": 170496,
+            "end": 171520,
+            "entropy": 7.668837382365761,
+            "data_sample": "a68f6a5580b823fbfd237ab3d0727610a3487382"
+          },
+          {
+            "start": 171008,
+            "end": 172032,
+            "entropy": 7.176774644874676,
+            "data_sample": "fe7607398b58780b3f5efc579a5dd2903c75cae9"
+          },
+          {
+            "start": 171520,
+            "end": 172544,
+            "entropy": 7.058196141314729,
+            "data_sample": "17f501d1def60982270e6725d48585e33b01cf63"
+          },
+          {
+            "start": 172032,
+            "end": 173056,
+            "entropy": 7.44974076763319,
+            "data_sample": "743c3c2f496d3020313037203020523e3e2f5072"
+          },
+          {
+            "start": 172544,
+            "end": 173568,
+            "entropy": 7.570157918924166,
+            "data_sample": "fa531b9e27c0eaf0e8100bc8c8ba6f7a89dde3bc"
+          },
+          {
+            "start": 173056,
+            "end": 174080,
+            "entropy": 7.746080198018181,
+            "data_sample": "3c3c2f4c656e677468203239352f46696c746572"
+          },
+          {
+            "start": 173568,
+            "end": 174592,
+            "entropy": 7.836826631738023,
+            "data_sample": "0b6fb484624a998f7b72a65f7ceba01379730317"
+          },
+          {
+            "start": 174080,
+            "end": 175104,
+            "entropy": 7.828456671938607,
+            "data_sample": "3e64272797b07986f991aceb588601925a2081dc"
+          },
+          {
+            "start": 174592,
+            "end": 175616,
+            "entropy": 7.816213932439137,
+            "data_sample": "125afdcf93ecaa6e2bb7c048638ba201f1ad033e"
+          },
+          {
+            "start": 175104,
+            "end": 176128,
+            "entropy": 7.80617153116946,
+            "data_sample": "013e5f97547c21e4ed48c59f82607525931e3b34"
+          },
+          {
+            "start": 175616,
+            "end": 176640,
+            "entropy": 7.816103450077364,
+            "data_sample": "bb0e48167ca885c604d6e5870b25782ac72126f8"
+          },
+          {
+            "start": 176128,
+            "end": 177152,
+            "entropy": 7.8075194789004385,
+            "data_sample": "ea06995ca5c8e98c98f82db4aacffcf3fb12eb40"
+          },
+          {
+            "start": 176640,
+            "end": 177664,
+            "entropy": 7.790458756488812,
+            "data_sample": "9da6c5a46b396b92ead52c96460b4e495b89bdec"
+          },
+          {
+            "start": 177152,
+            "end": 178176,
+            "entropy": 7.810226297040496,
+            "data_sample": "b551c833216e8d3968e44a1e86a1edde3e042f65"
+          },
+          {
+            "start": 177664,
+            "end": 178688,
+            "entropy": 7.812623556429889,
+            "data_sample": "952a88f1319bbd16d81e259213595d9d6fd07fe4"
+          },
+          {
+            "start": 178176,
+            "end": 179200,
+            "entropy": 7.813482276829477,
+            "data_sample": "97f6fb756e594a184b27ee9a163fbd99eca796a4"
+          },
+          {
+            "start": 178688,
+            "end": 179712,
+            "entropy": 7.829344362323061,
+            "data_sample": "6d8aee4ad504778274791e338dc8c7cc46b0771f"
+          },
+          {
+            "start": 179200,
+            "end": 180224,
+            "entropy": 7.825901210530746,
+            "data_sample": "3dc54f46afe5a9eb49ce17b5c804d1cd90d852ca"
+          },
+          {
+            "start": 179712,
+            "end": 180736,
+            "entropy": 7.818508265825709,
+            "data_sample": "ed547c1465cfc06b19a4a71dd29d5af04bd5a250"
+          },
+          {
+            "start": 180224,
+            "end": 181248,
+            "entropy": 7.7885303739804606,
+            "data_sample": "d819dbdf56fe1e0a3c1786616369429d3344b70f"
+          },
+          {
+            "start": 180736,
+            "end": 181760,
+            "entropy": 7.822841508097101,
+            "data_sample": "269bef5ed5b0427f6c42cd29aeb9bc18c38ee1d0"
+          },
+          {
+            "start": 181248,
+            "end": 182272,
+            "entropy": 7.8063340158045795,
+            "data_sample": "a779562bd585aad1a7a9dc2aacd676d8b6332a94"
+          },
+          {
+            "start": 181760,
+            "end": 182784,
+            "entropy": 7.809641252852032,
+            "data_sample": "1ea5e90aef46117d2c600e4b4fc4110a3e64a293"
+          },
+          {
+            "start": 182272,
+            "end": 183296,
+            "entropy": 7.764758033984321,
+            "data_sample": "570d7b98b6dfe4d8a6d839bf28d1ad50bc5ef508"
+          },
+          {
+            "start": 182784,
+            "end": 183808,
+            "entropy": 7.804705439667297,
+            "data_sample": "0fe87680488285f2b7af3f80bfd24a53342f5e47"
+          },
+          {
+            "start": 183296,
+            "end": 184320,
+            "entropy": 7.800328493273064,
+            "data_sample": "44bdd6d2622b9b784639208b337cde6444dc7ce5"
+          },
+          {
+            "start": 183808,
+            "end": 184832,
+            "entropy": 7.78386962041557,
+            "data_sample": "0724cb3a976da655a9633e707412a0d156e592c3"
+          },
+          {
+            "start": 184320,
+            "end": 185344,
+            "entropy": 7.794647345098281,
+            "data_sample": "efb74ded2aaaed4ec451e1c14db8d7ab254d043c"
+          },
+          {
+            "start": 184832,
+            "end": 185856,
+            "entropy": 7.504037069146633,
+            "data_sample": "673b44234e7410a1e5b4916449effb734ffc400c"
+          },
+          {
+            "start": 185344,
+            "end": 186368,
+            "entropy": 7.387942603828069,
+            "data_sample": "33336dca29b5ec16a833c3e323163942679cf1be"
+          },
+          {
+            "start": 185856,
+            "end": 186880,
+            "entropy": 7.767609150316062,
+            "data_sample": "30302f42697473506572436f6d706f6e656e7420"
+          },
+          {
+            "start": 186368,
+            "end": 187392,
+            "entropy": 7.827884962782437,
+            "data_sample": "fc418678026b0bdb817e055f3875617a3dfd9f73"
+          },
+          {
+            "start": 186880,
+            "end": 187904,
+            "entropy": 7.810062478451019,
+            "data_sample": "af101b0b1048f5ecf8cd383da047a75d2a7c23f8"
+          },
+          {
+            "start": 187392,
+            "end": 188416,
+            "entropy": 7.829813347477887,
+            "data_sample": "cc5c95087d083343dd1be301f7d1fed005063fcc"
+          },
+          {
+            "start": 187904,
+            "end": 188928,
+            "entropy": 7.80375188329586,
+            "data_sample": "7ecfe7bfd377870ebc793b83b1c41b106a3c9a83"
+          },
+          {
+            "start": 188416,
+            "end": 189440,
+            "entropy": 7.7896828944214445,
+            "data_sample": "f9a4d275e347e2b9b7be4c97ef1807be69321162"
+          },
+          {
+            "start": 188928,
+            "end": 189952,
+            "entropy": 7.787445436792798,
+            "data_sample": "c54ddd318f960655a6ea4c4f12b271e0966223fc"
+          },
+          {
+            "start": 189440,
+            "end": 190464,
+            "entropy": 7.807598686982906,
+            "data_sample": "614d624f8bc1628217c250e891142ece217b0371"
+          },
+          {
+            "start": 189952,
+            "end": 190976,
+            "entropy": 7.799765995555589,
+            "data_sample": "dd1fc5cbd252611392617584c6e63d2e054536f9"
+          },
+          {
+            "start": 190464,
+            "end": 191488,
+            "entropy": 7.80973523690007,
+            "data_sample": "1bfa7fcc863e53e011522e036a2e3726a6541c2a"
+          },
+          {
+            "start": 190976,
+            "end": 192000,
+            "entropy": 7.787585667550542,
+            "data_sample": "2f5d85d4f53cd96dc2cbaa8df6d7fed903acda20"
+          },
+          {
+            "start": 191488,
+            "end": 192512,
+            "entropy": 7.796434846327688,
+            "data_sample": "c2871a137bf750878a50b41001c2d05c05677f80"
+          },
+          {
+            "start": 192000,
+            "end": 193024,
+            "entropy": 7.809119824657306,
+            "data_sample": "7aec1d6ddf4a16eb9db6af25170a7828baa7ccdb"
+          },
+          {
+            "start": 192512,
+            "end": 193536,
+            "entropy": 7.844204961687613,
+            "data_sample": "3253170ce3c5ca4a9834c9135675c9f74a838724"
+          },
+          {
+            "start": 193024,
+            "end": 194048,
+            "entropy": 7.823817456792588,
+            "data_sample": "02a1a36ac5268373d300a920f9118b30251bc5bc"
+          },
+          {
+            "start": 193536,
+            "end": 194560,
+            "entropy": 7.819402693222643,
+            "data_sample": "e7536ff95a6b82673df3e1d170874a49e0be9973"
+          },
+          {
+            "start": 194048,
+            "end": 195072,
+            "entropy": 7.794735819742875,
+            "data_sample": "8830e5e6531de4398de0f1a923241c7576f97fcd"
+          },
+          {
+            "start": 194560,
+            "end": 195584,
+            "entropy": 7.789583802999832,
+            "data_sample": "a124d0a137d604fb270fcde165222d7201ead2bb"
+          },
+          {
+            "start": 195072,
+            "end": 196096,
+            "entropy": 7.816546940662481,
+            "data_sample": "92f0b7839398a3749e75f01d7a191f3a054effc7"
+          },
+          {
+            "start": 195584,
+            "end": 196608,
+            "entropy": 7.815514393578386,
+            "data_sample": "cba06050c39c05025412bb0f5c7695747fa1cd9e"
+          },
+          {
+            "start": 196096,
+            "end": 197120,
+            "entropy": 7.821326362420294,
+            "data_sample": "22a09ae099cc9ab41385bd8ce4fed22deef60520"
+          },
+          {
+            "start": 196608,
+            "end": 197632,
+            "entropy": 7.819890478798542,
+            "data_sample": "efff1c12f50c85676065c190c5d63fa40f1a9f14"
+          },
+          {
+            "start": 197120,
+            "end": 198144,
+            "entropy": 7.819693231995339,
+            "data_sample": "897578bdaba4e7e0863b60e118367ea60fb56b52"
+          },
+          {
+            "start": 197632,
+            "end": 198656,
+            "entropy": 7.836343827920496,
+            "data_sample": "0ba254168308582cda99bd96c77121b2c8dc0162"
+          },
+          {
+            "start": 198144,
+            "end": 199168,
+            "entropy": 7.800436401034251,
+            "data_sample": "406b9ad1adae860db24974bfa89ad9ff03950461"
+          },
+          {
+            "start": 198656,
+            "end": 199680,
+            "entropy": 7.828380993572501,
+            "data_sample": "1690b025a35f253fd43923dadc69c7d2444b87b8"
+          },
+          {
+            "start": 199168,
+            "end": 200192,
+            "entropy": 7.832749169294599,
+            "data_sample": "740b910add7e228f207f88eadcab99a8966d0d35"
+          },
+          {
+            "start": 199680,
+            "end": 200704,
+            "entropy": 7.797537912762866,
+            "data_sample": "9db76e91836e00b09ac0cbc28e3d7bce681cd403"
+          },
+          {
+            "start": 200192,
+            "end": 201216,
+            "entropy": 7.8162302133830615,
+            "data_sample": "979353d145a9229c0a9b5eae687a5d98a00c4efa"
+          },
+          {
+            "start": 200704,
+            "end": 201728,
+            "entropy": 7.78205434479659,
+            "data_sample": "9138e0f1c49f196a0f4839fb1f2db9527ca49d1d"
+          },
+          {
+            "start": 201216,
+            "end": 202240,
+            "entropy": 7.768899241876536,
+            "data_sample": "5c785eec96cc9c573e14da9b2a4700a1c4fb471f"
+          },
+          {
+            "start": 201728,
+            "end": 202752,
+            "entropy": 7.828249203457498,
+            "data_sample": "4b47c39403c45294c479fb44595b2a6fb1270fca"
+          },
+          {
+            "start": 202240,
+            "end": 203264,
+            "entropy": 7.813922710219873,
+            "data_sample": "fcb81d867130b1157b59c7eb33db1d11a4aa3941"
+          },
+          {
+            "start": 202752,
+            "end": 203776,
+            "entropy": 7.813657180199396,
+            "data_sample": "bb2b37248a7db612a6d0d8cb7e42db3ad364d968"
+          },
+          {
+            "start": 203264,
+            "end": 204288,
+            "entropy": 7.828319455253108,
+            "data_sample": "b124d6f7980a86643485512c852ede2c6953e428"
+          },
+          {
+            "start": 203776,
+            "end": 204800,
+            "entropy": 7.8130251716556325,
+            "data_sample": "9c08cf65bde8f6d8bc1ad1bb4cb8d282cace8307"
+          },
+          {
+            "start": 204288,
+            "end": 205312,
+            "entropy": 7.7822559957860715,
+            "data_sample": "3f6ecd6e8ac6efaa5953fe9e3a0f55a18917781e"
+          },
+          {
+            "start": 204800,
+            "end": 205824,
+            "entropy": 7.810934182942528,
+            "data_sample": "b7da29f47bc36bbad5840a74a95b24059270f410"
+          },
+          {
+            "start": 205312,
+            "end": 206336,
+            "entropy": 7.8187102369043195,
+            "data_sample": "7850f08b4e50c744b7d8d2d1f36eda9cde40da71"
+          },
+          {
+            "start": 205824,
+            "end": 206848,
+            "entropy": 7.797263711093762,
+            "data_sample": "9db868f3fe6abff8fdae7ce5e43ac6a03fbcc596"
+          },
+          {
+            "start": 206336,
+            "end": 207360,
+            "entropy": 7.832923383809311,
+            "data_sample": "6ca116af694cd7ad29d4d005efd455ace8868c36"
+          },
+          {
+            "start": 206848,
+            "end": 207872,
+            "entropy": 7.800333068483328,
+            "data_sample": "5e2848390483e8d1ef6375a1d7e842a4dfa2544c"
+          },
+          {
+            "start": 207360,
+            "end": 208384,
+            "entropy": 7.784786496296224,
+            "data_sample": "cfb503e02b50bc7cdce675c02090e9df23244ffa"
+          },
+          {
+            "start": 207872,
+            "end": 208896,
+            "entropy": 7.810459691607586,
+            "data_sample": "57c82add0cabfe9a00eac84fa47d1da0a6db4b2a"
+          },
+          {
+            "start": 208384,
+            "end": 209408,
+            "entropy": 7.831493222701231,
+            "data_sample": "35bbc3b6087bd8719cf70a3bb813bbc07dc76bd6"
+          },
+          {
+            "start": 208896,
+            "end": 209920,
+            "entropy": 7.81266104007659,
+            "data_sample": "255a7a54d58cea4b41e183a40109bfcdaf07ea44"
+          },
+          {
+            "start": 209408,
+            "end": 210432,
+            "entropy": 7.82373873130426,
+            "data_sample": "55fd29889a307d23832f219123d4b827521bcc0d"
+          },
+          {
+            "start": 209920,
+            "end": 210944,
+            "entropy": 7.797159276889259,
+            "data_sample": "96ac127d738af9a78dbd2bec0fa6ff6c9e31de4f"
+          },
+          {
+            "start": 210432,
+            "end": 211456,
+            "entropy": 7.806749662803237,
+            "data_sample": "07209fa95f12989b26dd2e3c6358510bddbb7a9e"
+          },
+          {
+            "start": 210944,
+            "end": 211968,
+            "entropy": 7.833099252367517,
+            "data_sample": "48af733f0647ad333cc6fff80fe0fe20226f603b"
+          },
+          {
+            "start": 211456,
+            "end": 212480,
+            "entropy": 7.810879085692429,
+            "data_sample": "0cc7f290ee6e7c0513bb2eb7dda8225efa498347"
+          },
+          {
+            "start": 211968,
+            "end": 212992,
+            "entropy": 7.823917338896515,
+            "data_sample": "1324e9d96765aa33f365bce5371a2fb5bbb34955"
+          },
+          {
+            "start": 212480,
+            "end": 213504,
+            "entropy": 7.808184870606987,
+            "data_sample": "924d1db5d9ec7e007dc491ef3b8e91a5d5bde8b6"
+          },
+          {
+            "start": 212992,
+            "end": 214016,
+            "entropy": 7.813080726755044,
+            "data_sample": "98815b04f6ec2d915d839820d978b8620af74a2d"
+          },
+          {
+            "start": 213504,
+            "end": 214528,
+            "entropy": 7.803848117337128,
+            "data_sample": "5c523031af6f4fdecba5709c31e692272292bfe3"
+          },
+          {
+            "start": 214016,
+            "end": 215040,
+            "entropy": 7.785885941001788,
+            "data_sample": "cfab25afdc142dced8bafad5db5c0aee2d504340"
+          },
+          {
+            "start": 214528,
+            "end": 215552,
+            "entropy": 7.798758072616845,
+            "data_sample": "548a2ebb86356ea8b410499089f6af184bd23dae"
+          },
+          {
+            "start": 215040,
+            "end": 216064,
+            "entropy": 7.796283855138223,
+            "data_sample": "de97803c1267a07e00ac3ac1c4e19cf02843f81b"
+          },
+          {
+            "start": 215552,
+            "end": 216576,
+            "entropy": 7.833307273934532,
+            "data_sample": "5c2491cf7375ea26a5d04afe9cb02ba8a5a986fa"
+          },
+          {
+            "start": 216064,
+            "end": 217088,
+            "entropy": 7.823426184814382,
+            "data_sample": "8fc1f1d8285e7da52aae3b4ab6ef871c1abf6bc8"
+          },
+          {
+            "start": 216576,
+            "end": 217600,
+            "entropy": 7.799186572053675,
+            "data_sample": "0fba756ad897acc29a56dce911f5ba1bccfc96fc"
+          },
+          {
+            "start": 217088,
+            "end": 218112,
+            "entropy": 7.811575094836812,
+            "data_sample": "ea8e83cca493f5c8b7fe6debe1f624b7feba90b4"
+          },
+          {
+            "start": 217600,
+            "end": 218624,
+            "entropy": 7.825135787511087,
+            "data_sample": "e67b35be9c80e1e75be9a74cec94c3c54ba64009"
+          },
+          {
+            "start": 218112,
+            "end": 219136,
+            "entropy": 7.7930118596296545,
+            "data_sample": "e79493267f83569aab749fecd8325262d46972d2"
+          },
+          {
+            "start": 218624,
+            "end": 219648,
+            "entropy": 7.800653685940043,
+            "data_sample": "2d7bb75a625dcd96caaaa825fe7ab2205191218d"
+          },
+          {
+            "start": 219136,
+            "end": 220160,
+            "entropy": 7.7870588251889625,
+            "data_sample": "1ba0c21ea4af2c85a89848f20ba243e9cd1add6c"
+          },
+          {
+            "start": 219648,
+            "end": 220672,
+            "entropy": 7.821135647404755,
+            "data_sample": "82b270477f126ff2393f96d5064ba755b5156b36"
+          },
+          {
+            "start": 220160,
+            "end": 221184,
+            "entropy": 7.806444348064967,
+            "data_sample": "d9abef6b62d9fb15557296e99074c645c78e1a20"
+          },
+          {
+            "start": 220672,
+            "end": 221696,
+            "entropy": 7.849185856705598,
+            "data_sample": "51243034573b0b42b0f0d4c4b7d87255df7f67da"
+          },
+          {
+            "start": 221184,
+            "end": 222208,
+            "entropy": 7.8191003363969385,
+            "data_sample": "1b48df4081759e985c5d3312c8d5f2d0869eb233"
+          },
+          {
+            "start": 221696,
+            "end": 222720,
+            "entropy": 7.822530196279424,
+            "data_sample": "82762a8eb62104c2623947c41d3bd0e1ff04a43c"
+          },
+          {
+            "start": 222208,
+            "end": 223232,
+            "entropy": 7.80956761033269,
+            "data_sample": "73783112e6808c6809a2135295d1d740f25b0358"
+          },
+          {
+            "start": 222720,
+            "end": 223744,
+            "entropy": 7.799924036363923,
+            "data_sample": "097c3fb7240cdc5e341068495b171d67f1a06594"
+          },
+          {
+            "start": 223232,
+            "end": 224256,
+            "entropy": 7.791247413798428,
+            "data_sample": "17ba758ce2cb108c64ebfc44d951168b96fe1f9a"
+          },
+          {
+            "start": 223744,
+            "end": 224768,
+            "entropy": 7.806332197327623,
+            "data_sample": "e787ca1b98e97a3db555266874c3314c5a4426e3"
+          },
+          {
+            "start": 224256,
+            "end": 225280,
+            "entropy": 7.8080503215715735,
+            "data_sample": "4f84c810478083f8c4a15694bbdd4100a3f8e98a"
+          },
+          {
+            "start": 224768,
+            "end": 225792,
+            "entropy": 7.8058537304279625,
+            "data_sample": "5909b1fa1bef1f086387feef14c8f4a11ac60fa5"
+          },
+          {
+            "start": 225280,
+            "end": 226304,
+            "entropy": 7.801688696341617,
+            "data_sample": "451e802beab00ab34cfa265584606dc482591f98"
+          },
+          {
+            "start": 225792,
+            "end": 226816,
+            "entropy": 7.827484896763753,
+            "data_sample": "e9d88d89f5bc7a42d3a9f23dccef36522092e492"
+          },
+          {
+            "start": 226304,
+            "end": 227328,
+            "entropy": 7.7945412558140506,
+            "data_sample": "f06af746c81dfc9d0952276ca77a1701a0c41330"
+          },
+          {
+            "start": 226816,
+            "end": 227840,
+            "entropy": 7.750376973945266,
+            "data_sample": "4db5d9317a9216450e779b60588882eef6e73951"
+          },
+          {
+            "start": 227328,
+            "end": 228352,
+            "entropy": 7.797046058716777,
+            "data_sample": "910976b5c479940d80a4156c7dc646e6faf513d2"
+          },
+          {
+            "start": 227840,
+            "end": 228864,
+            "entropy": 7.7892730749869035,
+            "data_sample": "d0eaa0336bfd0f1c229e330abd4c31c4f36cde55"
+          },
+          {
+            "start": 228352,
+            "end": 229376,
+            "entropy": 7.7798980892695875,
+            "data_sample": "904f121a9b2ac0dd81d3c33df9c85db6d26fff84"
+          },
+          {
+            "start": 228864,
+            "end": 229888,
+            "entropy": 7.83118045987779,
+            "data_sample": "f8fe5e2c66554714a6c63b316431eb384c5c9827"
+          },
+          {
+            "start": 229376,
+            "end": 230400,
+            "entropy": 7.819771107418337,
+            "data_sample": "6d741ee793d620a94dafae2439648f936832469b"
+          },
+          {
+            "start": 229888,
+            "end": 230912,
+            "entropy": 7.825813802285044,
+            "data_sample": "bd81f2b0b4b306ca375cb3275c7111268b17c717"
+          },
+          {
+            "start": 230400,
+            "end": 231424,
+            "entropy": 7.820599617750424,
+            "data_sample": "880b35e9098733c1ef25cbd3992f3256a84af3c3"
+          },
+          {
+            "start": 230912,
+            "end": 231936,
+            "entropy": 7.806534788064559,
+            "data_sample": "576d4d531a976d13b1d97bfc5f882c4682b06be9"
+          },
+          {
+            "start": 231424,
+            "end": 232448,
+            "entropy": 7.836738857057379,
+            "data_sample": "b3b9cdc7e1ee54d787a140acb464ac11f0265655"
+          },
+          {
+            "start": 231936,
+            "end": 232960,
+            "entropy": 7.823484179085322,
+            "data_sample": "c49bf9a08824dab240c22108697b35dcff1cda25"
+          },
+          {
+            "start": 232448,
+            "end": 233472,
+            "entropy": 7.844730391084096,
+            "data_sample": "3be306f3555c2ea953721d5f003495511aa859eb"
+          },
+          {
+            "start": 232960,
+            "end": 233984,
+            "entropy": 7.819658574877714,
+            "data_sample": "865b1294d8677b3173ba54d4a5260c8bd3c6a47c"
+          },
+          {
+            "start": 233472,
+            "end": 234496,
+            "entropy": 7.823679714649111,
+            "data_sample": "89e0d5a3cca42b470a9b9d80d005e647094bdbdd"
+          },
+          {
+            "start": 233984,
+            "end": 235008,
+            "entropy": 7.812337459625502,
+            "data_sample": "eebcd4b691eb0b8e86b31678212be7991eb5f822"
+          },
+          {
+            "start": 234496,
+            "end": 235520,
+            "entropy": 7.7875879455119446,
+            "data_sample": "c38542b1a2060372ea4d99f1b6eae331a0185e8b"
+          },
+          {
+            "start": 235008,
+            "end": 236032,
+            "entropy": 7.829357481021809,
+            "data_sample": "e6973cb721a52628aa55d880810dae4a75e89ee3"
+          },
+          {
+            "start": 235520,
+            "end": 236544,
+            "entropy": 7.799982947968627,
+            "data_sample": "6f41aa2abd1d6321dd4952e357f6a299d021b82b"
+          },
+          {
+            "start": 236032,
+            "end": 237056,
+            "entropy": 7.835742607838554,
+            "data_sample": "8c63304d537b7fd074bae4364f689d31ce1b28e8"
+          },
+          {
+            "start": 236544,
+            "end": 237568,
+            "entropy": 7.839127013281866,
+            "data_sample": "f011e1078ea513a210db3238131c045ee6204a28"
+          },
+          {
+            "start": 237056,
+            "end": 238080,
+            "entropy": 7.792757265583121,
+            "data_sample": "f2f819c4b5b22ebf0dce90fb51ca11414a04600c"
+          },
+          {
+            "start": 237568,
+            "end": 238592,
+            "entropy": 7.804704372232155,
+            "data_sample": "fd4db39c5d8b68229ae0a60feed06f6be44a2dae"
+          },
+          {
+            "start": 238080,
+            "end": 239104,
+            "entropy": 7.804142577701971,
+            "data_sample": "ea0ccdb6b91a30e55522c5cc8fa3feba14cd623f"
+          },
+          {
+            "start": 238592,
+            "end": 239616,
+            "entropy": 7.805151455756502,
+            "data_sample": "ac8bd5901b2efe7bd406cb1e54b3e77b640fa9f0"
+          },
+          {
+            "start": 239104,
+            "end": 240128,
+            "entropy": 7.844226646984532,
+            "data_sample": "8d7817418b8b06b0c91e38d73a83ad1cc1120db9"
+          },
+          {
+            "start": 239616,
+            "end": 240640,
+            "entropy": 7.8424680440857655,
+            "data_sample": "a40d401bd92a1bb997f120063b1d22c65e49234a"
+          },
+          {
+            "start": 240128,
+            "end": 241152,
+            "entropy": 7.825375174075772,
+            "data_sample": "da403828c51c8c3e1f7a60be807280cfb75dda26"
+          },
+          {
+            "start": 240640,
+            "end": 241664,
+            "entropy": 7.817539494909243,
+            "data_sample": "abfd61775d05f5e8657e38495965fbe7951bccff"
+          },
+          {
+            "start": 241152,
+            "end": 242176,
+            "entropy": 7.801355636004158,
+            "data_sample": "ca9e5df1cef9dfd209bb9d24e0dafb711df77284"
+          },
+          {
+            "start": 241664,
+            "end": 242688,
+            "entropy": 7.786545435947339,
+            "data_sample": "fb1f4f187446d0466453c150f319e359e991440a"
+          },
+          {
+            "start": 242176,
+            "end": 243200,
+            "entropy": 7.802454821512314,
+            "data_sample": "d71a938e5204d52b0558c428b79248cbe12452ac"
+          },
+          {
+            "start": 242688,
+            "end": 243712,
+            "entropy": 7.775147908131404,
+            "data_sample": "e56c0f3c8ded2e8db0e5e2d5473ae08f98fe8c5a"
+          },
+          {
+            "start": 243200,
+            "end": 244224,
+            "entropy": 7.819495031112607,
+            "data_sample": "400ee1f8efc9689792a2f8296bbbed88ec68d742"
+          },
+          {
+            "start": 243712,
+            "end": 244736,
+            "entropy": 7.798812379184633,
+            "data_sample": "7e777ad7761f6ab53e08e5914173816af555b6c3"
+          },
+          {
+            "start": 244224,
+            "end": 245248,
+            "entropy": 7.828032886963326,
+            "data_sample": "b97c43f80fde01b2082005b10940b4849fcf8c36"
+          },
+          {
+            "start": 244736,
+            "end": 245760,
+            "entropy": 7.803367188156239,
+            "data_sample": "6914c50b23c2507fe831689474a119449bb5b5b3"
+          },
+          {
+            "start": 245248,
+            "end": 246272,
+            "entropy": 7.824883537399494,
+            "data_sample": "88afe18202b278aa413507a3094fa9054b169c4f"
+          },
+          {
+            "start": 245760,
+            "end": 246784,
+            "entropy": 7.840070718250183,
+            "data_sample": "fee62b52fa523254742f07b9339db9dad89d1479"
+          },
+          {
+            "start": 246272,
+            "end": 247296,
+            "entropy": 7.823719609499177,
+            "data_sample": "9514035e20959809234bc78cf524a1f69aa1c3df"
+          },
+          {
+            "start": 246784,
+            "end": 247808,
+            "entropy": 7.80817917688371,
+            "data_sample": "b1d21ac1fcb5674ef8bcc56061552f9300c13f72"
+          },
+          {
+            "start": 247296,
+            "end": 248320,
+            "entropy": 7.843678131326979,
+            "data_sample": "326f0d0da6907f78e46524b9ac526b53975cd5fe"
+          },
+          {
+            "start": 247808,
+            "end": 248832,
+            "entropy": 7.797699641274355,
+            "data_sample": "c527e56d7e4b150c528341c75200f4ee2876aa51"
+          },
+          {
+            "start": 248320,
+            "end": 249344,
+            "entropy": 7.813079262712079,
+            "data_sample": "94be8687e64be9cac72b7b902aa90d272623d2ac"
+          },
+          {
+            "start": 248832,
+            "end": 249856,
+            "entropy": 7.811007399027402,
+            "data_sample": "25826d6be1fce713ec58607ed58a75cf906cf46a"
+          },
+          {
+            "start": 249344,
+            "end": 250368,
+            "entropy": 7.802490325471935,
+            "data_sample": "6b570aba0230bf913379d3b6628c34aac2003e9d"
+          },
+          {
+            "start": 249856,
+            "end": 250880,
+            "entropy": 7.807650633096577,
+            "data_sample": "b848214e6550aa27f537c4bac1652133099f95c3"
+          },
+          {
+            "start": 250368,
+            "end": 251392,
+            "entropy": 7.817656830442688,
+            "data_sample": "ec63667ae40a747e6c8ba41031079d0a9abd4469"
+          },
+          {
+            "start": 250880,
+            "end": 251904,
+            "entropy": 7.809511109931348,
+            "data_sample": "5d08f5143ac802d5507d093da03db50997b4cfd6"
+          },
+          {
+            "start": 251392,
+            "end": 252416,
+            "entropy": 7.82959992478122,
+            "data_sample": "2c7a7feaf136069f1d781a29e77d64deca06e503"
+          },
+          {
+            "start": 251904,
+            "end": 252928,
+            "entropy": 7.828501225090536,
+            "data_sample": "cad48e7364f9a613efcd7820d2e812357ec62596"
+          },
+          {
+            "start": 252416,
+            "end": 253440,
+            "entropy": 7.840234118360586,
+            "data_sample": "1e851f09d0cd222a96c386c64e44f941883c11c4"
+          },
+          {
+            "start": 252928,
+            "end": 253952,
+            "entropy": 7.805996992047387,
+            "data_sample": "62dfc546697ec2b24f82d0dc6b16c46a41e38f32"
+          },
+          {
+            "start": 253440,
+            "end": 254464,
+            "entropy": 7.799988146060561,
+            "data_sample": "656e0246edf0f4606381550687097f77e2180f7b"
+          },
+          {
+            "start": 253952,
+            "end": 254976,
+            "entropy": 7.807936998348641,
+            "data_sample": "6a46b5b6e33c047d9e5b339d8fc9f47350e5dabc"
+          },
+          {
+            "start": 254464,
+            "end": 255488,
+            "entropy": 7.7779703537888425,
+            "data_sample": "e94e2019b6e2f4fa771d9b3b9f18918ab83075a4"
+          },
+          {
+            "start": 254976,
+            "end": 256000,
+            "entropy": 7.835187239009335,
+            "data_sample": "82461f38a13aba1d0648c595bd6b536e16f170f3"
+          },
+          {
+            "start": 255488,
+            "end": 256512,
+            "entropy": 7.789199066032621,
+            "data_sample": "92ca0b67fa225e9f0766907cf7dadc04342dc6af"
+          },
+          {
+            "start": 256000,
+            "end": 257024,
+            "entropy": 7.800999759925799,
+            "data_sample": "ba5b40b138825810fc0c11bacc87a267b2b1189d"
+          },
+          {
+            "start": 256512,
+            "end": 257536,
+            "entropy": 7.809393557028102,
+            "data_sample": "acedc58762a3ef19d7f6754d3eed847eaf72cfef"
+          },
+          {
+            "start": 257024,
+            "end": 258048,
+            "entropy": 7.825908119862095,
+            "data_sample": "af087c97df00358148319a9a86bacb20274fb798"
+          },
+          {
+            "start": 257536,
+            "end": 258560,
+            "entropy": 7.8068334251733775,
+            "data_sample": "f4836d85cb0cadfcfa1000830e5b9c1feb81f2aa"
+          },
+          {
+            "start": 258048,
+            "end": 259072,
+            "entropy": 7.800682120394432,
+            "data_sample": "0fd0b0cb53f756529c208f16964b44109cc90f46"
+          },
+          {
+            "start": 258560,
+            "end": 259584,
+            "entropy": 7.835606633094167,
+            "data_sample": "92be835809923c7885c673eebeb28e4390cee582"
+          },
+          {
+            "start": 259072,
+            "end": 260096,
+            "entropy": 7.847945724981198,
+            "data_sample": "f633d08fe6aec33980a0b4a802eab85b25e9a262"
+          },
+          {
+            "start": 259584,
+            "end": 260608,
+            "entropy": 7.816241054120411,
+            "data_sample": "7e152033c32bd5d5b7b89697bc8a8ac4dca15b68"
+          },
+          {
+            "start": 260096,
+            "end": 261120,
+            "entropy": 7.817454820287165,
+            "data_sample": "ac5a0b0031691b3ad590d14154e3ed0688edaee2"
+          },
+          {
+            "start": 260608,
+            "end": 261632,
+            "entropy": 7.804738165988612,
+            "data_sample": "35989f8e028a5b0eb949bba8a60435ab791669b3"
+          },
+          {
+            "start": 261120,
+            "end": 262144,
+            "entropy": 7.399470061329861,
+            "data_sample": "1565e08869b9935b07203ff096877f011fc050e9"
+          },
+          {
+            "start": 261632,
+            "end": 262656,
+            "entropy": 7.2530005687379235,
+            "data_sample": "dfa8149a69e9fe6895a4bfce53689a501b20cddf"
+          },
+          {
+            "start": 262144,
+            "end": 263168,
+            "entropy": 7.770463061289571,
+            "data_sample": "3020523e3e3e3e0d656e646f626a0d3131302030"
+          },
+          {
+            "start": 262656,
+            "end": 263680,
+            "entropy": 7.800052510909034,
+            "data_sample": "c851864b336068a7ee930c751167ad8e11e6fa73"
+          },
+          {
+            "start": 263168,
+            "end": 264192,
+            "entropy": 7.807469131706819,
+            "data_sample": "58dea3f1fe42ba25cd1119a3d18c2e1b0be0842b"
+          },
+          {
+            "start": 263680,
+            "end": 264704,
+            "entropy": 7.804164746629284,
+            "data_sample": "d37594af9a91569f73c9c346b27e3ffc944fe0a6"
+          },
+          {
+            "start": 264192,
+            "end": 265216,
+            "entropy": 7.810940245431882,
+            "data_sample": "d1e3b909a7d2a92921220683be65d567122b1347"
+          },
+          {
+            "start": 264704,
+            "end": 265728,
+            "entropy": 7.816289772015369,
+            "data_sample": "370763a0828d73acc2e2e8d32d2d8c189a222e55"
+          },
+          {
+            "start": 265216,
+            "end": 266240,
+            "entropy": 7.437903119479067,
+            "data_sample": "257d753992ffa54a075952f14e379599708bce97"
+          },
+          {
+            "start": 265728,
+            "end": 266752,
+            "entropy": 7.31474561186635,
+            "data_sample": "d1fe3ec2477ca65f3e0ddf31515071520c0b53c1"
+          },
+          {
+            "start": 266240,
+            "end": 267264,
+            "entropy": 7.746831972362883,
+            "data_sample": "745d2f4578744753746174653c3c2f4753322031"
+          },
+          {
+            "start": 266752,
+            "end": 267776,
+            "entropy": 7.741681660268734,
+            "data_sample": "b23b3414f8fbeeb718cec8d5ba71db1de8059f83"
+          },
+          {
+            "start": 267264,
+            "end": 268288,
+            "entropy": 7.257182243616318,
+            "data_sample": "e296e73ca8fe5a6d964bc780aae1571fb44fc491"
+          },
+          {
+            "start": 267776,
+            "end": 268800,
+            "entropy": 7.105434907440605,
+            "data_sample": "f1db4d56263a5abe140e1e9fa2de6890dbaf3689"
+          },
+          {
+            "start": 268288,
+            "end": 269312,
+            "entropy": 7.7563163020426105,
+            "data_sample": "44462f546578745d2f4578744753746174653c3c"
+          },
+          {
+            "start": 268800,
+            "end": 269824,
+            "entropy": 7.791349460945515,
+            "data_sample": "f592a51a005e964788ef4bae12ad1269d19446b3"
+          },
+          {
+            "start": 269312,
+            "end": 270336,
+            "entropy": 7.78363232181176,
+            "data_sample": "8553e9f0bc9e217a41b8087c3336d8ffcbd64024"
+          },
+          {
+            "start": 269824,
+            "end": 270848,
+            "entropy": 7.804842424650894,
+            "data_sample": "84be3366bcc8e5b3e280f436e7d7e4383fbdf527"
+          },
+          {
+            "start": 270336,
+            "end": 271360,
+            "entropy": 7.796823159357081,
+            "data_sample": "0bd4e58fc63ecb863e4c4510f6350a9c8aceb055"
+          },
+          {
+            "start": 270848,
+            "end": 271872,
+            "entropy": 7.183779770613777,
+            "data_sample": "21ea55ecf0b625d3a90a668406deb1d865b89a55"
+          },
+          {
+            "start": 271360,
+            "end": 272384,
+            "entropy": 7.282623243642742,
+            "data_sample": "31362030206f626a3c3c2f547970652f456e636f"
+          },
+          {
+            "start": 271872,
+            "end": 272896,
+            "entropy": 7.834409290017331,
+            "data_sample": "99a3c6635cfd49b519c09cc47b5e0e1c8b353391"
+          },
+          {
+            "start": 272384,
+            "end": 273408,
+            "entropy": 7.807164355722366,
+            "data_sample": "11fec75d23a23591ce19da9e79e60902e9907c4f"
+          },
+          {
+            "start": 272896,
+            "end": 273920,
+            "entropy": 7.216046970196851,
+            "data_sample": "99873781bd55ede9345708e15d822d8c6c36c80f"
+          },
+          {
+            "start": 273408,
+            "end": 274432,
+            "entropy": 7.256029068772991,
+            "data_sample": "a0b0f6079c8b2ee3e38fb92c237aa3e799bc0537"
+          },
+          {
+            "start": 273920,
+            "end": 274944,
+            "entropy": 7.781411792154658,
+            "data_sample": "47928909cf82f0ce9a9435e3bcffc90ec201cacf"
+          },
+          {
+            "start": 274432,
+            "end": 275456,
+            "entropy": 7.7907607588805305,
+            "data_sample": "446c8bd3ef9eee93d3c0fca54c32e3958114261c"
+          },
+          {
+            "start": 274944,
+            "end": 275968,
+            "entropy": 7.810976071811759,
+            "data_sample": "c8afec1b23e30866e78d056f53b766070f05eb21"
+          },
+          {
+            "start": 275456,
+            "end": 276480,
+            "entropy": 7.793153627379472,
+            "data_sample": "c7413d4f6730dc55b3e7da3f5f5107315e91deb6"
+          },
+          {
+            "start": 275968,
+            "end": 276992,
+            "entropy": 7.293499290795132,
+            "data_sample": "ae2349e054bcbbe4f3bf1646ecb03a99a1c60c71"
+          },
+          {
+            "start": 276480,
+            "end": 277504,
+            "entropy": 7.285269904569262,
+            "data_sample": "6ec69b19597d01211fa7fa6f75c122faa2ac5f9f"
+          },
+          {
+            "start": 276992,
+            "end": 278016,
+            "entropy": 7.811658962257393,
+            "data_sample": "6f626a3c3c2f4c656e67746820333035392f4669"
+          },
+          {
+            "start": 277504,
+            "end": 278528,
+            "entropy": 7.7960882634147515,
+            "data_sample": "0c91eaba6011e7eb1cfe4fdc0c15bc7607690f93"
+          },
+          {
+            "start": 278016,
+            "end": 279040,
+            "entropy": 7.807310069550519,
+            "data_sample": "3ded25a35ce7726b1ba9934e501774151fae233d"
+          },
+          {
+            "start": 278528,
+            "end": 279552,
+            "entropy": 7.815821153295488,
+            "data_sample": "5243c6068eda1f38a67d49e6fc2900d4816fb5db"
+          },
+          {
+            "start": 279040,
+            "end": 280064,
+            "entropy": 7.795421390875796,
+            "data_sample": "cd5ea04cede86f755b24927398d0784eafd9794f"
+          },
+          {
+            "start": 279552,
+            "end": 280576,
+            "entropy": 7.3032785406730785,
+            "data_sample": "d14b337ce7aed2d0448467bea5e1d31835bb02f6"
+          },
+          {
+            "start": 280064,
+            "end": 281088,
+            "entropy": 7.284965447037688,
+            "data_sample": "3c52d875b7ceed0a2535494fd285ae60eab89587"
+          },
+          {
+            "start": 280576,
+            "end": 281600,
+            "entropy": 7.825677771380983,
+            "data_sample": "4fff0c353d964b440ca0622e4be9aa5a4eb46d36"
+          },
+          {
+            "start": 281088,
+            "end": 282112,
+            "entropy": 7.8041094033452,
+            "data_sample": "10842d95671043213c474d6a3a2bf688d32a5aa1"
+          },
+          {
+            "start": 281600,
+            "end": 282624,
+            "entropy": 7.821073465281085,
+            "data_sample": "573dd777ff4fef4853370dfa247f73135b6403b4"
+          },
+          {
+            "start": 282112,
+            "end": 283136,
+            "entropy": 7.316350475145518,
+            "data_sample": "8719f549a434b620397b7a8b0c01dad3601c3c54"
+          },
+          {
+            "start": 282624,
+            "end": 283648,
+            "entropy": 7.3105977677887815,
+            "data_sample": "65cc6641014f49f1a1814509473f00004957ae97"
+          },
+          {
+            "start": 283136,
+            "end": 284160,
+            "entropy": 7.795368120880258,
+            "data_sample": "747265616d0d0a72030ee55b8831e98acd14e83f"
+          },
+          {
+            "start": 283648,
+            "end": 284672,
+            "entropy": 7.794076660513421,
+            "data_sample": "5771d8febf10ef3d66d92aa7329f1be3eb15bc66"
+          },
+          {
+            "start": 284160,
+            "end": 285184,
+            "entropy": 7.574964563280541,
+            "data_sample": "0bb3d0a503b076ccbbfa4a6c461ce17ac0cbbf59"
+          },
+          {
+            "start": 284672,
+            "end": 285696,
+            "entropy": 7.359518914983936,
+            "data_sample": "16484e890f5e22f5fe13cc1cd3655822671d174e"
+          },
+          {
+            "start": 285184,
+            "end": 286208,
+            "entropy": 7.745348235243589,
+            "data_sample": "3132203020522f463320323133203020523e3e2f"
+          },
+          {
+            "start": 285696,
+            "end": 286720,
+            "entropy": 7.773634796114276,
+            "data_sample": "fb8f25a33fe76fb51e53ac54cefc1cd3e0b62155"
+          },
+          {
+            "start": 286208,
+            "end": 287232,
+            "entropy": 7.813798582406483,
+            "data_sample": "70b9282450b27e942fd85d7cf781b2af7b1cf3b0"
+          },
+          {
+            "start": 286720,
+            "end": 287744,
+            "entropy": 7.809006298396641,
+            "data_sample": "f394db8f1bd360acc342a3e740f0314ab0aa25e8"
+          },
+          {
+            "start": 287232,
+            "end": 288256,
+            "entropy": 7.703514794369698,
+            "data_sample": "83acf2ffab752b8f45b3200690a91622512cfcb1"
+          },
+          {
+            "start": 287744,
+            "end": 288768,
+            "entropy": 7.3039599016634495,
+            "data_sample": "59e9f8e17fc31ecc9ef32f2bcda642c40d1ac3ca"
+          },
+          {
+            "start": 288256,
+            "end": 289280,
+            "entropy": 7.618148546334271,
+            "data_sample": "656e646f626a0d3133362030206f626a3c3c2f46"
+          },
+          {
+            "start": 288768,
+            "end": 289792,
+            "entropy": 7.823670986840811,
+            "data_sample": "8894a1a60b38e0b36bea3260a58157c837d71597"
+          },
+          {
+            "start": 289280,
+            "end": 290304,
+            "entropy": 7.840647786708414,
+            "data_sample": "1785e6dea59163fe2a4807d136aedd29d8cad84b"
+          },
+          {
+            "start": 289792,
+            "end": 290816,
+            "entropy": 7.8098918907477275,
+            "data_sample": "f3727795d2789cb9ad01a3d585c62e8e02fb39aa"
+          },
+          {
+            "start": 290304,
+            "end": 291328,
+            "entropy": 7.505933884672656,
+            "data_sample": "ec31b3012d83d358c744379d74af78d3c0341837"
+          },
+          {
+            "start": 290816,
+            "end": 291840,
+            "entropy": 7.370167684617005,
+            "data_sample": "f6defd2eaf8a3a7725d28ec5b2cda8d3a6c56849"
+          },
+          {
+            "start": 291328,
+            "end": 292352,
+            "entropy": 7.791840667963989,
+            "data_sample": "5365745b2f5044462f546578745d2f4578744753"
+          },
+          {
+            "start": 291840,
+            "end": 292864,
+            "entropy": 7.832486707318953,
+            "data_sample": "8f9e3e4240cae3c07035d8b4c1d928e09422f766"
+          },
+          {
+            "start": 292352,
+            "end": 293376,
+            "entropy": 7.435219516937796,
+            "data_sample": "df00d2bd9dac109f8ce9d06481d2b84df11128c8"
+          },
+          {
+            "start": 292864,
+            "end": 293888,
+            "entropy": 7.328154262359287,
+            "data_sample": "29fe8e07d92537743cd67b355b4c6b18695bc062"
+          },
+          {
+            "start": 293376,
+            "end": 294400,
+            "entropy": 7.788893372714409,
+            "data_sample": "646f626a0d3134332030206f626a3c3c2f4c656e"
+          },
+          {
+            "start": 293888,
+            "end": 294912,
+            "entropy": 7.810576865930902,
+            "data_sample": "78ac0d2433c14768782d14a2b076a81b4557a9aa"
+          },
+          {
+            "start": 294400,
+            "end": 295424,
+            "entropy": 7.812667896471603,
+            "data_sample": "4c51463ca1107a2b888f94514e63f089a6c5d8f0"
+          },
+          {
+            "start": 294912,
+            "end": 295936,
+            "entropy": 7.815946583941709,
+            "data_sample": "83433512abbf52dbd3043e5bd3abc66d52faa87e"
+          },
+          {
+            "start": 295424,
+            "end": 296448,
+            "entropy": 7.296969845702985,
+            "data_sample": "1f5d04255f005168bcdc99674ef9a745d2c96f2f"
+          },
+          {
+            "start": 295936,
+            "end": 296960,
+            "entropy": 7.3150267495656545,
+            "data_sample": "e774fcf7273e073aea278e0623844b4f0f703718"
+          },
+          {
+            "start": 296448,
+            "end": 297472,
+            "entropy": 7.8151889314274765,
+            "data_sample": "0d0ae541021a5a020d7b61f0f82a36d3a113c5e3"
+          },
+          {
+            "start": 296960,
+            "end": 297984,
+            "entropy": 7.824637507764044,
+            "data_sample": "e7f612c3d51984ec252e5fc2fcc2c10bd53f4de2"
+          },
+          {
+            "start": 297472,
+            "end": 298496,
+            "entropy": 7.79626397398617,
+            "data_sample": "28e46cbf7058da5bf5256d4ecc8b5df4dc0d56f2"
+          },
+          {
+            "start": 297984,
+            "end": 299008,
+            "entropy": 7.788864603580172,
+            "data_sample": "2237c911277c80d62b8cf60d868feaab9325a0af"
+          },
+          {
+            "start": 298496,
+            "end": 299520,
+            "entropy": 7.330533480992945,
+            "data_sample": "6ca1c385daf1f7dc059de54a917b55e0b7a426d9"
+          },
+          {
+            "start": 299008,
+            "end": 300032,
+            "entropy": 7.368085330117136,
+            "data_sample": "2f436f6e74656e747320313439203020522f5479"
+          },
+          {
+            "start": 299520,
+            "end": 300544,
+            "entropy": 7.804272170760087,
+            "data_sample": "2e10ef6f2cb3121a7c96033d3e4cf7ab717fa682"
+          },
+          {
+            "start": 300032,
+            "end": 301056,
+            "entropy": 7.738446099349381,
+            "data_sample": "374fcb5d1335caeafbfe1cf82f927815dcd34ec3"
+          },
+          {
+            "start": 300544,
+            "end": 301568,
+            "entropy": 7.511798261198192,
+            "data_sample": "fad100a738b1cbb4e6fd2814bd5897ad2eae0577"
+          },
+          {
+            "start": 301056,
+            "end": 302080,
+            "entropy": 7.71518176061258,
+            "data_sample": "5374656d48203134302f43617048656967687420"
+          },
+          {
+            "start": 301568,
+            "end": 302592,
+            "entropy": 7.798286893628466,
+            "data_sample": "2541a762bae3832b045ae9ee2459327b6cb5b391"
+          },
+          {
+            "start": 302080,
+            "end": 303104,
+            "entropy": 7.805463792145474,
+            "data_sample": "606046b912b114375933596b6182c9e98e9e7726"
+          },
+          {
+            "start": 302592,
+            "end": 303616,
+            "entropy": 7.7923772275945264,
+            "data_sample": "ae793c0762491195a87b3be9b38e17edc8616d04"
+          },
+          {
+            "start": 303104,
+            "end": 304128,
+            "entropy": 7.8312292570421285,
+            "data_sample": "8cf7733955bc3e0a57e2b21ee3cb969d76ba7831"
+          },
+          {
+            "start": 303616,
+            "end": 304640,
+            "entropy": 7.817231283150129,
+            "data_sample": "8886590993a104fd9b2c2635295394dfdfc2848d"
+          },
+          {
+            "start": 304128,
+            "end": 305152,
+            "entropy": 7.801448565654256,
+            "data_sample": "e03bd050169528c062d2e20116aceefe65fa939c"
+          },
+          {
+            "start": 304640,
+            "end": 305664,
+            "entropy": 7.793484008065901,
+            "data_sample": "64c1852d20adfe1130c41a170a0fce588bc56146"
+          },
+          {
+            "start": 305152,
+            "end": 306176,
+            "entropy": 6.643817219226268,
+            "data_sample": "e2492c89f97bb5a4a70ba0b62de9c1a77afebafa"
+          },
+          {
+            "start": 305664,
+            "end": 306688,
+            "entropy": 4.58140456776634,
+            "data_sample": "672f42617365466f6e742f42444144504e2b5061"
+          },
+          {
+            "start": 306176,
+            "end": 307200,
+            "entropy": 4.283401175974757,
+            "data_sample": "456e636f64696e672f42617365466f6e742f4244"
+          },
+          {
+            "start": 306688,
+            "end": 307712,
+            "entropy": 4.205448979347839,
+            "data_sample": "727374436861722033322f4c6173744368617220"
+          },
+          {
+            "start": 307200,
+            "end": 308224,
+            "entropy": 4.811943802298804,
+            "data_sample": "2030203235302030203530302035303020302030"
+          },
+          {
+            "start": 307712,
+            "end": 308736,
+            "entropy": 5.095909235419023,
+            "data_sample": "3620323238203732392035303120353031203530"
+          },
+          {
+            "start": 308224,
+            "end": 309248,
+            "entropy": 5.468180225661139,
+            "data_sample": "2032353020323530203630362036303620363036"
+          },
+          {
+            "start": 308736,
+            "end": 309760,
+            "entropy": 5.691004084413234,
+            "data_sample": "5a4c3ee844385d1feb77b9385ecc765fcea5a81c"
+          },
+          {
+            "start": 309248,
+            "end": 310272,
+            "entropy": 7.031734442659059,
+            "data_sample": "3637203732322038333320363131203535362038"
+          },
+          {
+            "start": 309760,
+            "end": 310784,
+            "entropy": 7.775096457649075,
+            "data_sample": "48ffb1737f87cc015342495f03a0ebf377482d8f"
+          },
+          {
+            "start": 310272,
+            "end": 311296,
+            "entropy": 7.790760380300595,
+            "data_sample": "067b3eac8ccda436ca2e8db0ccb96992af918de5"
+          },
+          {
+            "start": 310784,
+            "end": 311808,
+            "entropy": 7.789543425555624,
+            "data_sample": "e04f5f99ccdee113d0942d128ac51d342ecb7ab5"
+          },
+          {
+            "start": 311296,
+            "end": 312320,
+            "entropy": 7.796147985444284,
+            "data_sample": "e44821fc653f42f0058a0890e35ed766d5af3423"
+          },
+          {
+            "start": 311808,
+            "end": 312832,
+            "entropy": 7.818100991165116,
+            "data_sample": "6c82a38968e2efb739209280791d8ba5b209f12b"
+          },
+          {
+            "start": 312320,
+            "end": 313344,
+            "entropy": 7.776338556023361,
+            "data_sample": "d744417d2d74d206fd2971c723cf846e36b12d5e"
+          },
+          {
+            "start": 312832,
+            "end": 313856,
+            "entropy": 6.566853839122396,
+            "data_sample": "612eb4d6749be415279d63e282a6ee9cd7ab5c72"
+          },
+          {
+            "start": 313344,
+            "end": 314368,
+            "entropy": 4.228972594621012,
+            "data_sample": "727374436861722033322f4c6173744368617220"
+          },
+          {
+            "start": 313856,
+            "end": 314880,
+            "entropy": 4.258682433863655,
+            "data_sample": "6f772d426f6c642f466972737443686172203332"
+          },
+          {
+            "start": 314368,
+            "end": 315392,
+            "entropy": 4.43741838902651,
+            "data_sample": "30203832305d3e3e0d656e646f626a0d31363420"
+          },
+          {
+            "start": 314880,
+            "end": 315904,
+            "entropy": 4.25730212809634,
+            "data_sample": "203732322035303020353030203434345d3e3e0d"
+          },
+          {
+            "start": 315392,
+            "end": 316416,
+            "entropy": 4.0383265884066715,
+            "data_sample": "3332362036303320353635203833342035313620"
+          },
+          {
+            "start": 315904,
+            "end": 316928,
+            "entropy": 6.055501514499815,
+            "data_sample": "3420363030203233322032353920323332203235"
+          },
+          {
+            "start": 316416,
+            "end": 317440,
+            "entropy": 7.703549102734022,
+            "data_sample": "6c69632f466c6167732039382f5374656d562038"
+          },
+          {
+            "start": 316928,
+            "end": 317952,
+            "entropy": 7.805062392431064,
+            "data_sample": "908fc9246c4cbdbd5c14d24e10d62535ccfeab50"
+          },
+          {
+            "start": 317440,
+            "end": 318464,
+            "entropy": 7.800635220976427,
+            "data_sample": "4e3ee9ff9e00fff816dbf89a3f4961d92eb9beba"
+          },
+          {
+            "start": 317952,
+            "end": 318976,
+            "entropy": 7.82694516507418,
+            "data_sample": "03c0cbe8a3a3c7931c8a418d77503ff57944a2a5"
+          },
+          {
+            "start": 318464,
+            "end": 319488,
+            "entropy": 7.806886718278606,
+            "data_sample": "e6f0beaaa0b50514c60d89030c1e44ece574bdad"
+          },
+          {
+            "start": 318976,
+            "end": 320000,
+            "entropy": 7.823567413810385,
+            "data_sample": "60856422cd5593c52c51ce3daf02c0f467b2c2a4"
+          },
+          {
+            "start": 319488,
+            "end": 320512,
+            "entropy": 7.823425484850433,
+            "data_sample": "011c3d06d8a9ce77bf1fdbd084b16b6b8ff4d683"
+          },
+          {
+            "start": 320000,
+            "end": 321024,
+            "entropy": 7.7820508671943385,
+            "data_sample": "155948eb83e89e158026cefb510dd8ac330f2854"
+          },
+          {
+            "start": 320512,
+            "end": 321536,
+            "entropy": 7.782348968558649,
+            "data_sample": "4ed6f9c85867260f528555b350a3234fcd03b01b"
+          },
+          {
+            "start": 321024,
+            "end": 322048,
+            "entropy": 7.780145948490734,
+            "data_sample": "997eda40b9e8a0670a6f3a0b16ca063bf92e5c93"
+          },
+          {
+            "start": 321536,
+            "end": 322560,
+            "entropy": 7.795513121707267,
+            "data_sample": "ec67ab3c489656e99c9bde6f5467dca1f125f659"
+          },
+          {
+            "start": 322048,
+            "end": 323072,
+            "entropy": 7.796676364797945,
+            "data_sample": "ebf40fbb98b436ab58bdc849f4e3c3551226627e"
+          },
+          {
+            "start": 322560,
+            "end": 323584,
+            "entropy": 7.708597159232329,
+            "data_sample": "b4f676a03b2be1bbc38f6dbeb32a3bce2ebe071c"
+          },
+          {
+            "start": 323072,
+            "end": 324096,
+            "entropy": 7.555273758874925,
+            "data_sample": "e3a1e913264cc2fadfd54a9994817a5fb15ac861"
+          },
+          {
+            "start": 323584,
+            "end": 324608,
+            "entropy": 7.235768362033537,
+            "data_sample": "0409003b7690fedc604fb2636d1b448c5ae1c508"
+          },
+          {
+            "start": 324096,
+            "end": 325120,
+            "entropy": 6.175088885384651,
+            "data_sample": "203020522f466f6e7442426f785b2d313336202d"
+          },
+          {
+            "start": 324608,
+            "end": 325632,
+            "entropy": 6.949692145261071,
+            "data_sample": "2033313920343739203232382032373320323238"
+          },
+          {
+            "start": 325120,
+            "end": 326144,
+            "entropy": 7.783566771181857,
+            "data_sample": "6633943301b318d43dd4fdaf8794ab3354f42233"
+          },
+          {
+            "start": 325632,
+            "end": 326656,
+            "entropy": 7.765085101287945,
+            "data_sample": "247ce4974b85d2647faf9cf27ff93d4f94231195"
+          },
+          {
+            "start": 326144,
+            "end": 327168,
+            "entropy": 7.801919413444761,
+            "data_sample": "3fa919fd3f00be831291a3693043ddf2644f9ad5"
+          },
+          {
+            "start": 326656,
+            "end": 327680,
+            "entropy": 7.814453552891009,
+            "data_sample": "3e9d744a4a50bb1df982bb77d26c597407d8d5c5"
+          },
+          {
+            "start": 327168,
+            "end": 328192,
+            "entropy": 7.813689638073033,
+            "data_sample": "0c95574735a5c5024abd50db4e24cd108e5fdcab"
+          },
+          {
+            "start": 327680,
+            "end": 328704,
+            "entropy": 7.734088841836439,
+            "data_sample": "55771f1726a8025d2c9eb550a91bd5b10d52779a"
+          },
+          {
+            "start": 328192,
+            "end": 329216,
+            "entropy": 6.407608833411468,
+            "data_sample": "9e72860d749d65ed9b19e1ec4ca58cd91d6f0c16"
+          },
+          {
+            "start": 328704,
+            "end": 329728,
+            "entropy": 4.414122086079973,
+            "data_sample": "7220323832203020522f5769647468735b323530"
+          },
+          {
+            "start": 329216,
+            "end": 330240,
+            "entropy": 4.4184401355724505,
+            "data_sample": "746f7220323738203020522f5769647468735b32"
+          },
+          {
+            "start": 329728,
+            "end": 330752,
+            "entropy": 4.528777787999981,
+            "data_sample": "3332203233322036303020363030203630302034"
+          },
+          {
+            "start": 330240,
+            "end": 331264,
+            "entropy": 4.53600803641386,
+            "data_sample": "3435362034353620343536203237332032373320"
+          },
+          {
+            "start": 330752,
+            "end": 331776,
+            "entropy": 4.522984803833696,
+            "data_sample": "3435362034353620343536203435362032323820"
+          },
+          {
+            "start": 331264,
+            "end": 332288,
+            "entropy": 4.455008975124551,
+            "data_sample": "3536203435362034353620343536203435362032"
+          },
+          {
+            "start": 331776,
+            "end": 332800,
+            "entropy": 4.5021289602764964,
+            "data_sample": "3634203436342034363420343634203436342034"
+          },
+          {
+            "start": 332288,
+            "end": 333312,
+            "entropy": 4.5350212892447805,
+            "data_sample": "2035303020353030203530302035303020353030"
+          },
+          {
+            "start": 332800,
+            "end": 333824,
+            "entropy": 4.392149389147245,
+            "data_sample": "3733203232382032323820343536203435362034"
+          },
+          {
+            "start": 333312,
+            "end": 334336,
+            "entropy": 3.908687678819277,
+            "data_sample": "3535362035353620302030203020302032373820"
+          },
+          {
+            "start": 333824,
+            "end": 334848,
+            "entropy": 4.015150383511555,
+            "data_sample": "2038333120373836203630342037383620363638"
+          },
+          {
+            "start": 334336,
+            "end": 335360,
+            "entropy": 4.423103112261816,
+            "data_sample": "4e432b48656c7665746963612d436f6d70726573"
+          },
+          {
+            "start": 334848,
+            "end": 335872,
+            "entropy": 4.474832779632552,
+            "data_sample": "617365466f6e742f4b49494f504e2b50616c6174"
+          },
+          {
+            "start": 335360,
+            "end": 336384,
+            "entropy": 4.783488485635175,
+            "data_sample": "672f42617365466f6e742f424441444e4e2b4865"
+          },
+          {
+            "start": 335872,
+            "end": 336896,
+            "entropy": 4.856721097011514,
+            "data_sample": "302e30322f6f702066616c73652f4f504d20313e"
+          },
+          {
+            "start": 336384,
+            "end": 337408,
+            "entropy": 6.819160894709289,
+            "data_sample": "2033322f4c61737443686172203132312f537562"
+          },
+          {
+            "start": 336896,
+            "end": 337920,
+            "entropy": 7.658956838770924,
+            "data_sample": "7237802ca492f412ea09633b8be8a5f27a2a57f9"
+          },
+          {
+            "start": 337408,
+            "end": 338432,
+            "entropy": 6.382851692908431,
+            "data_sample": "264396494fe9767774204fcbcddae3cf533a9ee9"
+          },
+          {
+            "start": 337920,
+            "end": 338944,
+            "entropy": 6.062718390023372,
+            "data_sample": "9aa93e38f7534e438a6d1a214e5c29d6817bc23f"
+          },
+          {
+            "start": 338432,
+            "end": 339456,
+            "entropy": 7.526126284497113,
+            "data_sample": "2036303020363030203630302036303020363030"
+          },
+          {
+            "start": 338944,
+            "end": 339968,
+            "entropy": 7.848248738648371,
+            "data_sample": "15050e961134dcca571236b5bc6e50c1f2550ec6"
+          },
+          {
+            "start": 339456,
+            "end": 340480,
+            "entropy": 7.808525379029616,
+            "data_sample": "c8c5c3013869672b6213fb8ce56910fb702ec5d0"
+          },
+          {
+            "start": 339968,
+            "end": 340992,
+            "entropy": 7.772750956830195,
+            "data_sample": "29997b7ef205b5d7355f9f542d3c51cb37d41260"
+          },
+          {
+            "start": 340480,
+            "end": 341504,
+            "entropy": 7.699709235857794,
+            "data_sample": "486a313b3cf3d4e1350db4099721631bc7c5d65c"
+          },
+          {
+            "start": 340992,
+            "end": 342016,
+            "entropy": 7.557230535824457,
+            "data_sample": "3dc316fbb97785128294590fd76b1d3e577cce72"
+          },
+          {
+            "start": 341504,
+            "end": 342528,
+            "entropy": 7.423391187818452,
+            "data_sample": "44657363656e74202d3135372f4974616c696341"
+          },
+          {
+            "start": 342016,
+            "end": 343040,
+            "entropy": 7.661730348286815,
+            "data_sample": "31203132323220313032315d2f466f6e744e616d"
+          },
+          {
+            "start": 342528,
+            "end": 343552,
+            "entropy": 7.830651701944193,
+            "data_sample": "3a00d5b2d0a111e81a0f179ffb3d0327f0d7d081"
+          },
+          {
+            "start": 343040,
+            "end": 344064,
+            "entropy": 7.801720145126891,
+            "data_sample": "d710b798a8f519d7fa69ad07ea7365efa4426978"
+          },
+          {
+            "start": 343552,
+            "end": 344576,
+            "entropy": 7.795309344152657,
+            "data_sample": "38b8bec9471af1d9ab103adbb33b4babb4023624"
+          },
+          {
+            "start": 344064,
+            "end": 345088,
+            "entropy": 7.79209878191303,
+            "data_sample": "109a7187db60c9b54a730e0cfe1e12803cc70903"
+          },
+          {
+            "start": 344576,
+            "end": 345600,
+            "entropy": 7.791751431427475,
+            "data_sample": "30f708e7e166114666eef6a2f8f39307c56f2531"
+          },
+          {
+            "start": 345088,
+            "end": 346112,
+            "entropy": 7.806279840620282,
+            "data_sample": "4b564859adda8519acf3ad82dc511c488ba0748a"
+          },
+          {
+            "start": 345600,
+            "end": 346624,
+            "entropy": 7.787670750579198,
+            "data_sample": "f3cf31c904996d16ca7bdf3c4da2852e971bb197"
+          },
+          {
+            "start": 346112,
+            "end": 347136,
+            "entropy": 7.779507611197033,
+            "data_sample": "217fce77821ef46d42f4d6d03301b960fd25e2a2"
+          },
+          {
+            "start": 346624,
+            "end": 347648,
+            "entropy": 7.828845008077693,
+            "data_sample": "f865ee3c4ab4ee925d002ab8c8c384f64f771ccd"
+          },
+          {
+            "start": 347136,
+            "end": 348160,
+            "entropy": 7.675574622339169,
+            "data_sample": "068f202ed916697e8f773e633d5015d0816cf030"
+          },
+          {
+            "start": 347648,
+            "end": 348672,
+            "entropy": 6.242115087106668,
+            "data_sample": "7fc28ed4ce3035a5648e8ded54f3ea9a77296675"
+          },
+          {
+            "start": 348160,
+            "end": 349184,
+            "entropy": 4.091759832336704,
+            "data_sample": "3436342036333020353933203232322032393620"
+          },
+          {
+            "start": 348672,
+            "end": 349696,
+            "entropy": 4.632295308621465,
+            "data_sample": "3020353030203639372036393620353030203530"
+          },
+          {
+            "start": 349184,
+            "end": 350208,
+            "entropy": 6.823690029004927,
+            "data_sample": "2036303020363030203630302036303020363030"
+          },
+          {
+            "start": 349696,
+            "end": 350720,
+            "entropy": 7.824439617156571,
+            "data_sample": "0eaa70db83b5624e0ed2b6cd701d1e19c925c425"
+          },
+          {
+            "start": 350208,
+            "end": 351232,
+            "entropy": 7.836759853499097,
+            "data_sample": "4f6c72ba81d374de64981b20a507df2537450210"
+          },
+          {
+            "start": 350720,
+            "end": 351744,
+            "entropy": 7.789296808275584,
+            "data_sample": "d69ffcf0f2e5d13587593710dc8d0aec4f5b4fd3"
+          },
+          {
+            "start": 351232,
+            "end": 352256,
+            "entropy": 7.797716842775376,
+            "data_sample": "4d1c2a4cfbd059af9ea5764cadac8b9000999403"
+          },
+          {
+            "start": 351744,
+            "end": 352768,
+            "entropy": 7.806387577357484,
+            "data_sample": "a1f379fbd43d685c05a2c69c4818182ead25e0fc"
+          },
+          {
+            "start": 352256,
+            "end": 353280,
+            "entropy": 7.622817819275359,
+            "data_sample": "df80d4dd297baf52adc809baa661c00b79b768ff"
+          },
+          {
+            "start": 352768,
+            "end": 353792,
+            "entropy": 6.034853001356055,
+            "data_sample": "7e345f1d1f8585e52d6688616f5e9bc967f55a12"
+          },
+          {
+            "start": 353280,
+            "end": 354304,
+            "entropy": 5.613007403940867,
+            "data_sample": "3e0d656e646f626a0d3230342030206f626a3c3c"
+          },
+          {
+            "start": 353792,
+            "end": 354816,
+            "entropy": 5.568556457264039,
+            "data_sample": "363720343236203432365d3e3e0d656e646f626a"
+          },
+          {
+            "start": 354304,
+            "end": 355328,
+            "entropy": 6.502434692566621,
+            "data_sample": "63726970746f7220323035203020522f57696474"
+          },
+          {
+            "start": 354816,
+            "end": 355840,
+            "entropy": 7.827488600986087,
+            "data_sample": "5479706531433e3e73747265616d0d0a16c897fb"
+          },
+          {
+            "start": 355328,
+            "end": 356352,
+            "entropy": 7.842247068253476,
+            "data_sample": "61752fe726521256c3aa44eafe5e533cbab519e9"
+          },
+          {
+            "start": 355840,
+            "end": 356864,
+            "entropy": 7.812257605551662,
+            "data_sample": "ec944593b9dd1fe2e44985fe18636e2643d8c1a2"
+          },
+          {
+            "start": 356352,
+            "end": 357376,
+            "entropy": 7.787311278338275,
+            "data_sample": "7fc4e6eb456c35bfd7278505b593f69b2f7fd203"
+          },
+          {
+            "start": 356864,
+            "end": 357888,
+            "entropy": 7.812594575336272,
+            "data_sample": "4b73875e05a1e7cb3672093b7901581ce0ad2ca1"
+          },
+          {
+            "start": 357376,
+            "end": 358400,
+            "entropy": 7.611326786945476,
+            "data_sample": "fb80d0e0373b357139ce7e549b148064318d84ad"
+          },
+          {
+            "start": 357888,
+            "end": 358912,
+            "entropy": 6.209175514860192,
+            "data_sample": "79fff2b155c5c5598d4eb508d2cf809bb805ce45"
+          },
+          {
+            "start": 358400,
+            "end": 359424,
+            "entropy": 6.875600782812351,
+            "data_sample": "7369456e636f64696e672f42617365466f6e742f"
+          },
+          {
+            "start": 358912,
+            "end": 359936,
+            "entropy": 7.775246402452434,
+            "data_sample": "51d4f0ab8867b9453f0d2a0d0aa18f11ac2c6db9"
+          },
+          {
+            "start": 359424,
+            "end": 360448,
+            "entropy": 7.793414066545551,
+            "data_sample": "25671c51c1c115fe02ef17493e4bd6570bc4133b"
+          },
+          {
+            "start": 359936,
+            "end": 360960,
+            "entropy": 7.818694254234711,
+            "data_sample": "55f81956321aea9d5a4995bcb6b656ac277d1e6d"
+          },
+          {
+            "start": 360448,
+            "end": 361472,
+            "entropy": 7.786268337257399,
+            "data_sample": "4e3d3d3283b63a941641b15c14da3dbed900b6d5"
+          },
+          {
+            "start": 360960,
+            "end": 361984,
+            "entropy": 7.77405531982086,
+            "data_sample": "9e21052f3ab5a059eac656cbdc1a77ea9a43c84b"
+          },
+          {
+            "start": 361472,
+            "end": 362496,
+            "entropy": 7.803596889609744,
+            "data_sample": "e93ddebf13ccd94957ed31fb3ec074eebc8bb650"
+          },
+          {
+            "start": 361984,
+            "end": 363008,
+            "entropy": 7.795376297933794,
+            "data_sample": "fdd33f00a70f298448a9825204bb3e47f56046a4"
+          },
+          {
+            "start": 362496,
+            "end": 363520,
+            "entropy": 7.807213946792356,
+            "data_sample": "4a6b8a2686237c6d148d474f0e62e3463791b9b2"
+          },
+          {
+            "start": 363008,
+            "end": 364032,
+            "entropy": 7.73891541996166,
+            "data_sample": "3a176d5f6a9d01097171fc84a7eb681eac32c6e6"
+          },
+          {
+            "start": 363520,
+            "end": 364544,
+            "entropy": 7.793973356966919,
+            "data_sample": "a00ca82fd697ea516977e645888cafe45b457cdb"
+          },
+          {
+            "start": 364032,
+            "end": 365056,
+            "entropy": 7.798129271369187,
+            "data_sample": "fa7d16463bdd6fac574b74d62c8d1838810c0507"
+          },
+          {
+            "start": 364544,
+            "end": 365568,
+            "entropy": 7.811048370562876,
+            "data_sample": "400bda90fa9e396ddfd1e6b7d1dbb4a35877edf0"
+          },
+          {
+            "start": 365056,
+            "end": 366080,
+            "entropy": 7.8259868443141745,
+            "data_sample": "9368d9d12af14027b7ce5c3b66f5ad5f367f5bfc"
+          },
+          {
+            "start": 365568,
+            "end": 366592,
+            "entropy": 7.822273664373401,
+            "data_sample": "1ecab8b59e688402ca84cafc1db3338e0a8aa6ce"
+          },
+          {
+            "start": 366080,
+            "end": 367104,
+            "entropy": 7.81560709790329,
+            "data_sample": "ad6694851f2aa1c4a35bc26d2572ebf20fbc2aec"
+          },
+          {
+            "start": 366592,
+            "end": 367616,
+            "entropy": 7.812905520719003,
+            "data_sample": "b780dede094f1596b6cdc4d6df8ff1c831df3725"
+          },
+          {
+            "start": 367104,
+            "end": 368128,
+            "entropy": 7.808433567892521,
+            "data_sample": "6730bdf5393f94e6ec14100f34cb1e08a62ae86e"
+          },
+          {
+            "start": 367616,
+            "end": 368640,
+            "entropy": 7.820892881225089,
+            "data_sample": "14906984ae4f28e67984f502f7afc0f7a04fc04b"
+          },
+          {
+            "start": 368128,
+            "end": 369152,
+            "entropy": 7.836942204954187,
+            "data_sample": "4e3a50977623eab46da2423da918ca6d6ebfd608"
+          },
+          {
+            "start": 368640,
+            "end": 369664,
+            "entropy": 7.826512652290594,
+            "data_sample": "8e920cdf073479970e039f9e3754c9f8f4355170"
+          },
+          {
+            "start": 369152,
+            "end": 370176,
+            "entropy": 7.787497708550074,
+            "data_sample": "a63ca71f27c30503773d55f80b27619e83a8cfb1"
+          },
+          {
+            "start": 369664,
+            "end": 370688,
+            "entropy": 7.794193041967326,
+            "data_sample": "c7761b9536f17e52a93d4d8d770f7701e8a82e2b"
+          },
+          {
+            "start": 370176,
+            "end": 371200,
+            "entropy": 7.805160617268172,
+            "data_sample": "97d5491eba326df2eafb52dc90866aef16320204"
+          },
+          {
+            "start": 370688,
+            "end": 371712,
+            "entropy": 7.220919389632157,
+            "data_sample": "1adcd8983d17b3fb879ccdf845ca247ebec04455"
+          },
+          {
+            "start": 371200,
+            "end": 372224,
+            "entropy": 5.225492423994988,
+            "data_sample": "841a3952ee579ad6e242c1c49eba47c86200373c"
+          },
+          {
+            "start": 371712,
+            "end": 372736,
+            "entropy": 4.462550315938764,
+            "data_sample": "3130303020363637203636372036363720333333"
+          },
+          {
+            "start": 372224,
+            "end": 373248,
+            "entropy": 4.482747625407521,
+            "data_sample": "3020363230203530302033323020363430203332"
+          },
+          {
+            "start": 372736,
+            "end": 373760,
+            "entropy": 4.5020198796300095,
+            "data_sample": "2036303620353030203337382036383320363832"
+          },
+          {
+            "start": 373248,
+            "end": 374272,
+            "entropy": 4.51035834519989,
+            "data_sample": "6e646f626a0d3231362030206f626a3c3c2f5479"
+          },
+          {
+            "start": 373760,
+            "end": 374784,
+            "entropy": 4.819896816342973,
+            "data_sample": "33365d3e3e0d656e646f626a0d3231372030206f"
+          },
+          {
+            "start": 374272,
+            "end": 375296,
+            "entropy": 4.795793453074647,
+            "data_sample": "2035353620353536203530302033383920323830"
+          },
+          {
+            "start": 374784,
+            "end": 375808,
+            "entropy": 5.846278393077568,
+            "data_sample": "3737382036313120373738203636372035353620"
+          },
+          {
+            "start": 375296,
+            "end": 376320,
+            "entropy": 7.471894488237598,
+            "data_sample": "3131203934342037373820383333203636372038"
+          },
+          {
+            "start": 375808,
+            "end": 376832,
+            "entropy": 7.817835652181412,
+            "data_sample": "71bc139424aa6b682b7eebde2d94d88bee4452bf"
+          },
+          {
+            "start": 376320,
+            "end": 377344,
+            "entropy": 7.793088519444574,
+            "data_sample": "66956dc8684dfebabc545eb8e3a8902959538e98"
+          },
+          {
+            "start": 376832,
+            "end": 377856,
+            "entropy": 7.5497561619826214,
+            "data_sample": "aef032b48e15e3b5bda0a433b9b7b3eb8e4184c9"
+          },
+          {
+            "start": 377344,
+            "end": 378368,
+            "entropy": 7.018517717225364,
+            "data_sample": "6e646f626a0d3232322030206f626a3c3c2f5479"
+          },
+          {
+            "start": 377856,
+            "end": 378880,
+            "entropy": 5.7007838085694305,
+            "data_sample": "74263d2d27c81a5cedd2fe30ff8d7649fdbc2872"
+          },
+          {
+            "start": 378368,
+            "end": 379392,
+            "entropy": 4.600636949575037,
+            "data_sample": "3030203630302036303020363030203630302036"
+          },
+          {
+            "start": 378880,
+            "end": 379904,
+            "entropy": 4.366845737879859,
+            "data_sample": "d6ab596e188dd0bfb174c205e598402a70161fa0"
+          },
+          {
+            "start": 379392,
+            "end": 380416,
+            "entropy": 5.239941225569051,
+            "data_sample": "2033393520343234203332362036303320353635"
+          },
+          {
+            "start": 379904,
+            "end": 380928,
+            "entropy": 5.573221149681822,
+            "data_sample": "3030203630302036303020363030203630302036"
+          },
+          {
+            "start": 380416,
+            "end": 381440,
+            "entropy": 6.595546787437364,
+            "data_sample": "3c2f547970652f466f6e742f456e636f64696e67"
+          },
+          {
+            "start": 380928,
+            "end": 381952,
+            "entropy": 7.800155989997751,
+            "data_sample": "372f46696c7465722f466c6174654465636f6465"
+          },
+          {
+            "start": 381440,
+            "end": 382464,
+            "entropy": 7.816387663323467,
+            "data_sample": "325c52c5248786befac40d6ec80c0d07e01ef086"
+          },
+          {
+            "start": 381952,
+            "end": 382976,
+            "entropy": 7.7975620092631415,
+            "data_sample": "22f6e4d089a794360c98c0b32d01cd8e3ba565fd"
+          },
+          {
+            "start": 382464,
+            "end": 383488,
+            "entropy": 7.796718197507503,
+            "data_sample": "d977ff684fc5fdd62c22841d0e28b4dd9f347145"
+          },
+          {
+            "start": 382976,
+            "end": 384000,
+            "entropy": 7.811947468406676,
+            "data_sample": "67b50c95d0c4c6161ae8ac9c1b52a7d4e5c54fa5"
+          },
+          {
+            "start": 383488,
+            "end": 384512,
+            "entropy": 6.9093129788235865,
+            "data_sample": "85367f7637e95524492e347cbb6433dcb5316530"
+          },
+          {
+            "start": 384000,
+            "end": 385024,
+            "entropy": 5.896428961856301,
+            "data_sample": "1fe45f8156f4ebb36df9a9322e874da840fa36fc"
+          },
+          {
+            "start": 384512,
+            "end": 385536,
+            "entropy": 6.322907233697825,
+            "data_sample": "2036303020363030203630302036303020363030"
+          },
+          {
+            "start": 385024,
+            "end": 386048,
+            "entropy": 6.687669069030045,
+            "data_sample": "6f626a3c3c2f547970652f466f6e742f456e636f"
+          },
+          {
+            "start": 385536,
+            "end": 386560,
+            "entropy": 6.255333878727504,
+            "data_sample": "0db541214680032e344ecd174855e89caa38a093"
+          },
+          {
+            "start": 386048,
+            "end": 387072,
+            "entropy": 4.885907703619104,
+            "data_sample": "2f547970652f466f6e742f456e636f64696e672f"
+          },
+          {
+            "start": 386560,
+            "end": 387584,
+            "entropy": 5.162015478399426,
+            "data_sample": "6e742f456e636f64696e672f57696e416e736945"
+          },
+          {
+            "start": 387072,
+            "end": 388096,
+            "entropy": 4.5726986972670325,
+            "data_sample": "7970652f456e636f64696e672f44696666657265"
+          },
+          {
+            "start": 387584,
+            "end": 388608,
+            "entropy": 4.981079937182565,
+            "data_sample": "6d696e75732f74776f7375706572696f722f7468"
+          },
+          {
+            "start": 388096,
+            "end": 389120,
+            "entropy": 5.3536114913854025,
+            "data_sample": "63756d666c65782f6964696572657369732f6574"
+          },
+          {
+            "start": 388608,
+            "end": 389632,
+            "entropy": 7.186097210402658,
+            "data_sample": "20525d2f547970652f50616765732f506172656e"
+          },
+          {
+            "start": 389120,
+            "end": 390144,
+            "entropy": 7.812991434058857,
+            "data_sample": "44c49b270435b3f146be9d19b9c7a6efe1e5b625"
+          },
+          {
+            "start": 389632,
+            "end": 390656,
+            "entropy": 7.81131406075723,
+            "data_sample": "b336225490f8898c92b56babae1d76b2e355c9b8"
+          },
+          {
+            "start": 390144,
+            "end": 391168,
+            "entropy": 7.80709889903417,
+            "data_sample": "f997d75be555886a65b309469b534dd6c0e8ba9a"
+          },
+          {
+            "start": 390656,
+            "end": 391680,
+            "entropy": 7.814599023568278,
+            "data_sample": "97c8636ac7f759615cb872861bc23a339359d939"
+          },
+          {
+            "start": 391168,
+            "end": 392192,
+            "entropy": 7.811632711564063,
+            "data_sample": "322285d7ba144b176b5ded9bbd616c4cbbfa2976"
+          },
+          {
+            "start": 391680,
+            "end": 392704,
+            "entropy": 7.413708146207563,
+            "data_sample": "533f37f48ce2816dfdd66709021e8dccb14e8aec"
+          },
+          {
+            "start": 392192,
+            "end": 393216,
+            "entropy": 6.415938150035456,
+            "data_sample": "a68d62eeec2a416c91249350d95d3b5d9fbdd339"
+          },
+          {
+            "start": 392704,
+            "end": 393728,
+            "entropy": 4.6747782214533276,
+            "data_sample": "6a0d3236302030206f626a3c3c2f522032363120"
+          },
+          {
+            "start": 393216,
+            "end": 394240,
+            "entropy": 2.7870104342211763,
+            "data_sample": "3030303839323235203030303030206e0d0a3030"
+          },
+          {
+            "start": 393728,
+            "end": 394752,
+            "entropy": 2.824652813049846,
+            "data_sample": "3030206e0d0a3030303031323630343620303030"
+          },
+          {
+            "start": 394240,
+            "end": 395264,
+            "entropy": 2.818422068223611,
+            "data_sample": "39363234203030303030206e0d0a303030303134"
+          },
+          {
+            "start": 394752,
+            "end": 395776,
+            "entropy": 2.861119242988667,
+            "data_sample": "0d0a30303030313539353030203030303030206e"
+          },
+          {
+            "start": 395264,
+            "end": 396288,
+            "entropy": 2.8420383793503685,
+            "data_sample": "203030303030206e0d0a30303030323632313539"
+          },
+          {
+            "start": 395776,
+            "end": 396800,
+            "entropy": 2.805950364474277,
+            "data_sample": "3030323838303932203030303030206e0d0a3030"
+          },
+          {
+            "start": 396288,
+            "end": 397312,
+            "entropy": 2.8314744727697656,
+            "data_sample": "3030206e0d0a3030303033303935353620303030"
+          },
+          {
+            "start": 396800,
+            "end": 397824,
+            "entropy": 2.8537120346893086,
+            "data_sample": "34383030203030303030206e0d0a303030303333"
+          },
+          {
+            "start": 397312,
+            "end": 398336,
+            "entropy": 2.8468539496092564,
+            "data_sample": "0d0a30303030333731333434203030303030206e"
+          }
+        ],
+        "statistics": {
+          "min_entropy": 2.7870104342211763,
+          "max_entropy": 7.851588156200136,
+          "avg_entropy": 7.395067105025542,
+          "std_entropy": 0.9703522830732267
+        }
+      },
+      "anomalous_regions": [
+        {
+          "start": 0,
+          "end": 1024,
+          "entropy": 3.841300920648265,
+          "z_score": 3.6623463935407625,
+          "is_high_entropy": false,
+          "data_sample": "255044462d312e350d25e2e3cfd30d0a32363420"
+        },
+        {
+          "start": 2560,
+          "end": 3584,
+          "entropy": 5.271733691451329,
+          "z_score": 2.188208808917676,
+          "is_high_entropy": false,
+          "data_sample": "626a0d3236362030206f626a3c3c2f5061676573"
+        },
+        {
+          "start": 4608,
+          "end": 5632,
+          "entropy": 5.460313670095647,
+          "z_score": 1.9938670405373704,
+          "is_high_entropy": false,
+          "data_sample": "081fd64bd5cad932ac947cd193fd754d4ed5e401"
+        },
+        {
+          "start": 5120,
+          "end": 6144,
+          "entropy": 4.4706944529758985,
+          "z_score": 3.013722648013761,
+          "is_high_entropy": false,
+          "data_sample": "3420323034203436342034363420333730203636"
+        },
+        {
+          "start": 5632,
+          "end": 6656,
+          "entropy": 5.606233207979894,
+          "z_score": 1.8434891412634056,
+          "is_high_entropy": false,
+          "data_sample": "3535362035353620353536203535362035353620"
+        },
+        {
+          "start": 6656,
+          "end": 7680,
+          "entropy": 5.350002830089104,
+          "z_score": 2.1075482694382544,
+          "is_high_entropy": false,
+          "data_sample": "44657363656e74202d3230372f4974616c696341"
+        },
+        {
+          "start": 7168,
+          "end": 8192,
+          "entropy": 5.498185054877449,
+          "z_score": 1.9548385501195826,
+          "is_high_entropy": false,
+          "data_sample": "3333332036303620333333203630362035303020"
+        },
+        {
+          "start": 305664,
+          "end": 306688,
+          "entropy": 4.58140456776634,
+          "z_score": 2.89962994506282,
+          "is_high_entropy": false,
+          "data_sample": "672f42617365466f6e742f42444144504e2b5061"
+        },
+        {
+          "start": 306176,
+          "end": 307200,
+          "entropy": 4.283401175974757,
+          "z_score": 3.2067384014347353,
+          "is_high_entropy": false,
+          "data_sample": "456e636f64696e672f42617365466f6e742f4244"
+        },
+        {
+          "start": 306688,
+          "end": 307712,
+          "entropy": 4.205448979347839,
+          "z_score": 3.2870723151964816,
+          "is_high_entropy": false,
+          "data_sample": "727374436861722033322f4c6173744368617220"
+        },
+        {
+          "start": 307200,
+          "end": 308224,
+          "entropy": 4.811943802298804,
+          "z_score": 2.6620469161423155,
+          "is_high_entropy": false,
+          "data_sample": "2030203235302030203530302035303020302030"
+        },
+        {
+          "start": 307712,
+          "end": 308736,
+          "entropy": 5.095909235419023,
+          "z_score": 2.369405328057558,
+          "is_high_entropy": false,
+          "data_sample": "3620323238203732392035303120353031203530"
+        },
+        {
+          "start": 308224,
+          "end": 309248,
+          "entropy": 5.468180225661139,
+          "z_score": 1.9857601336925925,
+          "is_high_entropy": false,
+          "data_sample": "2032353020323530203630362036303620363036"
+        },
+        {
+          "start": 308736,
+          "end": 309760,
+          "entropy": 5.691004084413234,
+          "z_score": 1.756128212751072,
+          "is_high_entropy": false,
+          "data_sample": "5a4c3ee844385d1feb77b9385ecc765fcea5a81c"
+        },
+        {
+          "start": 313344,
+          "end": 314368,
+          "entropy": 4.228972594621012,
+          "z_score": 3.2628299697271945,
+          "is_high_entropy": false,
+          "data_sample": "727374436861722033322f4c6173744368617220"
+        },
+        {
+          "start": 313856,
+          "end": 314880,
+          "entropy": 4.258682433863655,
+          "z_score": 3.2322123891217793,
+          "is_high_entropy": false,
+          "data_sample": "6f772d426f6c642f466972737443686172203332"
+        },
+        {
+          "start": 314368,
+          "end": 315392,
+          "entropy": 4.43741838902651,
+          "z_score": 3.048015414187299,
+          "is_high_entropy": false,
+          "data_sample": "30203832305d3e3e0d656e646f626a0d31363420"
+        },
+        {
+          "start": 314880,
+          "end": 315904,
+          "entropy": 4.25730212809634,
+          "z_score": 3.233634868144494,
+          "is_high_entropy": false,
+          "data_sample": "203732322035303020353030203434345d3e3e0d"
+        },
+        {
+          "start": 315392,
+          "end": 316416,
+          "entropy": 4.0383265884066715,
+          "z_score": 3.4593008901753235,
+          "is_high_entropy": false,
+          "data_sample": "3332362036303320353635203833342035313620"
+        },
+        {
+          "start": 328704,
+          "end": 329728,
+          "entropy": 4.414122086079973,
+          "z_score": 3.0720235021290865,
+          "is_high_entropy": false,
+          "data_sample": "7220323832203020522f5769647468735b323530"
+        },
+        {
+          "start": 329216,
+          "end": 330240,
+          "entropy": 4.4184401355724505,
+          "z_score": 3.067573520851358,
+          "is_high_entropy": false,
+          "data_sample": "746f7220323738203020522f5769647468735b32"
+        },
+        {
+          "start": 329728,
+          "end": 330752,
+          "entropy": 4.528777787999981,
+          "z_score": 2.953864660314567,
+          "is_high_entropy": false,
+          "data_sample": "3332203233322036303020363030203630302034"
+        },
+        {
+          "start": 330240,
+          "end": 331264,
+          "entropy": 4.53600803641386,
+          "z_score": 2.946413502070284,
+          "is_high_entropy": false,
+          "data_sample": "3435362034353620343536203237332032373320"
+        },
+        {
+          "start": 330752,
+          "end": 331776,
+          "entropy": 4.522984803833696,
+          "z_score": 2.9598346407714975,
+          "is_high_entropy": false,
+          "data_sample": "3435362034353620343536203435362032323820"
+        },
+        {
+          "start": 331264,
+          "end": 332288,
+          "entropy": 4.455008975124551,
+          "z_score": 3.0298873730574014,
+          "is_high_entropy": false,
+          "data_sample": "3536203435362034353620343536203435362032"
+        },
+        {
+          "start": 331776,
+          "end": 332800,
+          "entropy": 4.5021289602764964,
+          "z_score": 2.9813277046010027,
+          "is_high_entropy": false,
+          "data_sample": "3634203436342034363420343634203436342034"
+        },
+        {
+          "start": 332288,
+          "end": 333312,
+          "entropy": 4.5350212892447805,
+          "z_score": 2.9474303978784278,
+          "is_high_entropy": false,
+          "data_sample": "2035303020353030203530302035303020353030"
+        },
+        {
+          "start": 332800,
+          "end": 333824,
+          "entropy": 4.392149389147245,
+          "z_score": 3.0946675431810005,
+          "is_high_entropy": false,
+          "data_sample": "3733203232382032323820343536203435362034"
+        },
+        {
+          "start": 333312,
+          "end": 334336,
+          "entropy": 3.908687678819277,
+          "z_score": 3.5929007299951587,
+          "is_high_entropy": false,
+          "data_sample": "3535362035353620302030203020302032373820"
+        },
+        {
+          "start": 333824,
+          "end": 334848,
+          "entropy": 4.015150383511555,
+          "z_score": 3.483185210642643,
+          "is_high_entropy": false,
+          "data_sample": "2038333120373836203630342037383620363638"
+        },
+        {
+          "start": 334336,
+          "end": 335360,
+          "entropy": 4.423103112261816,
+          "z_score": 3.062768073622855,
+          "is_high_entropy": false,
+          "data_sample": "4e432b48656c7665746963612d436f6d70726573"
+        },
+        {
+          "start": 334848,
+          "end": 335872,
+          "entropy": 4.474832779632552,
+          "z_score": 3.009457880744345,
+          "is_high_entropy": false,
+          "data_sample": "617365466f6e742f4b49494f504e2b50616c6174"
+        },
+        {
+          "start": 335360,
+          "end": 336384,
+          "entropy": 4.783488485635175,
+          "z_score": 2.6913716440375364,
+          "is_high_entropy": false,
+          "data_sample": "672f42617365466f6e742f424441444e4e2b4865"
+        },
+        {
+          "start": 335872,
+          "end": 336896,
+          "entropy": 4.856721097011514,
+          "z_score": 2.6159015156585914,
+          "is_high_entropy": false,
+          "data_sample": "302e30322f6f702066616c73652f4f504d20313e"
+        },
+        {
+          "start": 348160,
+          "end": 349184,
+          "entropy": 4.091759832336704,
+          "z_score": 3.4042350704085034,
+          "is_high_entropy": false,
+          "data_sample": "3436342036333020353933203232322032393620"
+        },
+        {
+          "start": 348672,
+          "end": 349696,
+          "entropy": 4.632295308621465,
+          "z_score": 2.847184310891745,
+          "is_high_entropy": false,
+          "data_sample": "3020353030203639372036393620353030203530"
+        },
+        {
+          "start": 353280,
+          "end": 354304,
+          "entropy": 5.613007403940867,
+          "z_score": 1.8365079694981183,
+          "is_high_entropy": false,
+          "data_sample": "3e0d656e646f626a0d3230342030206f626a3c3c"
+        },
+        {
+          "start": 353792,
+          "end": 354816,
+          "entropy": 5.568556457264039,
+          "z_score": 1.8823170508515896,
+          "is_high_entropy": false,
+          "data_sample": "363720343236203432365d3e3e0d656e646f626a"
+        },
+        {
+          "start": 371200,
+          "end": 372224,
+          "entropy": 5.225492423994988,
+          "z_score": 2.2358629117244315,
+          "is_high_entropy": false,
+          "data_sample": "841a3952ee579ad6e242c1c49eba47c86200373c"
+        },
+        {
+          "start": 371712,
+          "end": 372736,
+          "entropy": 4.462550315938764,
+          "z_score": 3.022115617432394,
+          "is_high_entropy": false,
+          "data_sample": "3130303020363637203636372036363720333333"
+        },
+        {
+          "start": 372224,
+          "end": 373248,
+          "entropy": 4.482747625407521,
+          "z_score": 3.0013012082522668,
+          "is_high_entropy": false,
+          "data_sample": "3020363230203530302033323020363430203332"
+        },
+        {
+          "start": 372736,
+          "end": 373760,
+          "entropy": 4.5020198796300095,
+          "z_score": 2.9814401180495924,
+          "is_high_entropy": false,
+          "data_sample": "2036303620353030203337382036383320363832"
+        },
+        {
+          "start": 373248,
+          "end": 374272,
+          "entropy": 4.51035834519989,
+          "z_score": 2.972846882669683,
+          "is_high_entropy": false,
+          "data_sample": "6e646f626a0d3231362030206f626a3c3c2f5479"
+        },
+        {
+          "start": 373760,
+          "end": 374784,
+          "entropy": 4.819896816342973,
+          "z_score": 2.653850909204525,
+          "is_high_entropy": false,
+          "data_sample": "33365d3e3e0d656e646f626a0d3231372030206f"
+        },
+        {
+          "start": 374272,
+          "end": 375296,
+          "entropy": 4.795793453074647,
+          "z_score": 2.6786907160342546,
+          "is_high_entropy": false,
+          "data_sample": "2035353620353536203530302033383920323830"
+        },
+        {
+          "start": 374784,
+          "end": 375808,
+          "entropy": 5.846278393077568,
+          "z_score": 1.5961097211445388,
+          "is_high_entropy": false,
+          "data_sample": "3737382036313120373738203636372035353620"
+        },
+        {
+          "start": 377856,
+          "end": 378880,
+          "entropy": 5.7007838085694305,
+          "z_score": 1.7460496832038206,
+          "is_high_entropy": false,
+          "data_sample": "74263d2d27c81a5cedd2fe30ff8d7649fdbc2872"
+        },
+        {
+          "start": 378368,
+          "end": 379392,
+          "entropy": 4.600636949575037,
+          "z_score": 2.879809945518133,
+          "is_high_entropy": false,
+          "data_sample": "3030203630302036303020363030203630302036"
+        },
+        {
+          "start": 378880,
+          "end": 379904,
+          "entropy": 4.366845737879859,
+          "z_score": 3.1207443110814643,
+          "is_high_entropy": false,
+          "data_sample": "d6ab596e188dd0bfb174c205e598402a70161fa0"
+        },
+        {
+          "start": 379392,
+          "end": 380416,
+          "entropy": 5.239941225569051,
+          "z_score": 2.2209726478211995,
+          "is_high_entropy": false,
+          "data_sample": "2033393520343234203332362036303320353635"
+        },
+        {
+          "start": 379904,
+          "end": 380928,
+          "entropy": 5.573221149681822,
+          "z_score": 1.8775098354730582,
+          "is_high_entropy": false,
+          "data_sample": "3030203630302036303020363030203630302036"
+        },
+        {
+          "start": 384000,
+          "end": 385024,
+          "entropy": 5.896428961856301,
+          "z_score": 1.5444268739419744,
+          "is_high_entropy": false,
+          "data_sample": "1fe45f8156f4ebb36df9a9322e874da840fa36fc"
+        },
+        {
+          "start": 386048,
+          "end": 387072,
+          "entropy": 4.885907703619104,
+          "z_score": 2.5858231543080596,
+          "is_high_entropy": false,
+          "data_sample": "2f547970652f466f6e742f456e636f64696e672f"
+        },
+        {
+          "start": 386560,
+          "end": 387584,
+          "entropy": 5.162015478399426,
+          "z_score": 2.3012793040005666,
+          "is_high_entropy": false,
+          "data_sample": "6e742f456e636f64696e672f57696e416e736945"
+        },
+        {
+          "start": 387072,
+          "end": 388096,
+          "entropy": 4.5726986972670325,
+          "z_score": 2.9086018109007967,
+          "is_high_entropy": false,
+          "data_sample": "7970652f456e636f64696e672f44696666657265"
+        },
+        {
+          "start": 387584,
+          "end": 388608,
+          "entropy": 4.981079937182565,
+          "z_score": 2.487743070174039,
+          "is_high_entropy": false,
+          "data_sample": "6d696e75732f74776f7375706572696f722f7468"
+        },
+        {
+          "start": 388096,
+          "end": 389120,
+          "entropy": 5.3536114913854025,
+          "z_score": 2.103829350691684,
+          "is_high_entropy": false,
+          "data_sample": "63756d666c65782f6964696572657369732f6574"
+        },
+        {
+          "start": 392704,
+          "end": 393728,
+          "entropy": 4.6747782214533276,
+          "z_score": 2.8034033938238596,
+          "is_high_entropy": false,
+          "data_sample": "6a0d3236302030206f626a3c3c2f522032363120"
+        },
+        {
+          "start": 393216,
+          "end": 394240,
+          "entropy": 2.7870104342211763,
+          "z_score": 4.748849207846532,
+          "is_high_entropy": false,
+          "data_sample": "3030303839323235203030303030206e0d0a3030"
+        },
+        {
+          "start": 393728,
+          "end": 394752,
+          "entropy": 2.824652813049846,
+          "z_score": 4.710056720329058,
+          "is_high_entropy": false,
+          "data_sample": "3030206e0d0a3030303031323630343620303030"
+        },
+        {
+          "start": 394240,
+          "end": 395264,
+          "entropy": 2.818422068223611,
+          "z_score": 4.716477836592629,
+          "is_high_entropy": false,
+          "data_sample": "39363234203030303030206e0d0a303030303134"
+        },
+        {
+          "start": 394752,
+          "end": 395776,
+          "entropy": 2.861119242988667,
+          "z_score": 4.672476111126669,
+          "is_high_entropy": false,
+          "data_sample": "0d0a30303030313539353030203030303030206e"
+        },
+        {
+          "start": 395264,
+          "end": 396288,
+          "entropy": 2.8420383793503685,
+          "z_score": 4.692139963081412,
+          "is_high_entropy": false,
+          "data_sample": "203030303030206e0d0a30303030323632313539"
+        },
+        {
+          "start": 395776,
+          "end": 396800,
+          "entropy": 2.805950364474277,
+          "z_score": 4.72933059529366,
+          "is_high_entropy": false,
+          "data_sample": "3030323838303932203030303030206e0d0a3030"
+        },
+        {
+          "start": 396288,
+          "end": 397312,
+          "entropy": 2.8314744727697656,
+          "z_score": 4.7030266346180065,
+          "is_high_entropy": false,
+          "data_sample": "3030206e0d0a3030303033303935353620303030"
+        },
+        {
+          "start": 396800,
+          "end": 397824,
+          "entropy": 2.8537120346893086,
+          "z_score": 4.68010963601095,
+          "is_high_entropy": false,
+          "data_sample": "34383030203030303030206e0d0a303030303333"
+        },
+        {
+          "start": 397312,
+          "end": 398336,
+          "entropy": 2.8468539496092564,
+          "z_score": 4.687177260006569,
+          "is_high_entropy": false,
+          "data_sample": "0d0a30303030333731333434203030303030206e"
+        }
+      ],
+      "compression_artifacts": [],
+      "summary": {
+        "overall_entropy": 7.857339531120716,
+        "num_anomalous_regions": 67,
+        "high_entropy_regions": 0,
+        "compression_artifacts": 0,
+        "suspicious_artifacts": 0,
+        "compression_suspicion_score": 0.0
+      }
+    }
+  },
+  "summary": {
+    "suspicious_score": 0.0,
+    "anomalies_detected": 0,
+    "recommendation": "Low risk - No significant steganographic content detected."
+  }
+}

@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "detector_app/base.html" %}
 
 {% block content %}
 <div class="container mx-auto px-4 py-8">
@@ -38,18 +38,19 @@
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-200">
-                    {% if active_model %}
+                    
+                    {% for model in active_models %}
                     <tr>
-                        <td class="py-4 px-4 text-sm text-gray-900">{{ active_model.name }}</td>
-                        <td class="py-4 px-4 text-sm text-gray-900">{{ active_model.get_model_type_display }}</td>
-                        <td class="py-4 px-4 text-sm text-gray-900">{{ active_model.accuracy|floatformat:2 }}%</td>
-                        <td class="py-4 px-4 text-sm text-gray-900">{{ active_model.dataset.name }}</td>
+                        <td class="py-4 px-4 text-sm text-gray-900">{{ model.name }}</td>
+                        <td class="py-4 px-4 text-sm text-gray-900">{{ model.get_model_type_display }}</td>
+                        <td class="py-4 px-4 text-sm text-gray-900">{{ model.accuracy|floatformat:2 }}%</td>
+                        <td class="py-4 px-4 text-sm text-gray-900">{{ model.dataset.name }}</td>
                     </tr>
-                    {% else %}
+                    {% empty %}
                     <tr>
                         <td class="py-4 px-4 text-sm text-gray-500 italic" colspan="4">No active models found. Please train a model first.</td>
                     </tr>
-                    {% endif %}
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
