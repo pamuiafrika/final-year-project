@@ -1,0 +1,236 @@
+
+{% load math_filters %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Steganography Detection Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm border-b">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <h1 class="text-xl font-bold text-gray-900">PDF Steganography Detector</h1>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="{% url 'pdf_detector:upload_pdf' %}" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition duration-150">
+                        <i class="fas fa-upload mr-2"></i>Upload PDF
+                    </a>
+                    <div class="relative">
+                        <button class="flex items-center text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500" id="user-menu">
+                            <span class="sr-only">Open user menu</span>
+                            <div class="h-8 w-8 rounded-full bg-gray-300 flex items-center justify-center">
+                                <i class="fas fa-user text-gray-600"></i>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Page Header -->
+        <div class="mb-8">
+            <h2 class="text-2xl font-bold text-gray-900">Dashboard</h2>
+            <p class="mt-1 text-sm text-gray-600">Monitor your PDF analysis activities and results</p>
+        </div>
+
+        <!-- Statistics Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <!-- Total Analyses -->
+            <div class="bg-white overflow-hidden shadow rounded-lg">
+                <div class="p-5">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            <div class="w-8 h-8 bg-blue-500 rounded-md flex items-center justify-center">
+                                <i class="fas fa-file-pdf text-white text-sm"></i>
+                            </div>
+                        </div>
+                        <div class="ml-5 w-0 flex-1">
+                            <dl>
+                                <dt class="text-sm font-medium text-gray-500 truncate">Total Analyses</dt>
+                                <dd class="text-2xl font-semibold text-gray-900">{{ total_analyses }}</dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Completed Analyses -->
+            <div class="bg-white overflow-hidden shadow rounded-lg">
+                <div class="p-5">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            <div class="w-8 h-8 bg-green-500 rounded-md flex items-center justify-center">
+                                <i class="fas fa-check-circle text-white text-sm"></i>
+                            </div>
+                        </div>
+                        <div class="ml-5 w-0 flex-1">
+                            <dl>
+                                <dt class="text-sm font-medium text-gray-500 truncate">Completed</dt>
+                                <dd class="text-2xl font-semibold text-gray-900">{{ completed_analyses }}</dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- High Risk Count -->
+            <div class="bg-white overflow-hidden shadow rounded-lg">
+                <div class="p-5">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            <div class="w-8 h-8 bg-red-500 rounded-md flex items-center justify-center">
+                                <i class="fas fa-exclamation-triangle text-white text-sm"></i>
+                            </div>
+                        </div>
+                        <div class="ml-5 w-0 flex-1">
+                            <dl>
+                                <dt class="text-sm font-medium text-gray-500 truncate">High Risk</dt>
+                                <dd class="text-2xl font-semibold text-gray-900">{{ high_risk_count }}</dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Success Rate -->
+            <div class="bg-white overflow-hidden shadow rounded-lg">
+                <div class="p-5">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            <div class="w-8 h-8 bg-purple-500 rounded-md flex items-center justify-center">
+                                <i class="fas fa-chart-line text-white text-sm"></i>
+                            </div>
+                        </div>
+                        <div class="ml-5 w-0 flex-1">
+                            <dl>
+                                <dt class="text-sm font-medium text-gray-500 truncate">Success Rate</dt>
+                                <dd class="text-2xl font-semibold text-gray-900">
+                                    {% if total_analyses > 0 %}
+                                        {{ completed_analyses|mul:100|div:total_analyses|floatformat:0 }}%
+                                    {% else %}
+                                        0%
+                                    {% endif %}
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="mb-8">
+            <div class="bg-white shadow rounded-lg p-6">
+                <h3 class="text-lg font-medium text-gray-900 mb-4">Quick Actions</h3>
+                <div class="flex flex-wrap gap-4">
+                    <a href="{% url 'pdf_detector:upload_pdf' %}" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 transition duration-150">
+                        <i class="fas fa-upload mr-2"></i>Upload New PDF
+                    </a>
+                    <a href="{% url 'pdf_detector:analysis_list' %}" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 transition duration-150">
+                        <i class="fas fa-list mr-2"></i>View All Analyses
+                    </a>
+                    <a href="{% url 'pdf_detector:analysis_list' %}?risk=HIGH_RISK" class="inline-flex items-center px-4 py-2 border border-red-300 text-sm font-medium rounded-md text-red-700 bg-red-50 hover:bg-red-100 transition duration-150">
+                        <i class="fas fa-exclamation-triangle mr-2"></i>High Risk Files
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Analyses -->
+        <div class="bg-white shadow rounded-lg">
+            <div class="px-6 py-4 border-b border-gray-200">
+                <div class="flex items-center justify-between">
+                    <h3 class="text-lg font-medium text-gray-900">Recent Analyses</h3>
+                    <a href="{% url 'pdf_detector:analysis_list' %}" class="text-sm text-blue-600 hover:text-blue-900">View all</a>
+                </div>
+            </div>
+            
+            {% if recent_analyses %}
+            <div class="overflow-hidden">
+                <ul class="divide-y divide-gray-200">
+                    {% for analysis in recent_analyses %}
+                    <li class="px-6 py-4 hover:bg-gray-50 transition duration-150">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0">
+                                    <div class="h-10 w-10 rounded-full bg-gray-100 flex items-center justify-center">
+                                        <i class="fas fa-file-pdf text-red-500"></i>
+                                    </div>
+                                </div>
+                                <div class="ml-4">
+                                    <div class="flex items-center">
+                                        <p class="text-sm font-medium text-gray-900 truncate max-w-xs">
+                                            {{ analysis.original_filename }}
+                                        </p>
+                                        {% if analysis.assessment %}
+                                        <span class="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
+                                            {% if analysis.assessment == 'HIGH_RISK' or analysis.assessment == 'CRITICAL' %}
+                                                bg-red-100 text-red-800
+                                            {% elif analysis.assessment == 'MEDIUM_RISK' %}
+                                                bg-yellow-100 text-yellow-800
+                                            {% elif analysis.assessment == 'LOW_RISK' %}
+                                                bg-blue-100 text-blue-800
+                                            {% else %}
+                                                bg-green-100 text-green-800
+                                            {% endif %}
+                                        ">
+                                            {{ analysis.get_assessment_display }}
+                                        </span>
+                                        {% endif %}
+                                    </div>
+                                    <p class="text-sm text-gray-500">
+                                        Uploaded {{ analysis.upload_date|timesince }} ago
+                                        {% if analysis.analysis_date %}
+                                        • Analyzed {{ analysis.analysis_date|timesince }} ago
+                                        {% endif %}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                {% if analysis.risk_score %}
+                                <div class="text-right">
+                                    <p class="text-sm font-medium text-gray-900">Risk Score</p>
+                                    <p class="text-sm text-gray-500">{{ analysis.risk_score|floatformat:1 }}</p>
+                                </div>
+                                {% endif %}
+                                <a href="{% url 'pdf_detector:analysis_detail' pk=analysis.pk %}" class="text-blue-600 hover:text-blue-900">
+                                    <i class="fas fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% else %}
+            <div class="text-center py-12">
+                <i class="fas fa-file-pdf text-gray-400 text-4xl mb-4"></i>
+                <h3 class="text-lg font-medium text-gray-900 mb-2">No analyses yet</h3>
+                <p class="text-gray-500 mb-6">Get started by uploading your first PDF file for analysis.</p>
+                <a href="{% url 'pdf_detector:upload_pdf' %}" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
+                    <i class="fas fa-upload mr-2"></i>Upload PDF
+                </a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <script>
+        // Simple user menu toggle (you can expand this)
+        document.getElementById('user-menu').addEventListener('click', function() {
+            // Add dropdown functionality here
+        });
+    </script>
+</body>
+</html>

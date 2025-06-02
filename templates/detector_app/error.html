@@ -1,0 +1,185 @@
+{% extends 'detector_app/base.html' %}
+{% load static %}
+
+{% block title %}Error - PDF Steganography Detector{% endblock %}
+
+{% block extra_css %}
+<style>
+    .error-container {
+        text-align: center;
+        padding: 60px 0;
+    }
+    
+    .error-icon {
+        font-size: 5rem;
+        color: #f44336;
+        margin-bottom: 30px;
+        animation: pulse 2s infinite;
+    }
+    
+    .error-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #333;
+        margin-bottom: 20px;
+    }
+    
+    .error-message {
+        font-size: 1.2rem;
+        color: #666;
+        margin-bottom: 40px;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .error-details {
+        background: #f8f9fa;
+        border-radius: 15px;
+        padding: 25px;
+        margin: 30px auto;
+        max-width: 800px;
+        text-align: left;
+    }
+    
+    .error-code {
+        font-family: 'Courier New', monospace;
+        background: #e9ecef;
+        padding: 15px;
+        border-radius: 8px;
+        margin-top: 15px;
+        font-size: 0.9rem;
+        color: #495057;
+    }
+    
+    .action-buttons {
+        margin-top: 40px;
+    }
+    
+    .btn-home {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        border: none;
+        color: white;
+        padding: 15px 30px;
+        border-radius: 25px;
+        font-weight: 600;
+        text-decoration: none;
+        display: inline-block;
+        margin: 0 10px;
+        transition: all 0.3s ease;
+    }
+    
+    .btn-home:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        color: white;
+    }
+    
+    .btn-back {
+        background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+        border: none;
+        color: white;
+        padding: 15px 30px;
+        border-radius: 25px;
+        font-weight: 600;
+        text-decoration: none;
+        display: inline-block;
+        margin: 0 10px;
+        transition: all 0.3s ease;
+    }
+    
+    .btn-back:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 25px rgba(255, 107, 107, 0.4);
+        color: white;
+    }
+    
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+        100% { transform: scale(1); }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="error-container">
+        <i class="fas fa-exclamation-triangle error-icon"></i>
+        
+        <h1 class="error-title">
+            {% if error_code %}
+                Error {{ error_code }}
+            {% else %}
+                Something Went Wrong
+            {% endif %}
+        </h1>
+        
+        <p class="error-message">
+            {% if error_message %}
+                {{ error_message }}
+            {% else %}
+                We encountered an unexpected error while processing your request. 
+                Please try again or contact support if the problem persists.
+            {% endif %}
+        </p>
+        
+        {% if error_details or exception %}
+            <div class="error-details">
+                <h5><i class="fas fa-info-circle me-2"></i>Error Details</h5>
+                
+                {% if error_details %}
+                    <p class="mb-2">{{ error_details }}</p>
+                {% endif %}
+                
+                {% if exception and settings.DEBUG %}
+                    <div class="error-code">
+                        <strong>Exception:</strong> {{ exception }}
+                    </div>
+                {% endif %}
+                
+                {% if request and settings.DEBUG %}
+                    <div class="error-code">
+                        <strong>Request URL:</strong> {{ request.build_absolute_uri }}
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
+        
+        <div class="action-buttons">
+            <a href="{% url 'pdf_detector:dashboard' %}" class="btn-home">
+                <i class="fas fa-home me-2"></i>
+                Return to Dashboard
+            </a>
+            
+            <a href="javascript:history.back()" class="btn-back">
+                <i class="fas fa-arrow-left me-2"></i>
+                Go Back
+            </a>
+        </div>
+        
+        <div class="mt-5">
+            <p class="text-muted">
+                If you continue to experience issues, please 
+                <a href="mailto:support@example.com" class="text-decoration-none">contact support</a>
+                with the error details above.
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Auto-report errors (if analytics is set up)
+    document.addEventListener('DOMContentLoaded', function() {
+        // You can add error reporting logic here
+        console.error('Page Error:', {
+            code: '{{ error_code|default:"Unknown" }}',
+            message: '{{ error_message|default:"No message" }}',
+            url: window.location.href,
+            timestamp: new Date().toISOString()
+        });
+    });
+</script>
+{% endblock %}

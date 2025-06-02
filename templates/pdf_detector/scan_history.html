@@ -1,0 +1,345 @@
+{% extends 'pdf_detector/base.html' %}
+{% load static %}
+
+{% block title %}Scan History - PDF Malware Detector{% endblock %}
+
+{% block extra_css %}
+<style>
+    .filter-card {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border-radius: 12px;
+        margin-bottom: 2rem;
+    }
+    
+    .scan-card {
+        border: none;
+        border-radius: 12px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+        margin-bottom: 1rem;
+    }
+    
+    .scan-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    }
+    
+    .status-badge {
+        font-weight: 600;
+        padding: 0.3rem 0.8rem;
+        border-radius: 15px;
+        font-size: 0.8rem;
+    }
+    
+    .status-completed { background-color: #d4edda; color: #155724; }
+    .status-processing { background-color: #fff3cd; color: #856404; }
+    .status-failed { background-color: #f8d7da; color: #721c24; }
+    .status-pending { background-color: #d1ecf1; color: #0c5460; }
+    
+    .result-badge {
+        font-weight: bold;
+        padding: 0.4rem 1rem;
+        border-radius: 20px;
+        font-size: 0.85rem;
+    }
+    
+    .result-malicious { 
+        background: linear-gradient(135deg, #dc3545, #c82333);
+        color: white;
+    }
+    
+    .result-benign { 
+        background: linear-gradient(135deg, #28a745, #218838);
+        color: white;
+    }
+    
+    .risk-indicator {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        display: inline-block;
+        margin-right: 0.5rem;
+    }
+    
+    .risk-minimal { background-color: #28a745; }
+    .risk-low { background-color: #ffc107; }
+    .risk-medium { background-color: #fd7e14; }
+    .risk-high { background-color: #dc3545; }
+    
+    .pagination {
+        justify-content: center;
+    }
+    
+    .empty-state {
+        text-align: center;
+        padding: 4rem 2rem;
+        color: #6c757d;
+    }
+    
+    .empty-state i {
+        font-size: 4rem;
+        margin-bottom: 1rem;
+        opacity: 0.5;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <!-- Header -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h2 class="mb-1">Scan History</h2>
+                    <p class="text-muted mb-0">View and manage your PDF scan results</p>
+                </div>
+                <a href="{% url 'pdf_detector:dashboard' %}" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> New Scan
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card filter-card">
+                <div class="card-body">
+                    <form method="get" class="row g-3 align-items-end">
+                        <div class="col-md-4">
+                            <label class="form-label">Filter by Status</label>
+                            <select name="status" class="form-select">
+                                <option value="">All Statuses</option>
+                                <option value="COMPLETED" {% if status_filter == 'COMPLETED' %}selected{% endif %}>Completed</option>
+                                <option value="PROCESSING" {% if status_filter == 'PROCESSING' %}selected{% endif %}>Processing</option>
+                                <option value="FAILED" {% if status_filter == 'FAILED' %}selected{% endif %}>Failed</option>
+                                <option value="PENDING" {% if status_filter == 'PENDING' %}selected{% endif %}>Pending</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Filter by Risk Level</label>
+                            <select name="risk" class="form-select">
+                                <option value="">All Risk Levels</option>
+                                <option value="MINIMAL" {% if risk_filter == 'MINIMAL' %}selected{% endif %}>Minimal</option>
+                                <option value="LOW" {% if risk_filter == 'LOW' %}selected{% endif %}>Low</option>
+                                <option value="MEDIUM" {% if risk_filter == 'MEDIUM' %}selected{% endif %}>Medium</option>
+                                <option value="HIGH" {% if risk_filter == 'HIGH' %}selected{% endif %}>High</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <button type="submit" class="btn btn-light me-2">
+                                <i class="fas fa-filter"></i> Apply Filters
+                            </button>
+                            <a href="{% url 'pdf_detector:scan_history' %}" class="btn btn-outline-light">
+                                <i class="fas fa-times"></i> Clear
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Results -->
+    <div class="row">
+        <div class="col-12">
+            {% if page_obj %}
+                <!-- Scan Results -->
+                {% for scan in page_obj %}
+                <div class="card scan-card">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <!-- File Info -->
+                            <div class="col-md-4">
+                                <div class="d-flex align-items-center">
+                                    <i class="fas fa-file-pdf text-danger fa-2x me-3"></i>
+                                    <div>
+                                        <h6 class="mb-1">{{ scan.original_filename|truncatechars:30 }}</h6>
+                                        <small class="text-muted">
+                                            {{ scan.file_size|filesizeformat }} • 
+                                            {{ scan.created_at|timesince }} ago
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Status & Result -->
+                            <div class="col-md-3 text-center">
+                                <div class="mb-2">
+                                    <span class="status-badge status-{{ scan.status|lower }}">
+                                        {{ scan.get_status_display }}
+                                    </span>
+                                </div>
+                                {% if scan.status == 'COMPLETED' and scan.is_malicious is not None %}
+                                <span class="result-badge {% if scan.is_malicious %}result-malicious{% else %}result-benign{% endif %}">
+                                    {% if scan.is_malicious %}MALICIOUS{% else %}BENIGN{% endif %}
+                                </span>
+                                {% endif %}
+                            </div>
+                            
+                            <!-- Risk & Confidence -->
+                            <div class="col-md-3 text-center">
+                                {% if scan.risk_level %}
+                                <div class="mb-1">
+                                    <span class="risk-indicator risk-{{ scan.risk_level|lower }}"></span>
+                                    {{ scan.get_risk_level_display }} Risk
+                                </div>
+                                {% endif %}
+                                {% if scan.confidence_percentage %}
+                                <small class="text-muted">{{ scan.confidence_percentage|floatformat:1 }}% confidence</small>
+                                {% endif %}
+                            </div>
+                            
+                            <!-- Actions -->
+                            <div class="col-md-2 text-end">
+                                <div class="btn-group" role="group">
+                                    <a href="{% url 'pdf_detector:scan_detail' scan.id %}" 
+                                       class="btn btn-outline-primary btn-sm">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                    <a href="{% url 'pdf_detector:delete_scan' scan.id %}" 
+                                       class="btn btn-outline-danger btn-sm">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Additional Info (Collapsed) -->
+                        {% if scan.status == 'COMPLETED' %}
+                        <div class="row mt-3">
+                            <div class="col-12">
+                                <div class="progress" style="height: 4px;">
+                                    <div class="progress-bar {% if scan.is_malicious %}bg-danger{% else %}bg-success{% endif %}" 
+                                         style="width: {{ scan.confidence_percentage }}%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                        
+                        {% if scan.error_message %}
+                        <div class="row mt-2">
+                            <div class="col-12">
+                                <div class="alert alert-danger alert-sm mb-0">
+                                    <small><i class="fas fa-exclamation-triangle"></i> {{ scan.error_message|truncatechars:100 }}</small>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+
+                <!-- Pagination -->
+                {% if page_obj.has_other_pages %}
+                <nav aria-label="Scan history pagination">
+                    <ul class="pagination">
+                        {% if page_obj.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page=1{% if status_filter %}&status={{ status_filter }}{% endif %}{% if risk_filter %}&risk={{ risk_filter }}{% endif %}">
+                                    <i class="fas fa-angle-double-left"></i>
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if status_filter %}&status={{ status_filter }}{% endif %}{% if risk_filter %}&risk={{ risk_filter }}{% endif %}">
+                                    <i class="fas fa-angle-left"></i>
+                                </a>
+                            </li>
+                        {% endif %}
+
+                        {% for num in page_obj.paginator.page_range %}
+                            {% if page_obj.number == num %}
+                                <li class="page-item active">
+                                    <span class="page-link">{{ num }}</span>
+                                </li>
+                            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ num }}{% if status_filter %}&status={{ status_filter }}{% endif %}{% if risk_filter %}&risk={{ risk_filter }}{% endif %}">{{ num }}</a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+
+                        {% if page_obj.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if status_filter %}&status={{ status_filter }}{% endif %}{% if risk_filter %}&risk={{ risk_filter }}{% endif %}">
+                                    <i class="fas fa-angle-right"></i>
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}{% if status_filter %}&status={{ status_filter }}{% endif %}{% if risk_filter %}&risk={{ risk_filter }}{% endif %}">
+                                    <i class="fas fa-angle-double-right"></i>
+                                </a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+                {% endif %}
+
+            {% else %}
+                <!-- Empty State -->
+                <div class="card">
+                    <div class="card-body empty-state">
+                        <i class="fas fa-file-pdf"></i>
+                        <h4>No Scan Results Found</h4>
+                        <p class="mb-4">
+                            {% if status_filter or risk_filter %}
+                                No scans match your current filters. Try adjusting your search criteria.
+                            {% else %}
+                                You haven't scanned any PDF files yet. Upload your first PDF to get started!
+                            {% endif %}
+                        </p>
+                        {% if status_filter or risk_filter %}
+                            <a href="{% url 'pdf_detector:scan_history' %}" class="btn btn-outline-primary me-2">
+                                <i class="fas fa-times"></i> Clear Filters
+                            </a>
+                        {% endif %}
+                        <a href="{% url 'pdf_detector:dashboard' %}" class="btn btn-primary">
+                            <i class="fas fa-upload"></i> Upload PDF
+                        </a>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Summary Stats -->
+    {% if page_obj %}
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body text-center">
+                    <small class="text-muted">
+                        Showing {{ page_obj.start_index }} to {{ page_obj.end_index }} of {{ page_obj.paginator.count }} scan results
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Auto-refresh processing scans
+document.addEventListener('DOMContentLoaded', function() {
+    const processingScans = document.querySelectorAll('.status-processing');
+    if (processingScans.length > 0) {
+        setTimeout(() => {
+            location.reload();
+        }, 10000); // Refresh every 10 seconds if there are processing scans
+    }
+});
+
+// Confirm deletion
+document.addEventListener('click', function(e) {
+    if (e.target.closest('a[href*="delete_scan"]')) {
+        if (!confirm('Are you sure you want to delete this scan result?')) {
+            e.preventDefault();
+        }
+    }
+});
+</script>
+{% endblock %}

@@ -1,253 +1,366 @@
-import os
-from django.shortcuts import render, redirect, get_object_or_404
-from django.conf import settings
-from django.http import JsonResponse
-from django.urls import reverse
-from django.views.generic import ListView, DetailView, CreateView
-from rest_framework import viewsets, status
-from rest_framework.decorators import action
-from rest_framework.response import Response
-from .models import Dataset, TrainedModel, PDFScan, BulkScan
-from .serializers import DatasetSerializer, TrainedModelSerializer, PDFScanSerializer, BulkScanSerializer
-from .tasks import process_single_pdf, process_bulk_pdfs, train_model_task
-from .ml.detector import StegoPDFDetector
 
-class HomeView(ListView):
-    """Home page view showing recent scans"""
-    model = PDFScan
-    template_name = 'detector_app/index.html'
-    context_object_name = 'recent_scans'
-    ordering = ['-uploaded_at']
-    paginate_by = 10
+# ==============================================
+# 4. views.py - Django Views
+# ==============================================
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['active_models'] = TrainedModel.objects.filter(is_active=True)
-        return context
+'''
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import login, authenticate
+from django.contrib import messages
+from django.http import JsonResponse, Http404
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_http_methods
+from django.core.paginator import Paginator
+from django.utils import timezone
+from .models import PDFScanResult
+from .forms import PDFUploadForm
+from .inference import DjangoPDFMalwareDetector
+import json
+import logging
 
-class DatasetViewSet(viewsets.ModelViewSet):
-    """API endpoint for datasets"""
-    queryset = Dataset.objects.all()
-    serializer_class = DatasetSerializer
+logger = logging.getLogger(__name__)
+
+# Initialize detector (singleton pattern)
+_detector_instance = None
+
+def get_detector():
+    global _detector_instance
+    if _detector_instance is None:
+        _detector_instance = DjangoPDFMalwareDetector()
+    return _detector_instance
+
+@login_required
+def dashboard(request):
+    """Main dashboard view"""
+    recent_scans = PDFScanResult.objects.filter(user=request.user)[:5]
     
-    @action(detail=True, methods=['post'])
-    def process(self, request, pk=None):
-        """Process a dataset for training"""
-        dataset = self.get_object()
-        task = train_model_task.delay(dataset.id)
-        return Response({'task_id': task.id}, status=status.HTTP_202_ACCEPTED)
+    # Statistics
+    total_scans = PDFScanResult.objects.filter(user=request.user).count()
+    malicious_count = PDFScanResult.objects.filter(
+        user=request.user, is_malicious=True
+    ).count()
+    
+    context = {
+        'recent_scans': recent_scans,
+        'total_scans': total_scans,
+        'malicious_count': malicious_count,
+        'benign_count': total_scans - malicious_count,
+        'upload_form': PDFUploadForm()
+    }
+    
+    return render(request, 'pdf_detector/dashboard.html', context)
 
-class TrainedModelViewSet(viewsets.ModelViewSet):
-    """API endpoint for trained models"""
-    queryset = TrainedModel.objects.all()
-    serializer_class = TrainedModelSerializer
+@login_required
+@require_http_methods(['POST'])
+def upload_pdf(request):
+    """Handle PDF upload and analysis"""
+    form = PDFUploadForm(request.POST, request.FILES)
     
-    @action(detail=True, methods=['post'])
-    def activate(self, request, pk=None):
-        """Set a model as active"""
-        model = self.get_object()
-        # Deactivate all other models of the same type
-        TrainedModel.objects.filter(model_type=model.model_type).update(is_active=False)
-        model.is_active = True
-        model.save()
-        return Response({'status': 'success'})
-
-class PDFScanViewSet(viewsets.ModelViewSet):
-    """API endpoint for PDF scans"""
-    queryset = PDFScan.objects.all()
-    serializer_class = PDFScanSerializer
-    
-    def perform_create(self, serializer):
-        pdf_scan = serializer.save()
-        task = process_single_pdf.delay(pdf_scan.id)
-        pdf_scan.task_id = task.id
-        pdf_scan.save()
-    
-    @action(detail=True, methods=['get'])
-    def status(self, request, pk=None):
-        """Get the status of a PDF scan"""
-        scan = self.get_object()
-        return Response({
-            'id': scan.id,
-            'status': scan.status,
-            'result': scan.result,
-            'confidence': scan.confidence
-        })
-
-class BulkScanViewSet(viewsets.ModelViewSet):
-    """API endpoint for bulk scans"""
-    queryset = BulkScan.objects.all()
-    serializer_class = BulkScanSerializer
-    
-    @action(detail=False, methods=['post'])
-    def upload(self, request):
-        """Handle bulk upload of PDF files"""
-        files = request.FILES.getlist('files')
+    if form.is_valid():
+        pdf_file = form.cleaned_data['pdf_file']
         
-        if not files:
-            return Response({"error": "No files provided"}, status=status.HTTP_400_BAD_REQUEST)
-        
-        bulk_scan = BulkScan.objects.create(
-            name=request.data.get('name', f"Bulk Scan {BulkScan.objects.count() + 1}"),
-            total_files=len(files)
+        # Create scan record
+        scan_result = PDFScanResult.objects.create(
+            user=request.user,
+            file=pdf_file,
+            original_filename=pdf_file.name,
+            file_size=pdf_file.size,
+            status='PROCESSING'
         )
-        
-        # Save all files
-        pdf_ids = []
-        for file in files:
-            pdf_scan = PDFScan.objects.create(
-                file=file,
-                filename=file.name,
-                status='pending'
-            )
-            pdf_ids.append(pdf_scan.id)
-        
-        # Start bulk processing task
-        task = process_bulk_pdfs.delay(bulk_scan.id, pdf_ids)
-        bulk_scan.task_id = task.id
-        bulk_scan.save()
-        
-        return Response({
-            'id': bulk_scan.id,
-            'task_id': task.id,
-            'total_files': bulk_scan.total_files
-        }, status=status.HTTP_202_ACCEPTED)
-    
-    @action(detail=True, methods=['get'])
-    def status(self, request, pk=None):
-        """Get the status of a bulk scan"""
-        scan = self.get_object()
-        return Response({
-            'id': scan.id,
-            'status': scan.status,
-            'total_files': scan.total_files,
-            'processed_files': scan.processed_files,
-            'clean_count': scan.clean_count,
-            'stego_count': scan.stego_count,
-            'progress': scan.progress
-        })
-
-def upload_view(request):
-    """View for uploading files"""
-    if request.method == 'POST':
-        file = request.FILES.get('pdf_file')
-        
-        if not file:
-            return render(request, 'detector_app/upload.html', {'error': 'No file selected'})
-        
-        if not file.name.lower().endswith('.pdf'):
-            return render(request, 'detector_app/upload.html', {'error': 'File must be a PDF'})
-        
-        pdf_scan = PDFScan.objects.create(
-            file=file,
-            filename=file.name,
-            status='pending'
-        )
-        
-        task = process_single_pdf.delay(pdf_scan.id)
-        pdf_scan.task_id = task.id
-        pdf_scan.save()
-        
-        return redirect('scan_results', pk=pdf_scan.id)
-    
-    return render(request, 'detector_app/upload.html')
-
-def scan_results(request, pk):
-    """View for displaying scan results"""
-    scan = get_object_or_404(PDFScan, pk=pk)
-    return render(request, 'detector_app/results.html', {'scan': scan})
-
-def check_scan_status(request, pk):
-    """AJAX endpoint for checking scan status"""
-    scan = get_object_or_404(PDFScan, pk=pk)
-    return JsonResponse({
-        'status': scan.status,
-        'result': scan.result,
-        'confidence': scan.confidence
-    })
-
-def check_bulk_scan_status(request, pk):
-    """AJAX endpoint for checking bulk scan status"""
-    scan = get_object_or_404(BulkScan, pk=pk)
-    return JsonResponse({
-        'status': scan.status,
-        'total_files': scan.total_files,
-        'processed_files': scan.processed_files,
-        'clean_count': scan.clean_count,
-        'stego_count': scan.stego_count,
-        'progress': scan.progress
-    })
-    
-    
-    
-class DatasetListView(ListView):
-    model = Dataset
-    template_name = 'detector_app/datasets.html'
-    context_object_name = 'datasets'
-    
-from django.views import View
-from django.views.generic import TemplateView
-from celery.result import AsyncResult
-
-class TrainModelView(View):
-    def get(self, request, dataset_id):
-        task = train_model_task.delay(dataset_id)
-        return redirect('training_status', task_id=task.id)
-
-class TrainingStatusView(TemplateView):
-    template_name = 'detector_app/training_status.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        task_id = self.kwargs['task_id']
-        task = AsyncResult(task_id)
-        context['task'] = task
-        context['task_id'] = task_id
-        context['status'] = task.status
-        if task.status == 'SUCCESS':
-            context['result'] = task.result
-        return context
-    
-    
-
-class TrainedModelListView(ListView):
-    model = TrainedModel
-    template_name = 'detector_app/models.html'
-    context_object_name = 'models'
-    
-    
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework.parsers import MultiPartParser
-from .models import TrainedModel
-from .ml.detector import StegoPDFDetector
-import os
-from django.conf import settings
-
-class DetectionAPIView(APIView):
-    parser_classes = [MultiPartParser]
-
-    def post(self, request):
-        pdf_file = request.FILES.get('pdf')
-        if not pdf_file:
-            return Response({'error': 'No PDF file provided'}, status=400)
-        
-        temp_path = os.path.join(settings.MEDIA_ROOT, 'temp.pdf')
-        with open(temp_path, 'wb') as f:
-            for chunk in pdf_file.chunks():
-                f.write(chunk)
         
         try:
-            model = TrainedModel.objects.get(is_active=True)
-        except TrainedModel.DoesNotExist:
-            return Response({'error': 'No active model available'}, status=500)
+            # Get detector and analyze
+            detector = get_detector()
+            result = detector.predict(scan_result.file)
+            
+            # Update scan result
+            scan_result.status = 'COMPLETED'
+            scan_result.is_malicious = result['is_malicious']
+            scan_result.ensemble_probability = result['ensemble_probability']
+            scan_result.confidence_percentage = result['confidence']
+            scan_result.risk_level = result['risk_level']
+            scan_result.completed_at = timezone.now()
+            
+            # Individual model predictions
+            individual = result['individual_predictions']
+            scan_result.attention_probability = individual.get('attention', {}).get('probability')
+            scan_result.deep_ff_probability = individual.get('deep_ff', {}).get('probability')
+            scan_result.wide_deep_probability = individual.get('wide_deep', {}).get('probability')
+            
+            # Feature extraction
+            features = result['extracted_features']
+            scan_result.pdf_pages = features.get('pages', 0)
+            scan_result.metadata_size = features.get('metadata_size', 0)
+            scan_result.suspicious_count = features.get('suspicious_count', 0)
+            scan_result.javascript_elements = features.get('JS', 0) + features.get('Javascript', 0)
+            scan_result.auto_actions = features.get('AA', 0) + features.get('OpenAction', 0)
+            scan_result.embedded_files = features.get('EmbeddedFile', 0)
+            
+            # Store complete data
+            scan_result.extracted_features = features
+            scan_result.individual_predictions = individual
+            
+            scan_result.save()
+            
+            messages.success(request, f'PDF analysis completed! File is classified as {"MALICIOUS" if result["is_malicious"] else "BENIGN"}')
+            return redirect('pdf_detector:scan_detail', scan_id=scan_result.id)
+            
+        except Exception as e:
+            logger.error(f"Error analyzing PDF: {str(e)}")
+            scan_result.status = 'FAILED'
+            scan_result.error_message = str(e)
+            scan_result.completed_at = timezone.now()
+            scan_result.save()
+            
+            messages.error(request, f'Analysis failed: {str(e)}')
+            return redirect('pdf_detector:dashboard')
+    
+    else:
+        for field, errors in form.errors.items():
+            for error in errors:
+                messages.error(request, f'{field}: {error}')
+        return redirect('pdf_detector:dashboard')
+
+@login_required
+def scan_detail(request, scan_id):
+    """View detailed scan results"""
+    scan = get_object_or_404(PDFScanResult, id=scan_id, user=request.user)
+    
+    context = {
+        'scan': scan,
+    }
+    
+    return render(request, 'pdf_detector/scan_detail.html', context)
+
+@login_required
+def scan_history(request):
+    """View scan history with pagination"""
+    scans = PDFScanResult.objects.filter(user=request.user)
+    
+    # Filter by status if requested
+    status_filter = request.GET.get('status')
+    if status_filter:
+        scans = scans.filter(status=status_filter)
+    
+    # Filter by risk level
+    risk_filter = request.GET.get('risk')
+    if risk_filter:
+        scans = scans.filter(risk_level=risk_filter)
+    
+    paginator = Paginator(scans, 20)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    
+    context = {
+        'page_obj': page_obj,
+        'status_filter': status_filter,
+        'risk_filter': risk_filter,
+    }
+    
+    return render(request, 'pdf_detector/scan_history.html', context)
+
+@login_required
+def delete_scan(request, scan_id):
+    """Delete a scan result"""
+    scan = get_object_or_404(PDFScanResult, id=scan_id, user=request.user)
+    
+    if request.method == 'POST':
+        # Delete file
+        if scan.file:
+            try:
+                scan.file.delete()
+            except:
+                pass
         
-        detector = StegoPDFDetector(model.file_path)
-        result, confidence = detector.detect(temp_path)
-        
-        os.remove(temp_path)
-        
-        return Response({
-            'result': 'stego' if result else 'clean',
-            'confidence': confidence
-        })
+        scan.delete()
+        messages.success(request, 'Scan result deleted successfully')
+        return redirect('pdf_detector:scan_history')
+    
+    return render(request, 'pdf_detector/confirm_delete.html', {'scan': scan})
+
+
+
+
+'''
+
+
+
+
+
+
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from django.http import JsonResponse, HttpResponse
+from django.views.decorators.http import require_http_methods
+from django.core.paginator import Paginator
+from django.db.models import Q
+from django.utils import timezone
+from django.views.decorators.csrf import csrf_exempt
+import json
+from django.conf import settings
+
+from .models import PDFAnalysis
+from .forms import PDFUploadForm
+from .services import DjangoPDFAnalysisService
+#from .tasks import analyze_pdf_async  # For async processing (optional)
+
+@login_required
+def dashboard(request):
+    """Main dashboard showing user's PDF analyses."""
+    analyses = PDFAnalysis.objects.filter(user=request.user)
+    
+    # Statistics
+    total_analyses = analyses.count()
+    completed_analyses = analyses.filter(analysis_date__isnull=False).count()
+    high_risk_count = analyses.filter(assessment__in=['HIGH_RISK', 'CRITICAL']).count()
+    
+    # Recent analyses
+    recent_analyses = analyses[:10]
+    
+    context = {
+        'total_analyses': total_analyses,
+        'completed_analyses': completed_analyses,
+        'high_risk_count': high_risk_count,
+        'recent_analyses': recent_analyses,
+    }
+    
+    return render(request, 'detector_app/dashboard.html', context)
+
+@login_required
+def upload_pdf(request):
+    """Handle PDF file upload."""
+    if request.method == 'POST':
+        form = PDFUploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            pdf_file = request.FILES['pdf_file']
+            
+            # Create PDFAnalysis record
+            analysis = PDFAnalysis.objects.create(
+                user=request.user,
+                pdf_file=pdf_file,
+                original_filename=pdf_file.name,
+                file_size=pdf_file.size,
+            )
+            
+            # Start analysis (sync or async)
+            if getattr(settings, 'USE_ASYNC_ANALYSIS', False):
+                # Queue for background processing
+                analyze_pdf_async.delay(analysis.id, form.cleaned_data.get('technique', 'auto'))
+                messages.success(request, f'PDF uploaded successfully. Analysis queued.')
+            else:
+                # Synchronous analysis
+                try:
+                    service = DjangoPDFAnalysisService()
+                    service.analyze_pdf(analysis, form.cleaned_data.get('technique', 'auto'))
+                    messages.success(request, f'PDF analyzed successfully. Risk Level: {analysis.risk_level_display}')
+                except Exception as e:
+                    messages.error(request, f'Analysis failed: {str(e)}')
+            
+            return redirect('pdf_detector:analysis_detail', pk=analysis.id)
+    else:
+        form = PDFUploadForm()
+    
+    return render(request, 'detector_app/upload.html', {'form': form})
+
+@login_required
+def analysis_list(request):
+    """List all user's PDF analyses with filtering and pagination."""
+    analyses = PDFAnalysis.objects.filter(user=request.user)
+    
+    # Filtering
+    risk_filter = request.GET.get('risk')
+    if risk_filter:
+        analyses = analyses.filter(assessment=risk_filter)
+    
+    search = request.GET.get('search')
+    if search:
+        analyses = analyses.filter(
+            Q(original_filename__icontains=search) |
+            Q(assessment__icontains=search)
+        )
+    
+    # Pagination
+    paginator = Paginator(analyses, 20)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    
+    context = {
+        'page_obj': page_obj,
+        'risk_filter': risk_filter,
+        'search': search,
+        'risk_choices': PDFAnalysis.RISK_LEVELS,
+    }
+    
+    return render(request, 'detector_app/analysis_list.html', context)
+
+@login_required
+def analysis_detail(request, pk):
+    """Detailed view of a specific PDF analysis."""
+    analysis = get_object_or_404(PDFAnalysis, pk=pk, user=request.user)
+    indicators = analysis.indicators.all()
+    
+    # Group indicators by category
+    indicators_by_category = {}
+    for indicator in indicators:
+        if indicator.category not in indicators_by_category:
+            indicators_by_category[indicator.category] = []
+        indicators_by_category[indicator.category].append(indicator)
+    
+    context = {
+        'analysis': analysis,
+        'indicators_by_category': indicators_by_category,
+    }
+    
+    return render(request, 'detector_app/analysis_detail.html', context)
+
+@login_required
+def download_report(request, pk):
+    """Download detailed analysis report as text file."""
+    analysis = get_object_or_404(PDFAnalysis, pk=pk, user=request.user)
+    
+    if not analysis.is_analyzed:
+        messages.error(request, 'Analysis not completed yet.')
+        return redirect('detector_app:analysis_detail', pk=pk)
+    
+    service = DjangoPDFAnalysisService()
+    report_content = service.generate_detailed_report(analysis)
+    
+    response = HttpResponse(report_content, content_type='text/plain')
+    response['Content-Disposition'] = f'attachment; filename="{analysis.original_filename}_analysis_report.txt"'
+    
+    return response
+
+@login_required
+@require_http_methods(["POST"])
+def reanalyze_pdf(request, pk):
+    """Re-analyze a PDF with different technique."""
+    analysis = get_object_or_404(PDFAnalysis, pk=pk, user=request.user)
+    technique = request.POST.get('technique', 'auto')
+    
+    try:
+        service = DjangoPDFAnalysisService()
+        service.analyze_pdf(analysis, technique)
+        messages.success(request, 'PDF re-analyzed successfully.')
+    except Exception as e:
+        messages.error(request, f'Re-analysis failed: {str(e)}')
+    
+    return redirect('pdf_detector:analysis_detail', pk=pk)
+
+@login_required
+def api_analysis_status(request, pk):
+    """API endpoint to check analysis status."""
+    analysis = get_object_or_404(PDFAnalysis, pk=pk, user=request.user)
+    
+    data = {
+        'id': analysis.id,
+        'filename': analysis.original_filename,
+        'is_analyzed': analysis.is_analyzed,
+        'assessment': analysis.get_assessment_display() if analysis.assessment else None,
+        'risk_score': analysis.risk_score,
+        'total_indicators': analysis.total_indicators,
+        'analysis_date': analysis.analysis_date.isoformat() if analysis.analysis_date else None,
+    }
+    
+    return JsonResponse(data)

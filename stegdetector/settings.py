@@ -180,6 +180,11 @@ LOGGING = {
             'level': 'DEBUG',
             'propagate': False,
         },
+        'pdf_detector': {
+            'handlers': ['file'],
+            'level': 'INFO',
+            'propagate': True,
+        },
     },
 }
 
@@ -197,6 +202,8 @@ MODELS_DIR = os.path.join(BASE_DIR, 'detector_app', 'ml', 'models')
 ML_MODEL_DIR = os.path.join(BASE_DIR, 'detector_app', 'ml', 'models')
 DATASET_DIR = os.path.join(BASE_DIR, 'datasets')
 UPLOAD_DIR = os.path.join(MEDIA_ROOT, 'uploads')
+PDF_STEGANO_MODEL_PATH = os.path.join(BASE_DIR, 'ml_models', 'stego')
+PDF_STEGANO_CACHE_DIR = os.path.join(BASE_DIR, 'ml_models', 'cache')
 
 DATASETS_BASE_DIR = os.path.join(BASE_DIR, 'datasets')
 
@@ -205,3 +212,18 @@ os.makedirs(ML_MODEL_DIR, exist_ok=True)
 os.makedirs(DATASET_DIR, exist_ok=True)
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 os.makedirs(DATASETS_BASE_DIR, exist_ok=True)
+
+
+
+# File upload settings
+FILE_UPLOAD_MAX_MEMORY_SIZE = 52428800  # 50MB
+DATA_UPLOAD_MAX_MEMORY_SIZE = 52428800  # 50MB
+
+
+# Cache (for model caching)
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'pdf-detector-cache',
+    }
+}

@@ -1,0 +1,308 @@
+
+{% extends 'pdf_detector/base.html' %}
+{% load static %}
+
+{% block title %}Scan Details - PDF Malware Detector{% endblock %}
+
+{% block extra_css %}
+<style>
+    .result-card {
+        border-radius: 12px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin-bottom: 2rem;
+    }
+    
+    .malicious-header {
+        background: linear-gradient(135deg, #dc3545, #c82333);
+        color: white;
+    }
+    
+    .benign-header {
+        background: linear-gradient(135deg, #28a745, #218838);
+        color: white;
+    }
+    
+    .risk-badge {
+        font-weight: 600;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-size: 0.9rem;
+    }
+    
+    .risk-minimal { background-color: #d4edda; color: #155724; }
+    .risk-low { background-color: #fff3cd; color: #856404; }
+    .risk-medium { background-color: #ffeaa7; color: #856404; }
+    .risk-high { background-color: #f8d7da; color: #721c24; }
+    
+    .confidence-bar {
+        height: 8px;
+        border-radius: 4px;
+        background-color: #e9ecef;
+        overflow: hidden;
+    }
+    
+    .confidence-fill {
+        height: 100%;
+        transition: width 0.8s ease;
+    }
+    
+    .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        margin-top: 1rem;
+    }
+    
+    .feature-item {
+        background: #f8f9fa;
+        padding: 1rem;
+        border-radius: 8px;
+        text-align: center;
+    }
+    
+    .feature-value {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #495057;
+    }
+    
+    .model-predictions {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1rem;
+        margin-top: 1rem;
+    }
+    
+    .model-card {
+        background: white;
+        border: 1px solid #dee2e6;
+        border-radius: 8px;
+        padding: 1rem;
+    }
+    
+    .progress-circle {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 0.5rem auto;
+        font-weight: bold;
+        font-size: 0.9rem;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <!-- Header -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h2 class="mb-1">Scan Results</h2>
+                    <p class="text-muted mb-0">{{ scan.original_filename }}</p>
+                </div>
+                <div>
+                    <a href="{% url 'pdf_detector:scan_history' %}" class="btn btn-outline-secondary me-2">
+                        <i class="fas fa-arrow-left"></i> Back to History
+                    </a>
+                    <a href="{% url 'pdf_detector:delete_scan' scan.id %}" class="btn btn-outline-danger">
+                        <i class="fas fa-trash"></i> Delete
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Result Card -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card result-card">
+                <div class="card-header {% if scan.is_malicious %}malicious-header{% else %}benign-header{% endif %} text-center py-4">
+                    <div class="row align-items-center">
+                        <div class="col-md-4">
+                            <i class="fas {% if scan.is_malicious %}fa-exclamation-triangle{% else %}fa-shield-alt{% endif %} fa-3x mb-2"></i>
+                            <h3 class="mb-0">{% if scan.is_malicious %}MALICIOUS{% else %}BENIGN{% endif %}</h3>
+                        </div>
+                        <div class="col-md-4">
+                            <h4 class="mb-1">Confidence</h4>
+                            <h2 class="mb-0">{{ scan.confidence_percentage|floatformat:1 }}%</h2>
+                        </div>
+                        <div class="col-md-4">
+                            <h4 class="mb-2">Risk Level</h4>
+                            <span class="risk-badge risk-{{ scan.risk_level|lower }}">
+                                {{ scan.get_risk_level_display }}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card-body">
+                    <!-- File Information -->
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <h5><i class="fas fa-file-pdf text-danger"></i> File Information</h5>
+                            <table class="table table-sm">
+                                <tr>
+                                    <td><strong>Filename:</strong></td>
+                                    <td>{{ scan.original_filename }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>File Size:</strong></td>
+                                    <td>{{ scan.file_size|filesizeformat }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Pages:</strong></td>
+                                    <td>{{ scan.pdf_pages|default:"N/A" }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Scanned:</strong></td>
+                                    <td>{{ scan.created_at|date:"M d, Y H:i" }}</td>
+                                </tr>
+                                {% if scan.scan_duration %}
+                                <tr>
+                                    <td><strong>Duration:</strong></td>
+                                    <td>{{ scan.scan_duration|floatformat:2 }}s</td>
+                                </tr>
+                                {% endif %}
+                            </table>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <h5><i class="fas fa-chart-bar text-primary"></i> Ensemble Prediction</h5>
+                            <p class="mb-2">Probability: <strong>{{ scan.ensemble_probability|floatformat:4 }}</strong></p>
+                            <div class="confidence-bar">
+                                <div class="confidence-fill {% if scan.is_malicious %}bg-danger{% else %}bg-success{% endif %}" 
+                                     style="width: {{ scan.confidence_percentage }}%"></div>
+                            </div>
+                            <small class="text-muted mt-1">Based on ensemble of 3 ML models</small>
+                        </div>
+                    </div>
+
+                    <!-- Individual Model Predictions -->
+                    {% if scan.attention_probability or scan.deep_ff_probability or scan.wide_deep_probability %}
+                    <div class="mb-4">
+                        <h5><i class="fas fa-brain text-info"></i> Individual Model Predictions</h5>
+                        <div class="model-predictions">
+                            {% if scan.attention_probability %}
+                            <div class="model-card">
+                                <div class="progress-circle bg-light">
+                                    {{ scan.attention_probability|floatformat:3 }}
+                                </div>
+                                <h6 class="text-center mb-0">Attention Model</h6>
+                                <small class="text-muted d-block text-center">Deep learning with attention mechanism</small>
+                            </div>
+                            {% endif %}
+                            
+                            {% if scan.deep_ff_probability %}
+                            <div class="model-card">
+                                <div class="progress-circle bg-light">
+                                    {{ scan.deep_ff_probability|floatformat:3 }}
+                                </div>
+                                <h6 class="text-center mb-0">Deep Feed-Forward</h6>
+                                <small class="text-muted d-block text-center">Multi-layer neural network</small>
+                            </div>
+                            {% endif %}
+                            
+                            {% if scan.wide_deep_probability %}
+                            <div class="model-card">
+                                <div class="progress-circle bg-light">
+                                    {{ scan.wide_deep_probability|floatformat:3 }}
+                                </div>
+                                <h6 class="text-center mb-0">Wide & Deep</h6>
+                                <small class="text-muted d-block text-center">Hybrid architecture model</small>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    <!-- Key Features -->
+                    <div class="mb-4">
+                        <h5><i class="fas fa-search text-warning"></i> Extracted Features</h5>
+                        <div class="feature-grid">
+                            <div class="feature-item">
+                                <div class="feature-value">{{ scan.suspicious_count|default:0 }}</div>
+                                <div class="text-muted">Suspicious Elements</div>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-value">{{ scan.javascript_elements|default:0 }}</div>
+                                <div class="text-muted">JavaScript Elements</div>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-value">{{ scan.auto_actions|default:0 }}</div>
+                                <div class="text-muted">Auto Actions</div>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-value">{{ scan.embedded_files|default:0 }}</div>
+                                <div class="text-muted">Embedded Files</div>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-value">{{ scan.metadata_size|default:0 }}</div>
+                                <div class="text-muted">Metadata Size</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Status Information -->
+                    <div class="alert {% if scan.status == 'COMPLETED' %}alert-success{% elif scan.status == 'FAILED' %}alert-danger{% else %}alert-info{% endif %}">
+                        <strong>Status:</strong> {{ scan.get_status_display }}
+                        {% if scan.completed_at %}
+                        <br><small>Completed: {{ scan.completed_at|date:"M d, Y H:i:s" }}</small>
+                        {% endif %}
+                        {% if scan.error_message %}
+                        <br><small class="text-danger">Error: {{ scan.error_message }}</small>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Raw Data (Collapsible) -->
+    {% if scan.extracted_features or scan.individual_predictions %}
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#rawData">
+                            <i class="fas fa-code"></i> Raw Analysis Data
+                        </button>
+                    </h5>
+                </div>
+                <div id="rawData" class="collapse">
+                    <div class="card-body">
+                        {% if scan.extracted_features %}
+                        <h6>Extracted Features:</h6>
+                        <pre class="bg-light p-3 rounded"><code>{{ scan.extracted_features|pprint }}</code></pre>
+                        {% endif %}
+                        
+                        {% if scan.individual_predictions %}
+                        <h6>Individual Predictions:</h6>
+                        <pre class="bg-light p-3 rounded"><code>{{ scan.individual_predictions|pprint }}</code></pre>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Animate confidence bar on page load
+document.addEventListener('DOMContentLoaded', function() {
+    const confidenceFill = document.querySelector('.confidence-fill');
+    if (confidenceFill) {
+        setTimeout(() => {
+            confidenceFill.style.width = confidenceFill.style.width;
+        }, 300);
+    }
+});
+</script>
+{% endblock %}

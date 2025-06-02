@@ -1,97 +1,279 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload PDF - Steganography Detection</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm border-b">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="{% url 'pdf_detector:dashboard' %}" class="text-xl font-bold text-gray-900">PDF Steganography Detector</a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="{% url 'pdf_detector:dashboard' %}" class="text-gray-600 hover:text-gray-900">Dashboard</a>
+                    <a href="{% url 'pdf_detector:analysis_list' %}" class="text-gray-600 hover:text-gray-900">Analyses</a>
+                </div>
+            </div>
+        </div>
+    </nav>
 
-{% block content %}
-    
-    <main class="container mx-auto px-4 py-8">
-        <div class="w-full mx-auto">
-            <div class="bg-white shadow-md rounded-lg overflow-hidden">
-                <div class="bg-blue text-white px-6 py-4">
-                    <h1 class="text-2xl font-bold">Upload PDF for Steganography Detection</h1>
-                    <p class="text-blue-100">Our deep learning models will analyze your PDF for hidden PNG images</p>
-                </div>
-                
-                <div class="p-6">
-                    {% if error %}
-                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4" role="alert">
-                        <p class="font-bold">Error</p>
-                        <p>{{ error }}</p>
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Breadcrumb -->
+        <nav class="flex mb-8" aria-label="Breadcrumb">
+            <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                <li class="inline-flex items-center">
+                    <a href="{% url 'pdf_detector:dashboard' %}" class="text-gray-700 hover:text-blue-600">
+                        <i class="fas fa-home w-4 h-4 mr-2"></i>
+                        Dashboard
+                    </a>
+                </li>
+                <li>
+                    <div class="flex items-center">
+                        <i class="fas fa-chevron-right text-gray-400 mx-2"></i>
+                        <span class="text-gray-500">Upload PDF</span>
                     </div>
-                    {% endif %}
-                    
-                    <form action="{% url 'upload' %}" method="post" enctype="multipart/form-data" class="space-y-6">
-                        {% csrf_token %}
-                        
-                        <div class="border-2 border-dashed border-gray-300 rounded-lg px-6 py-10 text-center">
-                            <div id="upload-icon" class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-blue-100 mb-4">
-                                <svg class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-                                </svg>
-                            </div>
-                            
-                            <div class="space-y-2">
-                                <div class="text-sm text-gray-600">
-                                    <label for="file-upload" class="cursor-pointer bg-blue hover:bg-blue-dark text-white py-2 px-4 rounded">
-                                        Select PDF file
-                                    </label>
-                                    <input id="file-upload" name="pdf_file" type="file" class="hidden" accept=".pdf" onchange="updateFileName(this)"/>
-                                </div>
-                                <p id="file-name" class="text-sm text-gray-500">
-                                    No file selected
-                                </p>
-                                <p class="text-xs text-gray-500">
-                                    PDF files only, max 10MB
-                                </p>
-                            </div>
-                        </div>
-                        
-                        <div class="flex flex-col space-y-4">
-                            <button type="submit" class="w-full bg-blue hover:bg-blue-dark text-white font-bold py-3 px-4 rounded-lg shadow transition duration-150 ease-in-out">
-                                <span class="flex items-center justify-center">
-                                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
-                                    </svg>
-                                    Analyze PDF
-                                </span>
-                            </button>
-                            
-                            <div class="text-center">
-                                <a href="/upload/bulk/" class="text-blue-600 hover:text-blue-700 text-sm font-medium">
-                                    Need to scan multiple files? Use our bulk upload feature
-                                </a>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                
-                <div class="bg-gray-50 px-6 py-4">
-                    <div class="text-sm text-gray-500">
-                        <h3 class="font-medium text-gray-700 mb-2">How it works:</h3>
-                        <ol class="list-decimal list-inside space-y-1 ml-2">
-                            <li>Upload a PDF document for analysis</li>
-                            <li>Our deep learning models examine the file structure</li>
-                            <li>The system detects steganographically hidden PNG images</li>
-                            <li>Get instant results with confidence scores</li>
-                        </ol>
+                </li>
+            </ol>
+        </nav>
+
+        <!-- Page Header -->
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-900 mb-2">Upload PDF for Analysis</h1>
+            <p class="text-gray-600">Detect hidden content and steganographic patterns in your PDF files</p>
+        </div>
+
+        <!-- Messages -->
+        {% if messages %}
+        <div class="mb-6">
+            {% for message in messages %}
+            <div class="rounded-md {% if message.tags == 'success' %}bg-green-50 border border-green-200{% elif message.tags == 'error' %}bg-red-50 border border-red-200{% else %}bg-blue-50 border border-blue-200{% endif %} p-4 mb-4">
+                <div class="flex">
+                    <div class="flex-shrink-0">
+                        {% if message.tags == 'success' %}
+                        <i class="fas fa-check-circle text-green-400"></i>
+                        {% elif message.tags == 'error' %}
+                        <i class="fas fa-exclamation-circle text-red-400"></i>
+                        {% else %}
+                        <i class="fas fa-info-circle text-blue-400"></i>
+                        {% endif %}
+                    </div>
+                    <div class="ml-3">
+                        <p class="text-sm {% if message.tags == 'success' %}text-green-800{% elif message.tags == 'error' %}text-red-800{% else %}text-blue-800{% endif %}">
+                            {{ message }}
+                        </p>
                     </div>
                 </div>
             </div>
-            
-            
+            {% endfor %}
         </div>
-    </main>
-    
-    
-    <script>
-        function updateFileName(input) {
-            const fileName = input.files[0]?.name || "No file selected";
-            document.getElementById('file-name').textContent = fileName;
+        {% endif %}
+
+        <!-- Upload Form -->
+        <div class="bg-white shadow-xl rounded-lg overflow-hidden">
+            <div class="bg-gradient-to-r from-blue-600 to-purple-600 px-6 py-4">
+                <h2 class="text-xl font-semibold text-white flex items-center">
+                    <i class="fas fa-upload mr-3"></i>
+                    File Upload
+                </h2>
+            </div>
             
-            const uploadIcon = document.getElementById('upload-icon');
-            if (input.files.length > 0) {
-                uploadIcon.innerHTML = '<svg class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>';
+            <form method="post" enctype="multipart/form-data" class="p-6" id="uploadForm">
+                {% csrf_token %}
+                
+                <!-- File Upload Area -->
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                        Select PDF File
+                    </label>
+                    <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md hover:border-gray-400 transition-colors duration-200" id="dropzone">
+                        <div class="space-y-1 text-center">
+                            <div class="mx-auto h-12 w-12 text-gray-400">
+                                <i class="fas fa-file-pdf text-4xl"></i>
+                            </div>
+                            <div class="flex text-sm text-gray-600">
+                                <label for="id_pdf_file" class="relative cursor-pointer bg-white rounded-md font-medium text-blue-600 hover:text-blue-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-blue-500">
+                                    <span>Upload a file</span>
+                                    <input id="id_pdf_file" name="pdf_file" type="file" accept=".pdf" class="sr-only" required>
+                                </label>
+                                <p class="pl-1">or drag and drop</p>
+                            </div>
+                            <p class="text-xs text-gray-500">PDF files up to 50MB</p>
+                        </div>
+                    </div>
+                    <div id="file-info" class="mt-3 hidden">
+                        <div class="flex items-center p-3 bg-blue-50 rounded-md">
+                            <i class="fas fa-file-pdf text-blue-500 mr-3"></i>
+                            <div class="flex-1">
+                                <p class="text-sm font-medium text-blue-900" id="file-name"></p>
+                                <p class="text-xs text-blue-700" id="file-size"></p>
+                            </div>
+                            <button type="button" id="remove-file" class="text-blue-500 hover:text-blue-700">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Analysis Technique -->
+                <div class="mb-6">
+                    <label for="id_technique" class="block text-sm font-medium text-gray-700 mb-2">
+                        Analysis Technique
+                    </label>
+                    <select id="id_technique" name="technique" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
+                        <option value="auto">Auto - Comprehensive Analysis (Recommended)</option>
+                        <option value="statistical">Statistical Analysis Only</option>
+                        <option value="visual">Visual Pattern Detection</option>
+                        <option value="metadata">Metadata Analysis</option>
+                        <option value="frequency">Frequency Analysis</option>
+                    </select>
+                    <p class="mt-1 text-xs text-gray-500">Choose the analysis method or let the system decide automatically</p>
+                </div>
+
+                <!-- Additional Options -->
+                <div class="mb-6">
+                    <div class="bg-gray-50 rounded-lg p-4">
+                        <h3 class="text-sm font-medium text-gray-900 mb-3">Analysis Options</h3>
+                        <div class="space-y-3">
+                            <label class="flex items-center">
+                                <input type="checkbox" name="deep_analysis" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                                <span class="ml-2 text-sm text-gray-700">Enable deep learning analysis (slower but more accurate)</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" name="preserve_metadata" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                                <span class="ml-2 text-sm text-gray-700">Preserve original metadata in report</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" name="detailed_report" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded" checked>
+                                <span class="ml-2 text-sm text-gray-700">Generate detailed analysis report</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="flex items-center justify-between">
+                    <button type="button" onclick="window.history.back()" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-medium py-2 px-4 rounded-md transition duration-150">
+                        <i class="fas fa-arrow-left mr-2"></i>Cancel
+                    </button>
+                    <button type="submit" id="submit-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-md transition duration-150 disabled:opacity-50 disabled:cursor-not-allowed">
+                        <span id="submit-text">
+                            <i class="fas fa-search mr-2"></i>Analyze PDF
+                        </span>
+                        <span id="loading-text" class="hidden">
+                            <i class="fas fa-spinner fa-spin mr-2"></i>Analyzing...
+                        </span>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Information Panel -->
+        <div class="mt-8 bg-blue-50 border border-blue-200 rounded-lg p-6">
+            <h3 class="text-lg font-medium text-blue-900 mb-3">
+                <i class="fas fa-info-circle mr-2"></i>About PDF Analysis
+            </h3>
+            <div class="grid md:grid-cols-2 gap-4 text-sm text-blue-800">
+                <div>
+                    <h4 class="font-medium mb-2">What we detect:</h4>
+                    <ul class="space-y-1">
+                        <li>• Hidden text and images</li>
+                        <li>• Embedded files and metadata</li>
+                        <li>• Statistical anomalies</li>
+                        <li>• Suspicious patterns</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-medium mb-2">File requirements:</h4>
+                    <ul class="space-y-1">
+                        <li>• PDF format only</li>
+                        <li>• Maximum size: 50MB</li>
+                        <li>• No password protection</li>
+                        <li>• Text-based or image PDFs</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const dropzone = document.getElementById('dropzone');
+        const fileInput = document.getElementById('id_pdf_file');
+        const fileInfo = document.getElementById('file-info');
+        const fileName = document.getElementById('file-name');
+        const fileSize = document.getElementById('file-size');
+        const removeFile = document.getElementById('remove-file');
+        const submitBtn = document.getElementById('submit-btn');
+        const submitText = document.getElementById('submit-text');
+        const loadingText = document.getElementById('loading-text');
+        const uploadForm = document.getElementById('uploadForm');
+
+        // Drag and drop functionality
+        dropzone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropzone.classList.add('border-blue-500', 'bg-blue-50');
+        });
+
+        dropzone.addEventListener('dragleave', (e) => {
+            e.preventDefault();
+            dropzone.classList.remove('border-blue-500', 'bg-blue-50');
+        });
+
+        dropzone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropzone.classList.remove('border-blue-500', 'bg-blue-50');
+            
+            const files = e.dataTransfer.files;
+            if (files.length > 0 && files[0].type === 'application/pdf') {
+                fileInput.files = files;
+                displayFileInfo(files[0]);
             } else {
-                uploadIcon.innerHTML = '<svg class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" /></svg>';
+                alert('Please select a PDF file.');
             }
+        });
+
+        // File input change
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                displayFileInfo(e.target.files[0]);
+            }
+        });
+
+        // Display file info
+        function displayFileInfo(file) {
+            fileName.textContent = file.name;
+            fileSize.textContent = formatFileSize(file.size);
+            fileInfo.classList.remove('hidden');
+            dropzone.classList.add('hidden');
         }
+
+        // Remove file
+        removeFile.addEventListener('click', () => {
+            fileInput.value = '';
+            fileInfo.classList.add('hidden');
+            dropzone.classList.remove('hidden');
+        });
+
+        // Format file size
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        // Form submission
+        uploadForm.addEventListener('submit', () => {
+            submitBtn.disabled = true;
+            submitText.classList.add('hidden');
+            loadingText.classList.remove('hidden');
+        });
     </script>
-{% endblock %}
+</body>
+</html>

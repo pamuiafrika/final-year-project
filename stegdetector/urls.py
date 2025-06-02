@@ -7,6 +7,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('pdf_parser.urls')),
     path('tools/', include('pdf_stego.urls')),
+    path('ai/', include('detector_app.urls')),
     # path('administrator', include('detector_app.urls')),
 ]
 

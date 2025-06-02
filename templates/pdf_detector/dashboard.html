@@ -1,0 +1,268 @@
+<!-- DASHBOARD TEMPLATE -->
+<!-- pdf_detector/dashboard.html -->
+{% extends 'pdf_detector/base.html' %}
+
+{% block title %}Dashboard - PDF Malware Detector{% endblock %}
+
+{% block content %}
+<div class="space-y-8">
+    <!-- Header -->
+    <div class="gradient-bg rounded-2xl p-8 text-white">
+        <div class="flex items-center justify-between">
+            <div>
+                <h1 class="text-3xl font-bold mb-2">Welcome back, {{ user.first_name|default:user.username }}!</h1>
+                <p class="text-blue-100 text-lg">Upload and analyze PDF files for malware detection</p>
+            </div>
+            <div class="hidden md:block">
+                <i class="fas fa-shield-virus text-6xl text-white opacity-20"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 card-hover">
+            <div class="flex items-center">
+                <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                    <i class="fas fa-file-pdf text-blue-600 text-xl"></i>
+                </div>
+                <div class="ml-4">
+                    <p class="text-sm text-gray-600">Total Scans</p>
+                    <p class="text-2xl font-bold text-gray-900">{{ total_scans }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 card-hover">
+            <div class="flex items-center">
+                <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                    <i class="fas fa-check-shield text-green-600 text-xl"></i>
+                </div>
+                <div class="ml-4">
+                    <p class="text-sm text-gray-600">Benign Files</p>
+                    <p class="text-2xl font-bold text-gray-900">{{ benign_count }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 card-hover">
+            <div class="flex items-center">
+                <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center">
+                    <i class="fas fa-exclamation-triangle text-red-600 text-xl"></i>
+                </div>
+                <div class="ml-4">
+                    <p class="text-sm text-gray-600">Malicious Files</p>
+                    <p class="text-2xl font-bold text-gray-900">{{ malicious_count }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 card-hover">
+            <div class="flex items-center">
+                <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+                    <i class="fas fa-percentage text-purple-600 text-xl"></i>
+                </div>
+                <div class="ml-4">
+                    <p class="text-sm text-gray-600">Detection Rate</p>
+                    <p class="text-2xl font-bold text-gray-900">
+                        {% if total_scans > 0 %}
+                            {{ malicious_count|floatformat:0 }}%
+                        {% else %}
+                            0%
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Upload Section -->
+        <div class="lg:col-span-2">
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-8">
+                <div class="text-center" x-data="fileUpload()">
+                    <div class="mb-6">
+                        <i class="fas fa-cloud-upload-alt text-5xl text-gray-400 mb-4"></i>
+                        <h2 class="text-2xl font-bold text-gray-900 mb-2">Upload PDF for Analysis</h2>
+                        <p class="text-gray-600">Select a PDF file to analyze for potential malware</p>
+                    </div>
+
+                    <form method="post" enctype="multipart/form-data" action="{% url 'pdf_detector:upload_pdf' %}" class="space-y-6">
+                        {% csrf_token %}
+                        
+                        <!-- File Upload Area -->
+                        <div class="border-2 border-dashed border-gray-300 rounded-xl p-8 hover:border-indigo-400 transition-colors"
+                             @dragover.prevent="isDragging = true"
+                             @dragleave.prevent="isDragging = false"
+                             @drop.prevent="handleDrop($event)"
+                             :class="{ 'border-indigo-400 bg-indigo-50': isDragging }">
+                            
+                            <input type="file" name="pdf_file" accept=".pdf" required
+                                   class="hidden" x-ref="fileInput" @change="handleFileSelect($event)">
+                            
+                            <div x-show="!selectedFile">
+                                <i class="fas fa-file-pdf text-4xl text-gray-400 mb-4"></i>
+                                <p class="text-lg text-gray-600 mb-2">Drag and drop your PDF here</p>
+                                <p class="text-sm text-gray-500 mb-4">or</p>
+                                <button type="button" @click="$refs.fileInput.click()"
+                                        class="bg-indigo-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-indigo-700 transition-colors">
+                                    Choose File
+                                </button>
+                            </div>
+                            
+                            <div x-show="selectedFile" class="space-y-4">
+                                <div class="flex items-center justify-center space-x-3">
+                                    <i class="fas fa-file-pdf text-red-500 text-2xl"></i>
+                                    <div>
+                                        <p class="font-medium text-gray-900" x-text="fileName"></p>
+                                        <p class="text-sm text-gray-500" x-text="fileSize"></p>
+                                    </div>
+                                </div>
+                                <button type="button" @click="clearFile()"
+                                        class="text-gray-500 hover:text-red-500 text-sm">
+                                    <i class="fas fa-times mr-1"></i> Remove
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="text-xs text-gray-500 bg-gray-50 rounded-lg p-3">
+                            <i class="fas fa-info-circle mr-1"></i>
+                            Maximum file size: 50MB. Only PDF files are supported.
+                        </div>
+
+                        <button type="submit" x-show="selectedFile"
+                                class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-3 rounded-lg font-medium hover:from-indigo-700 hover:to-purple-700 transition-all duration-200 transform hover:scale-105">
+                            <i class="fas fa-shield-alt mr-2"></i>
+                            Analyze PDF for Malware
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Scans -->
+        <div class="space-y-6">
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-lg font-semibold text-gray-900">Recent Scans</h3>
+                    <a href="{% url 'pdf_detector:scan_history' %}" 
+                       class="text-indigo-600 hover:text-indigo-700 text-sm font-medium">
+                        View All <i class="fas fa-arrow-right ml-1"></i>
+                    </a>
+                </div>
+
+                {% if recent_scans %}
+                    <div class="space-y-3">
+                        {% for scan in recent_scans %}
+                            <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                                <div class="flex items-center space-x-3 flex-1 min-w-0">
+                                    <div class="flex-shrink-0">
+                                        {% if scan.is_malicious %}
+                                            <i class="fas fa-exclamation-triangle text-red-500"></i>
+                                        {% elif scan.is_malicious == False %}
+                                            <i class="fas fa-check-circle text-green-500"></i>
+                                        {% else %}
+                                            <i class="fas fa-clock text-yellow-500"></i>
+                                        {% endif %}
+                                    </div>
+                                    <div class="min-w-0 flex-1">
+                                        <p class="text-sm font-medium text-gray-900 truncate">
+                                            {{ scan.original_filename }}
+                                        </p>
+                                        <p class="text-xs text-gray-500">
+                                            {{ scan.created_at|timesince }} ago
+                                        </p>
+                                    </div>
+                                </div>
+                                <a href="{% url 'pdf_detector:scan_detail' scan.id %}"
+                                   class="text-indigo-600 hover:text-indigo-700 text-xs">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="text-center py-8">
+                        <i class="fas fa-file-alt text-gray-300 text-3xl mb-3"></i>
+                        <p class="text-gray-500">No scans yet</p>
+                        <p class="text-sm text-gray-400">Upload your first PDF to get started</p>
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- Quick Tips -->
+            <div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-6 border border-blue-200">
+                <h3 class="text-lg font-semibold text-blue-900 mb-3">
+                    <i class="fas fa-lightbulb mr-2"></i> Quick Tips
+                </h3>
+                <ul class="space-y-2 text-sm text-blue-800">
+                    <li class="flex items-start space-x-2">
+                        <i class="fas fa-check text-blue-600 mt-0.5 text-xs"></i>
+                        <span>Scan suspicious email attachments</span>
+                    </li>
+                    <li class="flex items-start space-x-2">
+                        <i class="fas fa-check text-blue-600 mt-0.5 text-xs"></i>
+                        <span>Check downloaded PDFs from unknown sources</span>
+                    </li>
+                    <li class="flex items-start space-x-2">
+                        <i class="fas fa-check text-blue-600 mt-0.5 text-xs"></i>
+                        <span>Verify files before opening on important systems</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function fileUpload() {
+    return {
+        selectedFile: null,
+        fileName: '',
+        fileSize: '',
+        isDragging: false,
+        
+        handleFileSelect(event) {
+            const file = event.target.files[0];
+            this.setFile(file);
+        },
+        
+        handleDrop(event) {
+            this.isDragging = false;
+            const file = event.dataTransfer.files[0];
+            if (file && file.type === 'application/pdf') {
+                this.setFile(file);
+                // Set the file input
+                const dt = new DataTransfer();
+                dt.items.add(file);
+                this.$refs.fileInput.files = dt.files;
+            }
+        },
+        
+        setFile(file) {
+            if (file) {
+                this.selectedFile = file;
+                this.fileName = file.name;
+                this.fileSize = this.formatFileSize(file.size);
+            }
+        },
+        
+        clearFile() {
+            this.selectedFile = null;
+            this.fileName = '';
+            this.fileSize = '';
+            this.$refs.fileInput.value = '';
+        },
+        
+        formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+    }
+}
+</script>
+{% endblock %}
+

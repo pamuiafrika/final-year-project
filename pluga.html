@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlugaSMS - Plug & Play SMS Gateway Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-green': '#2ECC71',
+                        'brand-dark': '#1A1A1A',
+                        'brand-gray': '#2C2C2C'
+                    },
+                    fontFamily: {
+                        'brand': ['IBM Plex Mono', 'system-ui', '-apple-system', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        h1,h2,h3,h4,h5,h6{
+            font-family: 'Space Grotesk', 'system-ui', '-apple-system', 'sans-serif';
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes pulse-glow {
+            0%, 100% {
+                box-shadow: 0 0 20px rgba(46, 204, 113, 0.3);
+            }
+            50% {
+                box-shadow: 0 0 30px rgba(46, 204, 113, 0.6);
+            }
+        }
+        
+        .animate-fade-in-up {
+            animation: fadeInUp 0.8s ease-out;
+        }
+        
+        .animate-slide-in-right {
+            animation: slideInRight 0.8s ease-out;
+        }
+        
+        .animate-pulse-glow {
+            animation: pulse-glow 2s infinite;
+        }
+        
+        .brand-gradient {
+            background: linear-gradient(135deg, #2ECC71 0%, #27AE60 100%);
+        }
+        
+        .dark-gradient {
+            background: #1A1A1A;        }
+        
+        .glass-effect {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .code-block {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            border: 1px solid #475569;
+        }
+        
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, #2ECC71 0%, #27AE60 50%, #1ABC9C 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+    </style>
+</head>
+<body class="bg-brand-dark text-white font-brand overflow-x-hidden">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 glass-effect">
+        <div class="max-w-7xl mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-2">
+                    <div class="w-8 h-8 brand-gradient rounded-lg flex items-center justify-center">
+                        <span class="text-white font-black text-lg">P</span>
+                    </div>
+                    <span class="text-2xl font-black text-brand-green">PlugaSMS</span>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#features" class="text-gray-300 hover:text-brand-green transition-colors">Features</a>
+                    <a href="#api" class="text-gray-300 hover:text-brand-green transition-colors">API</a>
+                    <a href="#pricing" class="text-gray-300 hover:text-brand-green transition-colors">Pricing</a>
+                    <a href="#docs" class="text-gray-300 hover:text-brand-green transition-colors">Docs</a>
+                    <button class="bg-brand-green text-white px-6 py-2 rounded-lg font-semibold hover:bg-green-600 transition-all transform hover:scale-105">
+                        Get Started
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen flex items-center justify-center relative overflow-hidden pt-20">
+        <div class="absolute inset-0 dark-gradient"></div>
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute top-1/4 left-1/4 w-64 h-64 bg-brand-green rounded-full blur-3xl"></div>
+            <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-500 rounded-full blur-3xl"></div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center relative z-10">
+            <div class="animate-fade-in-up">
+                <h1 class="text-6xl lg:text-8xl font-black mb-6">
+                    <span class="text-gradient">Pluga</span><span class="text-white">SMS</span>
+                </h1>
+                <p class="text-xl text-gray-300 mb-8 leading-relaxed">
+                    The ultimate plug & play SMS gateway platform, comprehensive SDKs, ready-made templates, and no-code solutions for everyone.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 mb-12">
+                    <button class="bg-brand-green text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-green-600 transition-all transform hover:scale-105 animate-pulse-glow">
+                        Start Building Now
+                    </button>
+                    <button class="border-2 border-brand-green text-brand-green px-8 py-4 rounded-lg font-bold text-lg hover:bg-brand-green hover:text-white transition-all">
+                        View Documentation
+                    </button>
+                </div>
+                <div class="flex items-center space-x-8 text-sm text-gray-400">
+                    <div class="flex items-center space-x-2">
+                        <div class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+                        <span>99.9% Uptime</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <div class="w-3 h-3 bg-blue-500 rounded-full animate-pulse"></div>
+                        <span>Tanzania + Global Coverage</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <div class="w-3 h-3 bg-purple-500 rounded-full animate-pulse"></div>
+                        <span>No-Code Ready</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="animate-slide-in-right">
+                <div class="code-block rounded-2xl p-6 floating">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex space-x-2">
+                            <div class="w-3 h-3 bg-red-500 rounded-full"></div>
+                            <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                            <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+                        </div>
+                        <span class="text-xs text-gray-400">plugasms-sdk.js</span>
+                    </div>
+                    <pre class="text-sm text-gray-300"><code><span class="text-purple-400">import</span> <span class="text-blue-300">{ PlugaSMS }</span> <span class="text-purple-400">from</span> <span class="text-green-300">'plugasms'</span>;
+
+<span class="text-gray-500">// Initialize client</span>
+<span class="text-purple-400">const</span> <span class="text-blue-300">sms</span> = <span class="text-purple-400">new</span> <span class="text-yellow-300">PlugaSMS</span>({
+  <span class="text-blue-300">apiKey</span>: <span class="text-green-300">'your-api-key'</span>
+});
+
+<span class="text-gray-500">// Send SMS in one line</span>
+<span class="text-purple-400">await</span> <span class="text-blue-300">sms</span>.<span class="text-yellow-300">send</span>({
+  <span class="text-blue-300">to</span>: <span class="text-green-300">'+1234567890'</span>,
+  <span class="text-blue-300">message</span>: <span class="text-green-300">'Hello World!'</span>
+});
+
+<span class="text-gray-500">// That's it! 🚀</span></code></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-24 bg-brand-gray">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-5xl font-black mb-6">Why Choose <span class="text-gradient">PlugaSMS</span>?</h2>
+                <p class="text-xl text-gray-400 max-w-3xl mx-auto">Built for developers, designed for everyone. Experience the most powerful SMS gateway platform serving Tanzania and beyond.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="glass-effect rounded-2xl p-8 hover:transform hover:scale-105 transition-all duration-300">
+                    <div class="w-16 h-16 brand-gradient rounded-2xl flex items-center justify-center mb-6">
+                        <span class="text-2xl">⚡</span>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Lightning Fast</h3>
+                    <p class="text-gray-400">Deliver messages across Tanzania and internationally in milliseconds with optimized local routing.</p>
+                </div>
+                
+                <div class="glass-effect rounded-2xl p-8 hover:transform hover:scale-105 transition-all duration-300">
+                    <div class="w-16 h-16 brand-gradient rounded-2xl flex items-center justify-center mb-6">
+                        <span class="text-2xl">🔧</span>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Plug & Play</h3>
+                    <p class="text-gray-400">One-line integration with comprehensive SDKs plus ready-made templates for non-developers.</p>
+                </div>
+                
+                <div class="glass-effect rounded-2xl p-8 hover:transform hover:scale-105 transition-all duration-300">
+                    <div class="w-16 h-16 brand-gradient rounded-2xl flex items-center justify-center mb-6">
+                        <span class="text-2xl">🌍</span>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Global Reach</h3>
+                    <p class="text-gray-400">Optimized for Tanzanian networks with global reach to 200+ countries and premium delivery rates.</p>
+                </div>
+                
+                <div class="glass-effect rounded-2xl p-8 hover:transform hover:scale-105 transition-all duration-300">
+                    <div class="w-16 h-16 brand-gradient rounded-2xl flex items-center justify-center mb-6">
+                        <span class="text-2xl">📊</span>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Real-time Analytics</h3>
+                    <p class="text-gray-400">Monitor delivery status, track performance, and optimize campaigns with detailed insights.</p>
+                </div>
+                
+                <div class="glass-effect rounded-2xl p-8 hover:transform hover:scale-105 transition-all duration-300">
+                    <div class="w-16 h-16 brand-gradient rounded-2xl flex items-center justify-center mb-6">
+                        <span class="text-2xl">🔒</span>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Enterprise Security</h3>
+                    <p class="text-gray-400">Bank-level encryption, GDPR compliance, and SOC 2 certification for peace of mind.</p>
+                </div>
+                
+                <div class="glass-effect rounded-2xl p-8 hover:transform hover:scale-105 transition-all duration-300">
+                    <div class="w-16 h-16 brand-gradient rounded-2xl flex items-center justify-center mb-6">
+                        <span class="text-2xl">💎</span>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Premium Support</h3>
+                    <p class="text-gray-400">24/7 support in English and Swahili with dedicated account managers for enterprise clients.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Templates Section -->
+    <section id="templates" class="py-24 dark-gradient ">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-5xl font-black mb-6">Ready-Made <span class="text-gradient">Templates</span></h2>
+                <p class="text-xl text-gray-400 max-w-3xl mx-auto">No coding required! Choose from our collection of pre-built SMS templates for instant deployment.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="glass-effect rounded-2xl p-8 feature-card">
+                    <div class="w-16 h-16 brand-gradient rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fas fa-store text-2xl text-white"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Business Templates</h3>
+                    <p class="text-gray-400 mb-6">Order confirmations, appointment reminders, customer support responses for Tanzanian businesses.</p>
+                    <button class="bg-brand-green text-white px-4 py-2 rounded-lg font-semibold hover:bg-green-600 transition-all">
+                        <i class="fas fa-eye mr-2"></i>Preview
+                    </button>
+                </div>
+                
+                <div class="glass-effect rounded-2xl p-8 feature-card">
+                    <div class="w-16 h-16 brand-gradient rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fas fa-graduation-cap text-2xl text-white"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Education Templates</h3>
+                    <p class="text-gray-400 mb-6">School notifications, exam results, fee reminders in Swahili and English.</p>
+                    <button class="bg-brand-green text-white px-4 py-2 rounded-lg font-semibold hover:bg-green-600 transition-all">
+                        <i class="fas fa-eye mr-2"></i>Preview
+                    </button>
+                </div>
+                
+                <div class="glass-effect rounded-2xl p-8 feature-card">
+                    <div class="w-16 h-16 brand-gradient rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fas fa-heartbeat text-2xl text-white"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Healthcare Templates</h3>
+                    <p class="text-gray-400 mb-6">Appointment bookings, medication reminders, health tips for clinics and hospitals.</p>
+                    <button class="bg-brand-green text-white px-4 py-2 rounded-lg font-semibold hover:bg-green-600 transition-all">
+                        <i class="fas fa-eye mr-2"></i>Preview
+                    </button>
+                </div>
+
+                <div class="glass-effect rounded-2xl p-8 feature-card">
+                    <div class="w-16 h-16 brand-gradient rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fas fa-coins text-2xl text-white"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Banking Templates</h3>
+                    <p class="text-gray-400 mb-6">Transaction alerts, balance updates, and security notifications for financial institutions.</p>
+                    <button class="bg-brand-green text-white px-4 py-2 rounded-lg font-semibold hover:bg-green-600 transition-all">
+                        <i class="fas fa-eye mr-2"></i>Preview
+                    </button>
+                </div>
+
+                <div class="glass-effect rounded-2xl p-8 feature-card">
+                    <div class="w-16 h-16 brand-gradient rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fas fa-calendar-alt text-2xl text-white"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Event Templates</h3>
+                    <p class="text-gray-400 mb-6">Event reminders, registrations, and updates for conferences and social gatherings.</p>
+                    <button class="bg-brand-green text-white px-4 py-2 rounded-lg font-semibold hover:bg-green-600 transition-all">
+                        <i class="fas fa-eye mr-2"></i>Preview
+                    </button>
+                </div>
+
+                <div class="glass-effect rounded-2xl p-8 feature-card">
+                    <div class="w-16 h-16 brand-gradient rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fas fa-warehouse text-2xl text-white"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Logistics Templates</h3>
+                    <p class="text-gray-400 mb-6">Delivery updates, shipping notifications, and tracking information for logistics companies.</p>
+                    <button class="bg-brand-green text-white px-4 py-2 rounded-lg font-semibold hover:bg-green-600 transition-all">
+                        <i class="fas fa-eye mr-2"></i>Preview
+                    </button>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <button class="border-2 border-brand-green text-brand-green px-8 py-4 rounded-lg font-bold text-lg hover:bg-brand-green hover:text-white transition-all">
+                    <i class="fas fa-plus mr-2"></i>Browse All 50+ Templates
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- API Section -->
+    <section id="api" class="py-24 bg-brand-gray ">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div class="animate-slide-in-left">
+                    <h2 class="text-5xl font-black mb-8">Developer-First <span class="text-gradient">API</span></h2>
+                    <p class="text-xl text-gray-300 mb-8">RESTful API designed for simplicity and power. Get started in minutes, scale to millions of messages across Tanzania and beyond.</p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-8 h-8 bg-brand-green rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                <i class="fas fa-check text-white text-sm"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold text-white">RESTful & GraphQL</h4>
+                                <p class="text-gray-400">Choose your preferred API style with comprehensive documentation and examples.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4">
+                            <div class="w-8 h-8 bg-brand-green rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                <i class="fas fa-check text-white text-sm"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold text-white">Multiple SDKs</h4>
+                                <p class="text-gray-400">Native libraries for Node.js, Python, PHP, Java, C#, and more programming languages.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4">
+                            <div class="w-8 h-8 bg-brand-green rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                <i class="fas fa-check text-white text-sm"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold text-white">Webhooks & Events</h4>
+                                <p class="text-gray-400">Real-time delivery notifications and status updates with local Tanzania timezone support.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-12">
+                        <button class="bg-brand-green text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-green-600 transition-all transform hover:scale-105">
+                            <i class="fas fa-code mr-2"></i>Explore API Docs
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="space-y-6 animate-slide-in-right">
+                    <div class="code-block rounded-xl p-6">
+                        <div class="text-xs text-gray-400 mb-3">cURL</div>
+                        <pre class="text-sm text-gray-300"><code>curl -X POST https://api.plugasms.com/v1/send \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "to": "+255712345678",
+    "message": "Karibu PlugaSMS Tanzania!",
+    "region": "tz"
+  }'</code></pre>
+                    </div>
+                    
+                    <div class="code-block rounded-xl p-6">
+                        <div class="text-xs text-gray-400 mb-3">Node.js</div>
+                        <pre class="text-sm text-gray-300"><code><span class="text-purple-400">const</span> <span class="text-blue-300">response</span> = <span class="text-purple-400">await</span> <span class="text-yellow-300">fetch</span>(<span class="text-green-300">'https://api.plugasms.com/v1/send'</span>, {
+  <span class="text-blue-300">method</span>: <span class="text-green-300">'POST'</span>,
+  <span class="text-blue-300">headers</span>: {
+    <span class="text-green-300">'Authorization'</span>: <span class="text-green-300">'Bearer YOUR_API_KEY'</span>,
+    <span class="text-green-300">'Content-Type'</span>: <span class="text-green-300">'application/json'</span>
+  },
+  <span class="text-blue-300">body</span>: <span class="text-yellow-300">JSON</span>.<span class="text-blue-300">stringify</span>({
+    <span class="text-blue-300">to</span>: <span class="text-green-300">'+255712345678'</span>,
+    <span class="text-blue-300">message</span>: <span class="text-green-300">'Karibu PlugaSMS!'</span>,
+    <span class="text-blue-300">region</span>: <span class="text-green-300">'tz'</span>
+  })
+});</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-24 dark-gradient">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-5xl font-black mb-6">Simple, <span class="text-gradient">Transparent</span> Pricing</h2>
+                <p class="text-xl text-gray-400">Pay as you grow. No hidden fees, no commitments.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <div class="glass-effect rounded-2xl p-8 hover:transform hover:scale-105 transition-all duration-300">
+                    <h3 class="text-2xl font-bold mb-4">Starter</h3>
+                    <div class="text-4xl font-black text-brand-green mb-6">$0.05<span class="text-lg text-gray-400">/SMS</span></div>
+                    <ul class="space-y-3 text-gray-300 mb-8">
+                        <li class="flex items-center"><span class="text-brand-green mr-2">✓</span> Global delivery</li>
+                        <li class="flex items-center"><span class="text-brand-green mr-2">✓</span> Basic analytics</li>
+                        <li class="flex items-center"><i class="fas fa-check text-brand-green mr-3"></i> 10 free templates</li>
+                        <li class="flex items-center"><span class="text-brand-green mr-2">✓</span> Email support</li>
+                    </ul>
+                    <button class="w-full border-2 border-brand-green text-brand-green px-6 py-3 rounded-lg font-semibold hover:bg-brand-green hover:text-white transition-all">
+                        Get Started
+                    </button>
+                </div>
+                
+                <div class="glass-effect rounded-2xl p-8 hover:transform hover:scale-105 transition-all duration-300 border-2 border-brand-green relative">
+                    <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-brand-green text-white px-4 py-1 rounded-full text-sm font-semibold">
+                        Most Popular
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Pro</h3>
+                    <div class="text-4xl font-black text-brand-green mb-6">$0.03<span class="text-lg text-gray-400">/SMS</span></div>
+                    <ul class="space-y-3 text-gray-300 mb-8">
+                        <li class="flex items-center"><span class="text-brand-green mr-2">✓</span> API access</li>
+                        <li class="flex items-center"><span class="text-brand-green mr-2">✓</span> Everything in Starter</li>
+                        <li class="flex items-center"><span class="text-brand-green mr-2">✓</span> Advanced analytics</li>
+                        <li class="flex items-center"><span class="text-brand-green mr-2">✓</span> Webhooks</li>
+                        <li class="flex items-center"><span class="text-brand-green mr-2">✓</span> Priority support</li>
+                        <li class="flex items-center"><span class="text-brand-green mr-2">✓</span> Custom sender ID</li>
+                    </ul>
+                    <button class="w-full bg-brand-green text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-600 transition-all">
+                        Start Pro Trial
+                    </button>
+                </div>
+                
+                <div class="glass-effect rounded-2xl p-8 hover:transform hover:scale-105 transition-all duration-300">
+                    <h3 class="text-2xl font-bold mb-4">Enterprise</h3>
+                    <div class="text-4xl font-black text-brand-green mb-6">Custom</div>
+                    <ul class="space-y-3 text-gray-300 mb-8">
+                        <li class="flex items-center"><span class="text-brand-green mr-2">✓</span> Everything in Pro</li>
+                        <li class="flex items-center"><span class="text-brand-green mr-2">✓</span> Volume discounts</li>
+                        <li class="flex items-center"><span class="text-brand-green mr-2">✓</span> Dedicated support</li>
+                        <li class="flex items-center"><span class="text-brand-green mr-2">✓</span> SLA guarantee</li>
+                        <li class="flex items-center"><span class="text-brand-green mr-2">✓</span> Custom integrations</li>
+                    </ul>
+                    <button class="w-full border-2 border-brand-green text-brand-green px-6 py-3 rounded-lg font-semibold hover:bg-brand-green hover:text-white transition-all">
+                        Contact Sales
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonial Section-->
+    <section class="py-24 bg-brand-gray">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-5xl font-black mb-6">Customer <span class="text-gradient">Testimonials</span></h2>
+                <p class="text-xl text-gray-400">See what our customers say about PlugaSMS</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="glass-effect rounded-2xl p-8">
+                    <div class="flex items-center mb-6">
+                        <img src="https://api.dicebear.com/6.x/avataaars/svg?seed=Felix" alt="Avatar" class="w-16 h-16 rounded-full">
+                        <div class="ml-4">
+                            <h4 class="text-xl font-bold">Felix Mosha</h4>
+                            <p class="text-gray-400">CTO, TechHub Tanzania</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300">"PlugaSMS transformed our customer communication. The API is a breeze to integrate, and the delivery rates are excellent."</p>
+                </div>
+                
+                <div class="glass-effect rounded-2xl p-8">
+                    <div class="flex items-center mb-6">
+                        <img src="https://api.dicebear.com/6.x/avataaars/svg?seed=Sarah" alt="Avatar" class="w-16 h-16 rounded-full">
+                        <div class="ml-4">
+                            <h4 class="text-xl font-bold">Sarah Kimathi</h4>
+                            <p class="text-gray-400">Product Manager, SafePay</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300">"The ready-made templates saved us weeks of development time. Our notifications system was up and running in just days."</p>
+                </div>
+                
+                <div class="glass-effect rounded-2xl p-8">
+                    <div class="flex items-center mb-6">
+                        <img src="https://api.dicebear.com/6.x/avataaars/svg?seed=James" alt="Avatar" class="w-16 h-16 rounded-full">
+                        <div class="ml-4">
+                            <h4 class="text-xl font-bold">James Omondi</h4>
+                            <p class="text-gray-400">CEO, HealthConnect</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300">"The local support team is incredible. They understand the Tanzanian market and helped us optimize our SMS campaigns."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Clients Section -->
+    <section class="py-24 dark-gradient">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-5xl font-black mb-6">Trusted by <span class="text-gradient">Industry Leaders</span></h2>
+                <p class="text-xl text-gray-400">Powering SMS communications for Tanzania's top enterprises</p>
+            </div>
+            
+            <div class="overflow-hidden">
+                <div class="grid grid-cols-8 gap-12 items-center animate-scrolling">
+                <div class="glass-effect p-8 rounded-xl hover:transform hover:scale-105 transition-all">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/7/75/Vodacom_Logo.png" alt="CRDB" class="h-12 w-auto mx-auto opacity-70 hover:opacity-100 transition-opacity">
+                </div>
+                
+                <div class="glass-effect p-8 rounded-xl hover:transform hover:scale-105 transition-all">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/NMB_Bank_Logo.svg/2560px-NMB_Bank_Logo.svg.png" alt="NMB Bank" class="h-12 w-auto mx-auto opacity-70 hover:opacity-100 transition-opacity">
+                </div>
+                
+                <div class="glass-effect p-8 rounded-xl hover:transform hover:scale-105 transition-all">
+                    <img src="https://upload.wikimedia.org/wikipedia/en/thumb/5/5f/Tigo_Logo_2018.png/640px-Tigo_Logo_2018.png" alt="Tigo" class="h-12 w-auto mx-auto opacity-70 hover:opacity-100 transition-opacity">
+                </div>
+                
+                <div class="glass-effect p-8 rounded-xl hover:transform hover:scale-105 transition-all">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Coca_Cola_logo.svg/2560px-Coca_Cola_logo.svg.png" alt="Coca Cola" class="h-12 w-auto mx-auto opacity-70 hover:opacity-100 transition-opacity">
+                </div>
+
+                <div class="glass-effect p-8 rounded-xl hover:transform hover:scale-105 transition-all">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Google_2015_logo.svg/2560px-Google_2015_logo.svg.png" alt="Google" class="h-12 w-auto mx-auto opacity-70 hover:opacity-100 transition-opacity">
+                </div>
+
+                <div class="glass-effect p-8 rounded-xl hover:transform hover:scale-105 transition-all">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/IBM_logo.svg/2560px-IBM_logo.svg.png" alt="IBM" class="h-12 w-auto mx-auto opacity-70 hover:opacity-100 transition-opacity">
+                </div>
+
+                <div class="glass-effect p-8 rounded-xl hover:transform hover:scale-105 transition-all">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Facebook_logo.svg/2560px-AWS_logo.svg.png" alt="Salesforce" class="h-12 w-auto mx-auto opacity-70 hover:opacity-100 transition-opacity">
+                </div>
+
+                <div class="glass-effect p-8 rounded-xl hover:transform hover:scale-105 transition-all">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Amazon_logo.svg/2560px-Amazon_logo.svg.png" alt="Amazon" class="h-12 w-auto mx-auto opacity-70 hover:opacity-100 transition-opacity">
+                </div>
+                </div>
+            </div>
+
+            <style>
+                @keyframes scroll {
+                0% { transform: translateX(0); }
+                100% { transform: translateX(-100%); }
+                }
+
+                .animate-scrolling {
+                animation: scroll 20s linear infinite;
+                display: inline-flex;
+                white-space: nowrap;
+                }
+
+                .animate-scrolling > div {
+                flex: 0 0 auto;
+                }
+            </style>
+
+            <div class="mt-16 grid md:grid-cols-3 gap-8 text-center">
+                <div class="glass-effect p-8 rounded-xl">
+                    <div class="text-4xl font-bold text-brand-green mb-2">500M+</div>
+                    <p class="text-gray-400">SMS Delivered Monthly</p>
+                </div>
+                
+                <div class="glass-effect p-8 rounded-xl">
+                    <div class="text-4xl font-bold text-brand-green mb-2">99.9%</div>
+                    <p class="text-gray-400">Delivery Success Rate</p>
+                </div>
+                
+                <div class="glass-effect p-8 rounded-xl">
+                    <div class="text-4xl font-bold text-brand-green mb-2">50K+</div>
+                    <p class="text-gray-400">Active Business Users</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-24 bg-brand-gray">
+        <div class="max-w-4xl mx-auto text-center px-6">
+            <h2 class="text-5xl font-black mb-8">Ready to <span class="text-gradient">PLUG</span> In?</h2>
+            <p class="text-xl text-gray-300 mb-12">Join thousands of developers building amazing SMS experiences with PlugaSMS.</p>
+            
+            <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
+                <button class="bg-brand-green text-white px-12 py-4 rounded-lg font-bold text-xl hover:bg-green-600 transition-all transform hover:scale-105 animate-pulse-glow">
+                    Start Free Trial
+                </button>
+                <button class="border-2 border-white text-white px-12 py-4 rounded-lg font-bold text-xl hover:bg-white hover:text-brand-dark transition-all">
+                    Schedule Demo
+                </button>
+            </div>
+            
+            <p class="text-gray-400 mt-8">No credit card required • 1000 free SMS • Setup in 5 minutes</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-16 bg-brand-dark border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-6">
+                        <div class="w-8 h-8 brand-gradient rounded-lg flex items-center justify-center">
+                            <span class="text-white font-black text-lg">P</span>
+                        </div>
+                        <span class="text-2xl font-black text-gradient">PlugaSMS</span>
+                    </div>
+                    <p class="text-gray-400 mb-6">The ultimate SMS gateway platform for developers.</p>
+                    <div class="flex space-x-4">
+                        <div class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-brand-green transition-colors cursor-pointer">
+                            <span class="text-white">𝕏</span>
+                        </div>
+                        <div class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-brand-green transition-colors cursor-pointer">
+                            <span class="text-white">📧</span>
+                        </div>
+                        <div class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-brand-green transition-colors cursor-pointer">
+                            <span class="text-white">💼</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Product</h4>
+                    <ul class="space-y-3 text-gray-400">
+                        <li><a href="#" class="hover:text-brand-green transition-colors">Features</a></li>
+                        <li><a href="#" class="hover:text-brand-green transition-colors">API</a></li>
+                        <li><a href="#" class="hover:text-brand-green transition-colors">SDKs</a></li>
+                        <li><a href="#" class="hover:text-brand-green transition-colors">Pricing</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Resources</h4>
+                    <ul class="space-y-3 text-gray-400">
+                        <li><a href="#" class="hover:text-brand-green transition-colors">Documentation</a></li>
+                        <li><a href="#" class="hover:text-brand-green transition-colors">Tutorials</a></li>
+                        <li><a href="#" class="hover:text-brand-green transition-colors">Blog</a></li>
+                        <li><a href="#" class="hover:text-brand-green transition-colors">Status</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Company</h4>
+                    <ul class="space-y-3 text-gray-400">
+                        <li><a href="#" class="hover:text-brand-green transition-colors">About</a></li>
+                        <li><a href="#" class="hover:text-brand-green transition-colors">Contact</a></li>
+                        <li><a href="#" class="hover:text-brand-green transition-colors">Privacy</a></li>
+                        <li><a href="#" class="hover:text-brand-green transition-colors">Terms</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
+                <p>&copy; 2025 PlugaSMS. All rights reserved. Built with ❤️ for developers.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeInUp 0.8s ease-out forwards';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all cards and sections
+        document.querySelectorAll('.glass-effect').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Add hover effects to buttons
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.05)';
+            });
+            
+            button.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1)';
+            });
+        });
+
+        // Animated counter for stats (if you want to add them later)
+        function animateCounter(element, target, duration = 2000) {
+            let start = 0;
+            const increment = target / (duration / 16);
+            
+            const timer = setInterval(() => {
+                start += increment;
+                element.textContent = Math.floor(start).toLocaleString();
+                
+                if (start >= target) {
+                    element.textContent = target.toLocaleString();
+                    clearInterval(timer);
+                }
+            }, 16);
+        }
+
+        // Mobile menu toggle (if you want to add mobile menu later)
+        let mobileMenuOpen = false;
+        
+        function toggleMobileMenu() {
+            mobileMenuOpen = !mobileMenuOpen;
+            // Add mobile menu logic here
+        }
+
+        // Add particle effect to hero section
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.className = 'absolute w-1 h-1 bg-brand-green rounded-full opacity-50';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.top = '100%';
+            particle.style.animation = `float ${3 + Math.random() * 4}s linear infinite`;
+            
+            const hero = document.querySelector('section');
+            hero.appendChild(particle);
+            
+            setTimeout(() => {
+                particle.remove();
+            }, 7000);
+        }
+
+        // Create particles periodically
+        setInterval(createParticle, 2000);
+
+        // Add typing effect to hero text (optional enhancement)
+        function typeWriter(element, text, speed = 50) {
+            let i = 0;
+            element.innerHTML = '';
+            
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            
+            type();
+        }
+
+        // Initialize on page load
+        window.addEventListener('load', () => {
+            // Add any initialization code here
+            console.log('PlugaSMS landing page loaded successfully! 🚀');
+        });
+
+        // Add scroll progress indicator
+        window.addEventListener('scroll', () => {
+            const scrolled = (window.pageYOffset / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+            
+            // Create progress bar if it doesn't exist
+            let progressBar = document.getElementById('scroll-progress');
+            if (!progressBar) {
+                progressBar = document.createElement('div');
+                progressBar.id = 'scroll-progress';
+                progressBar.className = 'fixed top-0 left-0 h-1 bg-brand-green z-50 transition-all duration-300';
+                document.body.appendChild(progressBar);
+            }
+            
+            progressBar.style.width = scrolled + '%';
+        });
+    </script>
+</body>
+</html>

@@ -23,6 +23,7 @@
     />
     <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
     <style>
       :root {
         --primary: #2c3e50;   /* Dark blue-gray - main color */
@@ -52,11 +53,14 @@
         background-color:  #1a252f;
       }
     </style>
+
   </head>
   <body
     class="bg-gray-100 text-gray-900"
     x-data="{ sidebarOpen: false, profileOpen: false, notifOpen: false }"
   >
+  {% block extra_css %}
+  {% endblock %}
     <!-- Sidebar: Fixed on left on medium and up; overlays on smaller screens -->
     <aside
       class="fixed inset-y-0 left-0 w-64 bg-[var(--dark)] text-white transform transition-transform duration-300 ease-in-out z-50"
@@ -209,5 +213,47 @@
       src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"
       defer
     ></script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script>
+        // Initialize tooltips globally
+        document.addEventListener('DOMContentLoaded', function() {
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl);
+            });
+        });
+        
+        // Auto-hide alerts after 5 seconds
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(function() {
+                var alerts = document.querySelectorAll('.alert');
+                alerts.forEach(function(alert) {
+                    var bsAlert = new bootstrap.Alert(alert);
+                    bsAlert.close();
+                });
+            }, 5000);
+        });
+        
+        // Add loading state to buttons
+        document.addEventListener('DOMContentLoaded', function() {
+            var forms = document.querySelectorAll('form');
+            forms.forEach(function(form) {
+                form.addEventListener('submit', function() {
+                    var submitBtn = form.querySelector('button[type="submit"], input[type="submit"]');
+                    if (submitBtn) {
+                        submitBtn.disabled = true;
+                        if (submitBtn.innerHTML) {
+                            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Processing...';
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+    
   </body>
 </html>
