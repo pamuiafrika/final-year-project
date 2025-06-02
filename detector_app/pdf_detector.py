@@ -618,9 +618,9 @@ class PDFSteganoDetector:
 
                 self.indicators.append(SuspiciousIndicator(
                     category="embedded_files",
-                    severity="LOW",
+                    severity="HIGH",
                     description=f"Found {len(embedded_files)} embedded files",
-                    confidence=0.4,
+                    confidence=0.8,
                     technical_details={"all_files": embedded_files}
                 ))
 
@@ -663,7 +663,7 @@ class PDFSteganoDetector:
                     category="invisible_layers",
                     severity="MEDIUM",
                     description=f"Found {len(invisible_elements)} potentially invisible elements",
-                    confidence=0.6,
+                    confidence=0.75,
                     technical_details={"invisible_elements": invisible_elements}
                 ))
 
@@ -713,7 +713,7 @@ class PDFSteganoDetector:
                     category="concealed_png",
                     severity="MEDIUM",
                     description=f"Found {len(png_chunks)} PNG chunk signatures",
-                    confidence=0.5,
+                    confidence=0.95,
                     technical_details={"png_chunks": png_chunks[:10]}
                 ))
 
@@ -801,7 +801,7 @@ class PDFSteganoDetector:
 
     def _generate_report(self) -> Dict[str, Any]:
         """Generate comprehensive analysis report."""
-        severity_weights = {"LOW": 1, "MEDIUM": 3, "HIGH": 7, "CRITICAL": 10}
+        severity_weights = {"LOW": 1, "MEDIUM": 4, "HIGH": 7, "CRITICAL": 10}
         risk_score = sum(
             severity_weights.get(indicator.severity, 0) * indicator.confidence
             for indicator in self.indicators

@@ -11,6 +11,7 @@
       href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
       rel="stylesheet"
     />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
     <!-- Animate.css -->
     <link
       rel="stylesheet"
@@ -32,6 +33,23 @@
         --light: #ecf0f1;     /* Light gray - background */
         --dark: #1a252f;      /* Very dark blue - headers/navbar */
       }
+      .bg-primary { background-color: var(--primary); }
+        .bg-secondary { background-color: var(--secondary); }
+        .bg-accent { background-color: #ee5b4a; }
+        .bg-light { background-color: var(--light); }
+        .bg-dark { background-color: var(--dark); }
+
+        .text-primary { color: var(--primary); }
+        .text-secondary { color: var(--secondary); }
+        .text-accent { color: var(--accent); }
+
+        .border-primary { border-color: var(--primary); }
+        .border-secondary { border-color: var(--secondary); }
+        .border-accent { border-color: var(--accent); }
+
+        .hover\:bg-primary:hover { background-color: var(--primary); }
+        .hover\:bg-secondary:hover { background-color: var(--secondary); }
+
       body {
         font-family: "Space Grotesk", sans-serif;
       }
@@ -83,19 +101,19 @@
         </div>
         <nav class="space-y-2">
           <a
-            href="{% url 'pdf_parser:index' %}"
+            href="{% url 'pdf_detector:dashboard' %}"
             class="flex items-center px-3 py-2 rounded-md hover:bg-[var(--primary)] hover:text-[var(--accent)] transition"
           >
             <i class="bx bx-home text-xl mr-3"></i> Dashboard
           </a>
           <a
-            href="{% url 'pdf_parser:upload' %}"
+            href="{% url 'pdf_detector:upload_pdf' %}"
             class="flex items-center px-3 py-2 rounded-md hover:bg-[var(--primary)] hover:text-[var(--accent)] transition"
           >
             <i class="bx bx-search-alt text-xl mr-3"></i> Detection
           </a>
             <a
-            href="{% url 'pdf_parser:analysis_list' %}"
+            href="{% url 'pdf_detector:analysis_list' %}"
             class="flex items-center px-3 py-2 rounded-md hover:bg-[var(--primary)] hover:text-[var(--accent)] transition"
             >
             <i class="bx bx-analyse text-xl mr-3"></i> Analyses
@@ -213,9 +231,6 @@
       src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"
       defer
     ></script>
-
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
     <!-- Custom JS -->
     <script>

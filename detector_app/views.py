@@ -3,7 +3,7 @@
 # 4. views.py - Django Views
 # ==============================================
 
-'''
+
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate
@@ -29,7 +29,8 @@ def get_detector():
     if _detector_instance is None:
         _detector_instance = DjangoPDFMalwareDetector()
     return _detector_instance
-
+    
+'''
 @login_required
 def dashboard(request):
     """Main dashboard view"""
@@ -282,7 +283,7 @@ def analysis_list(request):
         )
     
     # Pagination
-    paginator = Paginator(analyses, 20)
+    paginator = Paginator(analyses, 10)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     
@@ -299,18 +300,25 @@ def analysis_list(request):
 def analysis_detail(request, pk):
     """Detailed view of a specific PDF analysis."""
     analysis = get_object_or_404(PDFAnalysis, pk=pk, user=request.user)
-    indicators = analysis.indicators.all()
     
-    # Group indicators by category
+    # Get raw indicator data for debugging
+    raw_indicators = list(analysis.indicators.all().values())
+
+    # Get distinct indicators ordered by severity
+    indicators = analysis.indicators.all().distinct().order_by('-severity', '-confidence')
+    
+    # grouped indicators
     indicators_by_category = {}
     for indicator in indicators:
         if indicator.category not in indicators_by_category:
             indicators_by_category[indicator.category] = []
         indicators_by_category[indicator.category].append(indicator)
     
+    
     context = {
         'analysis': analysis,
         'indicators_by_category': indicators_by_category,
+        'features_data': json.loads(analysis.features_data) if analysis.features_data else {}
     }
     
     return render(request, 'detector_app/analysis_detail.html', context)

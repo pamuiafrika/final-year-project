@@ -1,35 +1,11 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load math_filters %}
 
 {% block title %}{{ analysis.original_filename }} - Analysis Details{% endblock %}
 
 {% block extra_css %}
 <style>
-:root {
-    --primary: #2c3e50;   /* Dark blue-gray - main color */
-    --secondary: #3498db; /* Bright blue - interactive elements */
-    --accent: #ee5b4a;    /* Red - alerts and highlights */
-    --light: #ecf0f1;     /* Light gray - background */
-    --dark: #1a252f;      /* Very dark blue - headers/navbar */
-}
-
-.bg-primary { background-color: var(--primary); }
-.bg-secondary { background-color: var(--secondary); }
-.bg-accent { background-color: var(--accent); }
-.bg-light { background-color: var(--light); }
-.bg-dark { background-color: var(--dark); }
-
-.text-primary { color: var(--primary); }
-.text-secondary { color: var(--secondary); }
-.text-accent { color: var(--accent); }
-
-.border-primary { border-color: var(--primary); }
-.border-secondary { border-color: var(--secondary); }
-.border-accent { border-color: var(--accent); }
-
-.hover\:bg-primary:hover { background-color: var(--primary); }
-.hover\:bg-secondary:hover { background-color: var(--secondary); }
-
 
 /* Risk assessment specific colors */
 .risk-clean { 
@@ -53,7 +29,7 @@
 {% block content %}
 <div class="min-h-screen bg-light">
     <!-- Analysis Header -->
-    <div class="bg-white text-gray-600 shadow rounded-3xl p-8 mb-8 relative overflow-hidden">
+    <div class="bg-white shadow-xl rounded-3xl  text-gray-600 p-8 mb-8 relative overflow-hidden">
         <div class="absolute top-0 right-0 w-48 h-48 bg-dark bg-opacity-10 rounded-full transform translate-x-12 -translate-y-12"></div>
         <div class="relative z-10">
             <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
@@ -72,12 +48,12 @@
                 </div>
                 <div class="flex flex-col sm:flex-row gap-3">
                     <a href="{% url 'pdf_detector:analysis_list' %}" 
-                       class="inline-flex items-center px-6 py-3 border-2 border-white border-opacity-30 rounded-xl text-white hover:bg-white hover:bg-opacity-20 transition-all duration-300">
+                       class="inline-flex items-center px-6 py-3 bg-gray-700  border-opacity-30 rounded-xl text-white hover:bg-primary hover:bg-opacity-30 transition-all duration-300">
                         <i class="fas fa-arrow-left mr-2"></i>Back to List
                     </a>
                     {% if analysis.is_analyzed %}
                         <a href="{% url 'pdf_detector:download_report' analysis.pk %}" 
-                           class="inline-flex items-center px-6 py-3 bg-white bg-opacity-20 rounded-xl text-white hover:bg-opacity-30 transition-all duration-300">
+                           class="inline-flex items-center px-6 py-3 bg-accent bg-opacity-50 rounded-xl text-white hover:bg-opacity-30 transition-all duration-300">
                             <i class="fas fa-download mr-2"></i>Download Report
                         </a>
                     {% endif %}
@@ -170,11 +146,11 @@
                                                 
                                                 <div class="mb-3">
                                                     <div class="flex justify-between items-center mb-2">
-                                                        <small class="text-gray-500">Confidence: {{ indicator.confidence|floatformat:1 }}%</small>
+                                                        <small class="text-gray-500">Confidence: {{ indicator.confidence|mul:100|floatformat:1 }}%</small>
                                                     </div>
                                                     <div class="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
                                                         <div class="bg-gradient-to-r from-green-400 to-green-500 h-2 rounded-full transition-all duration-500" 
-                                                             style="width: {{ indicator.confidence }}%"></div>
+                                                             style="width: {{ indicator.confidence|mul:100 }}%"></div>
                                                     </div>
                                                 </div>
                                                 
@@ -203,9 +179,9 @@
                         
                         <!-- Features Tab -->
                         <div id="features-content" class="tab-pane hidden">
-                            {% if analysis.features_data %}
+                            {% if features_data %}
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    {% for feature, value in analysis.features_data.items %}
+                                    {% for feature, value in features_data.items %}
                                         <div class="p-4 bg-gray-50 rounded-lg border border-gray-200">
                                             <div class="font-semibold text-gray-800">{{ feature|title }}:</div>
                                             <div class="text-gray-600 mt-1">{{ value }}</div>
@@ -216,7 +192,7 @@
                                 <p class="text-gray-500 text-center py-8">No technical features data available.</p>
                             {% endif %}
                         </div>
-                        
+
                         <!-- Recommendations Tab -->
                         {% if analysis.recommendations %}
                             <div id="recommendations-content" class="tab-pane hidden">
@@ -226,12 +202,14 @@
                                         Security Recommendations
                                     </h6>
                                     <ul class="space-y-3">
-                                        {% for recommendation in analysis.recommendations %}
-                                            <li class="flex items-start">
-                                                <i class="fas fa-check-circle text-yellow-600 mr-3 mt-1 flex-shrink-0"></i>
-                                                <span class="text-gray-700">{{ recommendation }}</span>
-                                            </li>
-                                        {% endfor %}
+                                {% if analysis.recommendations %}
+                                    {% for recommendation in analysis.recommendations|safe_json %}
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check-circle text-yellow-600 mr-3 mt-1 flex-shrink-0"></i>
+                                            <span class="text-gray-700">{{ recommendation }}</span>
+                                        </li>
+                                    {% endfor %}
+                                {% endif %}
                                     </ul>
                                 </div>
                             </div>
@@ -263,17 +241,20 @@
                             {% csrf_token %}
                             <select name="technique" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-secondary focus:border-transparent">
                                 <option value="auto">Auto Detection</option>
-                                <option value="statistical">Statistical Analysis</option>
-                                <option value="visual">Visual Analysis</option>
-                                <option value="metadata">Metadata Analysis</option>
+                                <option value="metadata">Metadata Analysis</option>                        
+                                <option value="object_stream">Object Stream Analysis</option>
+                                <option value="font_glyph">Font & Glyph Analysis</option>
+                                <option value="entropy">Entropy Pattern Analysis</option>
+                                <option value="embedded">Embedded Files Scan</option>
+                                <option value="layers">Invisible Layers Detection</option>
                             </select>
-                            <button type="submit" class="w-full px-6 py-3 bg-gradient-to-r from-primary to-dark text-white rounded-lg font-semibold hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300">
+                            <button type="submit" class="w-full px-6 py-3 bg-gray-800 text-white rounded-lg font-semibold hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300">
                                 <i class="fas fa-redo mr-2"></i>Re-analyze PDF
                             </button>
                         </form>
                     {% endif %}
                     <a href="{% url 'pdf_detector:upload_pdf' %}" 
-                       class="block w-full px-6 py-3 border-2 border-secondary text-secondary text-center rounded-lg font-semibold hover:bg-secondary hover:text-white transition-all duration-300">
+                       class="block w-full px-6 py-3 border-2 border-gray-800 text-primary text-center rounded-lg font-semibold hover:bg-gray-800 hover:text-white transition-all duration-300">
                         <i class="fas fa-plus mr-2"></i>Upload Another PDF
                     </a>
                 </div>
@@ -284,31 +265,31 @@
                 <h6 class="text-lg font-bold text-gray-800 mb-4">File Statistics</h6>
                 <div class="space-y-4">
                     <div class="text-center p-4 bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg">
-                        <div class="text-2xl font-bold text-secondary">{{ analysis.file_size|filesizeformat }}</div>
+                        <div class="text-2xl font-bold text-primary">{{ analysis.file_size|filesizeformat }}</div>
                         <div class="text-xs text-gray-500 uppercase tracking-wider">File Size</div>
                     </div>
                     
                     <div class="text-center p-4 bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg">
-                        <div class="text-2xl font-bold text-secondary">{{ analysis.total_indicators }}</div>
+                        <div class="text-2xl font-bold text-primary">{{ analysis.total_indicators }}</div>
                         <div class="text-xs text-gray-500 uppercase tracking-wider">Total Indicators</div>
                     </div>
                     
                     {% if analysis.ml_anomaly_score %}
                     <div class="text-center p-4 bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg">
-                        <div class="text-2xl font-bold text-secondary">{{ analysis.ml_anomaly_score|floatformat:2 }}</div>
+                        <div class="text-2xl font-bold text-primary">{{ analysis.ml_anomaly_score|floatformat:2 }}</div>
                         <div class="text-xs text-gray-500 uppercase tracking-wider">ML Anomaly Score</div>
                     </div>
                     {% endif %}
                     
                     {% if analysis.analysis_duration %}
                     <div class="text-center p-4 bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg">
-                        <div class="text-2xl font-bold text-secondary">{{ analysis.analysis_duration|floatformat:1 }}s</div>
+                        <div class="text-2xl font-bold text-primary">{{ analysis.analysis_duration|floatformat:1 }}s</div>
                         <div class="text-xs text-gray-500 uppercase tracking-wider">Analysis Duration</div>
                     </div>
                     {% endif %}
                     
                     <div class="text-center p-4 bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg">
-                        <div class="text-2xl font-bold text-secondary">{{ analysis.technique_used|title }}</div>
+                        <div class="text-2xl font-bold text-primary">{{ analysis.technique_used|title }}</div>
                         <div class="text-xs text-gray-500 uppercase tracking-wider">Technique Used</div>
                     </div>
                 </div>
@@ -322,10 +303,10 @@
                     <div class="absolute left-4 top-0 bottom-0 w-0.5 bg-gray-200"></div>
                     
                     <div class="relative mb-6">
-                        <div class="absolute -left-6 top-1 w-8 h-8 bg-secondary rounded-full flex items-center justify-center border-4 border-white shadow-lg">
+                        <div class="absolute -left-6 top-1 w-8 h-8 bg-primary rounded-full flex items-center justify-center border-4 border-white shadow-lg">
                             <i class="fas fa-upload text-white text-xs"></i>
                         </div>
-                        <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-secondary">
+                        <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-primary">
                             <div class="font-semibold text-gray-800">File Uploaded</div>
                             <div class="text-sm text-gray-500">{{ analysis.upload_date|date:"M d, Y g:i A" }}</div>
                         </div>
@@ -351,7 +332,7 @@
                 <div class="space-y-3">
                     <div>
                         <span class="font-semibold text-gray-700">Version:</span>
-                        <span class="text-secondary ml-2">{{ analysis.model_version }}</span>
+                        <span class="text-primary ml-2">{{ analysis.model_version }}</span>
                     </div>
                     <p class="text-sm text-gray-500">
                         This analysis was performed using our latest AI model trained specifically for PDF steganography detection.
@@ -374,8 +355,8 @@ function showTab(tabName) {
     
     // Remove active class from all buttons
     document.querySelectorAll('.tab-btn').forEach(btn => {
-        btn.classList.remove('active', 'bg-secondary', 'text-white');
-        btn.classList.add('text-gray-600', 'hover:text-secondary');
+        btn.classList.remove('active', 'bg-primary', 'text-white');
+        btn.classList.add('text-gray-600', 'hover:text-primary');
     });
     
     // Show selected tab content
@@ -388,8 +369,8 @@ function showTab(tabName) {
     // Activate selected button
     const selectedBtn = document.getElementById(tabName + '-tab-btn');
     if (selectedBtn) {
-        selectedBtn.classList.add('active', 'bg-secondary', 'text-white');
-        selectedBtn.classList.remove('text-gray-600', 'hover:text-secondary');
+        selectedBtn.classList.add('active', 'bg-primary', 'text-white');
+        selectedBtn.classList.remove('text-gray-600', 'hover:text-primary');
     }
 }
 
@@ -397,8 +378,8 @@ function showTab(tabName) {
 document.addEventListener('DOMContentLoaded', function() {
     const firstTabBtn = document.querySelector('.tab-btn');
     if (firstTabBtn) {
-        firstTabBtn.classList.add('active', 'bg-secondary', 'text-white');
-        firstTabBtn.classList.remove('text-gray-600', 'hover:text-secondary');
+        firstTabBtn.classList.add('active', 'bg-primary', 'text-white');
+        firstTabBtn.classList.remove('text-gray-600', 'hover:text-primary');
     }
 });
 
@@ -422,11 +403,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <style>
 .tab-btn:not(.active) {
-    @apply text-gray-600 hover:text-secondary border-b-2 border-transparent hover:border-secondary;
+    @apply text-gray-600 hover:text-primary border-b-2 border-transparent hover:border-primary;
 }
 
 .tab-btn.active {
-    @apply bg-secondary text-white border-b-2 border-secondary;
+    @apply bg-gray-800 text-white border-b-2 border-primary;
 }
 </style>
 {% endblock %}
