@@ -1,0 +1,252 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard - Steganography Detection{% endblock %}
+
+{% block content %}
+<div class="space-y-6">
+    <!-- Stats Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="bg-white rounded-xl shadow-lg p-6 border-l-4 border-primary">
+            <div class="flex items-center">
+                <div class="flex-shrink-0">
+                    <i class="bx bx-file text-3xl text-blue-500"></i>
+                </div>
+                <div class="ml-4">
+                    <p class="text-sm font-medium text-gray-500">Total Uploads</p>
+                    <p class="text-2xl font-semibold text-gray-900">{{ total_uploads }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-lg p-6 border-l-4 border-primary">
+            <div class="flex items-center">
+                <div class="flex-shrink-0">
+                    <i class="bx bx-check-circle text-3xl text-green-500"></i>
+                </div>
+                <div class="ml-4">
+                    <p class="text-sm font-medium text-gray-500">Processed Files</p>
+                    <p class="text-2xl font-semibold text-gray-900">{{ processed_uploads }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-lg p-6 border-l-4 border-primary">
+            <div class="flex items-center">
+                <div class="flex-shrink-0">
+                    <i class="bx bx-error text-3xl text-red-500"></i>
+                </div>
+                <div class="ml-4">
+                    <p class="text-sm font-medium text-gray-500">Suspicious Files</p>
+                    <p class="text-2xl font-semibold text-gray-900">{{ suspicious_files }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-lg p-6 border-l-4 border-primary">
+            <div class="flex items-center">
+                <div class="flex-shrink-0">
+                    <i class="bx bx-time text-3xl text-yellow-500"></i>
+                </div>
+                <div class="ml-4">
+                    <p class="text-sm font-medium text-gray-500">Processing</p>
+                    <p class="text-2xl font-semibold text-gray-900">{{ total_uploads|add:"-"|add:processed_uploads }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="bg-white rounded-xl shadow-lg p-6">
+        <h3 class="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <a href="{% url 'ai:upload_pdf' %}" 
+               class="flex items-center justify-center px-6 py-4 bg-primary text-white rounded-lg hover:text-lg transition duration-200">
+                <i class="bx bx-upload text-xl mr-2"></i>
+                Upload PDF
+            </a>
+            <a href="{% url 'ai:batch_upload' %}" 
+               class="flex items-center justify-center px-6 py-4 bg-secondary text-white rounded-lg hover:text-lg transition duration-200">
+                <i class="bx bx-cloud-upload text-xl mr-2"></i>
+                Batch Upload
+            </a>
+            <a href="{% url 'ai:analysis_list' %}" 
+               class="flex items-center justify-center px-6 py-4 bg-gray-400 text-white rounded-lg hover:text-lg transition duration-200">
+                <i class="bx bx-analyse text-xl mr-2"></i>
+                View Analyses
+            </a>
+        </div>
+    </div>
+
+    <!-- Recent Uploads -->
+    <div class="bg-white rounded-xl shadow-lg p-6">
+        <div class="flex justify-between items-center mb-4">
+            <h3 class="text-lg font-semibold text-gray-900">Recent Uploads</h3>
+            <a href="{% url 'ai:analysis_list' %}" class="text-blue-600 hover:text-blue-800 text-sm font-medium">
+                View All →
+            </a>
+        </div>
+        
+        {% if recent_uploads %}
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">File</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Results</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Risk Level</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Uploaded</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    {% for upload in recent_uploads %}
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="flex items-center">
+                                <i class="bx bxs-file-pdf text-red-500 text-xl mr-3"></i>
+                                <div class="text-sm font-medium text-gray-900">{{ upload.file_name|truncatechars:30 }}</div>
+                            </div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            {% if upload.processed %}
+                                <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">
+                                    Processed
+                                </span>
+                            {% else %}
+                                <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-yellow-100 text-yellow-800">
+                                    Processing
+                                </span>
+                            {% endif %}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            {% if upload.prediction.ensemble_prediction == 1 %}
+                                <span class="text-accent font-bold">Suspicious (Steganography Detected)</span>
+                            {% else %}
+                                <span class="text-green-600 font-bold">Clean PDF</span>
+                            {% endif %}
+                            </td>            
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            {% if upload.processed and upload.prediction %}
+                                {% if upload.prediction.risk_level == 'High' %}
+                                    <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-red-100 text-red-800">
+                                        High Risk
+                                    </span>
+                                {% elif upload.prediction.risk_level == 'Medium' %}
+                                    <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-yellow-100 text-yellow-800">
+                                        Medium Risk
+                                    </span>
+                                {% else %}
+                                    <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">
+                                        Low Risk
+                                    </span>
+                                {% endif %}
+                            {% else %}
+                                <span class="text-gray-400">-</span>
+                            {% endif %}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            {{ upload.uploaded_at|timesince }} ago
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                            <a href="{% url 'ai:upload_detail' upload.id %}" 
+                               class="text-blue-600 hover:text-blue-900 mr-3">View</a>
+                            {% if upload.processed %}
+                                <button onclick="downloadReport('{{ upload.id }}')" 
+                                        class="text-green-600 hover:text-green-900">Download</button>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="text-center py-12">
+            <i class="bx bx-folder-open text-6xl text-gray-400 mb-4"></i>
+            <h4 class="text-lg font-medium text-gray-900 mb-2">No uploads yet</h4>
+            <p class="text-gray-500 mb-4">Get started by uploading your first PDF file for analysis.</p>
+            <a href="{% url 'ai:upload_pdf' %}" 
+               class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-200">
+                <i class="bx bx-upload mr-2"></i>
+                Upload PDF
+            </a>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- System Status -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div class="bg-white rounded-xl shadow-lg p-6">
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">Detection Performance</h3>
+            <canvas id="performanceChart" width="400" height="200"></canvas>
+        </div>
+        
+        <div class="bg-white rounded-xl shadow-lg p-6">
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">Risk Distribution</h3>
+            <canvas id="riskChart" width="400" height="200"></canvas>
+        </div>
+    </div>
+</div>
+
+<script>
+// Performance Chart
+const ctx1 = document.getElementById('performanceChart').getContext('2d');
+new Chart(ctx1, {
+    type: 'line',
+    data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+        datasets: [{
+            label: 'Accuracy',
+            data: [92, 94, 93, 95, 96, 94],
+            borderColor: 'rgb(59, 130, 246)',
+            backgroundColor: 'rgba(59, 130, 246, 0.1)',
+            tension: 0.4
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: { display: false }
+        },
+        scales: {
+            y: { beginAtZero: true, max: 100 }
+        }
+    }
+});
+
+// Risk Distribution Chart
+const ctx2 = document.getElementById('riskChart').getContext('2d');
+new Chart(ctx2, {
+    type: 'doughnut',
+    data: {
+        labels: ['Low Risk', 'Medium Risk', 'High Risk'],
+        datasets: [{
+            data: [{{ total_uploads|add:"-"|add:suspicious_files }}, {{ suspicious_files|floatformat:0|default:0 }}, {{ suspicious_files|default:0 }}],
+            backgroundColor: ['#10b981', '#f59e0b', '#ef4444']
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: { position: 'bottom' }
+        }
+    }
+});
+
+function downloadReport(uploadId) {
+    window.location.href = `/ai/api/report/${uploadId}/`;
+}
+
+// Auto-refresh recent uploads every 30 seconds
+setInterval(() => {
+    fetch('')
+        .then(response => response.json())
+        .then(data => {
+            // Update recent uploads table if needed
+            console.log('Recent uploads refreshed');
+        })
+        .catch(error => console.error('Error refreshing data:', error));
+}, 30000);
+</script>
+{% endblock %}

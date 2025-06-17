@@ -1,0 +1,201 @@
+{% extends 'base.html' %}
+
+{% block title %}Make Prediction{% endblock %}
+
+{% block page_title %}Make a Prediction{% endblock %}
+
+{% block content %}
+<div class="bg-white shadow-md rounded-lg p-6">
+    <h3 class="text-lg font-semibold text-gray-900 mb-4">Select Model and Input Data</h3>
+
+    <form id="prediction-form" method="post" enctype="multipart/form-data" class="space-y-6">
+        {% csrf_token %}
+
+        <div>
+            <label for="model_id" class="block text-sm font-medium text-gray-700">Choose Model:</label>
+            <select id="model_id" name="model_id"
+                class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
+                {% for model in models %}
+                <option value="{{ model.id }}">{{ model.name }} ({{ model.get_model_type_display }})</option>
+                {% empty %}
+                <option value="">No completed models available</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="border-t border-gray-200 pt-6">
+            <h4 class="text-md font-semibold text-gray-800 mb-4">Input Data</h4>
+
+            <div class="flex items-center space-x-4 mb-4">
+                <input type="radio" id="input_type_file" name="input_type" value="file" checked
+                    class="focus:ring-primary h-4 w-4 text-primary border-gray-300">
+                <label for="input_type_file" class="text-sm font-medium text-gray-700">Upload CSV File</label>
+
+                <input type="radio" id="input_type_manual" name="input_type" value="manual"
+                    class="focus:ring-primary h-4 w-4 text-primary border-gray-300">
+                <label for="input_type_manual" class="text-sm font-medium text-gray-700">Manual Feature Input</label>
+            </div>
+
+            <div id="file-upload-section" class="space-y-4">
+                <div>
+                    <label for="prediction_file" class="block text-sm font-medium text-gray-700">
+                        Upload CSV File for Prediction:
+                    </label>
+                    <input type="file" name="prediction_file" id="prediction_file" accept=".csv"
+                        class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-white hover:file:bg-primary-dark">
+                    <p class="mt-2 text-sm text-gray-500">Upload a CSV file containing the features for prediction.</p>
+                </div>
+            </div>
+
+            <div id="manual-input-section" class="hidden grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label for="file_size_bytes" class="block text-sm font-medium text-gray-700">File Size (bytes):</label>
+                    <input type="number" step="any" name="file_size_bytes" id="file_size_bytes"
+                        class="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
+                </div>
+                <div>
+                    <label for="pdf_version" class="block text-sm font-medium text-gray-700">PDF Version:</label>
+                    <input type="number" step="any" name="pdf_version" id="pdf_version"
+                        class="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
+                </div>
+                <div>
+                    <label for="num_pages" class="block text-sm font-medium text-gray-700">Number of Pages:</label>
+                    <input type="number" name="num_pages" id="num_pages"
+                        class="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
+                </div>
+                <div>
+                    <label for="num_objects" class="block text-sm font-medium text-gray-700">Number of Objects:</label>
+                    <input type="number" name="num_objects" id="num_objects"
+                        class="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
+                </div>
+                <div>
+                    <label for="num_stream_objects" class="block text-sm font-medium text-gray-700">Number of Stream Objects:</label>
+                    <input type="number" name="num_stream_objects" id="num_stream_objects"
+                        class="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
+                </div>
+                <div>
+                    <label for="num_embedded_files" class="block text-sm font-medium text-gray-700">Number of Embedded Files:</label>
+                    <input type="number" name="num_embedded_files" id="num_embedded_files"
+                        class="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
+                </div>
+                <div>
+                    <label for="num_annotation_objects" class="block text-sm font-medium text-gray-700">Number of Annotation Objects:</label>
+                    <input type="number" name="num_annotation_objects" id="num_annotation_objects"
+                        class="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
+                </div>
+                <div>
+                    <label for="num_form_fields" class="block text-sm font-medium text-gray-700">Number of Form Fields:</label>
+                    <input type="number" name="num_form_fields" id="num_form_fields"
+                        class="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
+                </div>
+                <div>
+                    <label for="creation_date_ts" class="block text-sm font-medium text-gray-700">Creation Date Timestamp:</label>
+                    <input type="number" step="any" name="creation_date_ts" id="creation_date_ts"
+                        class="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
+                </div>
+                <div>
+                    <label for="mod_date_ts" class="block text-sm font-medium text-gray-700">Modification Date Timestamp:</label>
+                    <input type="number" step="any" name="mod_date_ts" id="mod_date_ts"
+                        class="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
+                </div>
+                <div>
+                    <label for="avg_entropy_per_stream" class="block text-sm font-medium text-gray-700">Avg Entropy per Stream:</label>
+                    <input type="number" step="any" name="avg_entropy_per_stream" id="avg_entropy_per_stream"
+                        class="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
+                </div>
+                <div>
+                    <label for="max_entropy_per_stream" class="block text-sm font-medium text-gray-700">Max Entropy per Stream:</label>
+                    <input type="number" step="any" name="max_entropy_per_stream" id="max_entropy_per_stream"
+                        class="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
+                </div>
+                </div>
+        </div>
+
+        <div class="flex justify-end">
+            <button type="submit"
+                class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                Make Prediction
+            </button>
+        </div>
+    </form>
+
+    <div id="prediction-results" class="mt-8 hidden bg-gray-50 border border-gray-200 rounded-lg p-6">
+        <h3 class="text-lg font-semibold text-gray-900 mb-4">Prediction Results</h3>
+        <div id="results-content" class="space-y-3 text-gray-700">
+            </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const inputTypeFile = document.getElementById('input_type_file');
+        const inputTypeManual = document.getElementById('input_type_manual');
+        const fileUploadSection = document.getElementById('file-upload-section');
+        const manualInputSection = document.getElementById('manual-input-section');
+        const predictionForm = document.getElementById('prediction-form');
+        const predictionResults = document.getElementById('prediction-results');
+        const resultsContent = document.getElementById('results-content');
+
+        function toggleInputSections() {
+            if (inputTypeFile.checked) {
+                fileUploadSection.classList.remove('hidden');
+                manualInputSection.classList.add('hidden');
+                // Clear manual inputs when switching to file upload
+                manualInputSection.querySelectorAll('input').forEach(input => input.value = '');
+            } else {
+                fileUploadSection.classList.add('hidden');
+                manualInputSection.classList.remove('hidden');
+                // Clear file input when switching to manual
+                document.getElementById('prediction_file').value = '';
+            }
+        }
+
+        inputTypeFile.addEventListener('change', toggleInputSections);
+        inputTypeManual.addEventListener('change', toggleInputSections);
+
+        predictionForm.addEventListener('submit', async function (event) {
+            event.preventDefault();
+
+            const formData = new FormData(this);
+            const selectedModelId = document.getElementById('model_id').value;
+            formData.set('model_id', selectedModelId);
+
+            // Remove empty manual feature fields from formData if file upload is selected
+            if (inputTypeFile.checked) {
+                const manualFields = manualInputSection.querySelectorAll('input');
+                manualFields.forEach(field => formData.delete(field.name));
+            } else {
+                // If manual input, ensure prediction_file is not sent
+                formData.delete('prediction_file');
+            }
+
+
+            resultsContent.innerHTML = '<p class="text-blue-600">Making prediction, please wait...</p>';
+            predictionResults.classList.remove('hidden');
+
+            try {
+                const response = await fetch(predictionForm.action, {
+                    method: 'POST',
+                    body: formData,
+                });
+                const data = await response.json();
+
+                if (data.success) {
+                    resultsContent.innerHTML = `
+                        <p class="text-lg font-medium text-green-700">Prediction Successful!</p>
+                        <p><strong>XGBoost:</strong> Prediction: <span class="${data.predictions.xgboost.prediction === 1 ? 'text-red-600' : 'text-green-600'} font-semibold">${data.predictions.xgboost.prediction === 1 ? 'Steganographic (1)' : 'Clean (0)'}</span>, Probability: ${data.predictions.xgboost.probability.toFixed(4)}</p>
+                        <p><strong>Wide & Deep:</strong> Prediction: <span class="${data.predictions.wide_deep.prediction === 1 ? 'text-red-600' : 'text-green-600'} font-semibold">${data.predictions.wide_deep.prediction === 1 ? 'Steganographic (1)' : 'Clean (0)'}</span>, Probability: ${data.predictions.wide_deep.probability.toFixed(4)}</p>
+                    `;
+                } else {
+                    resultsContent.innerHTML = `<p class="text-red-600">Prediction Failed: ${data.error}</p>`;
+                }
+            } catch (error) {
+                resultsContent.innerHTML = `<p class="text-red-600">An error occurred: ${error.message}</p>`;
+            }
+        });
+    });
+</script>
+{% endblock %}

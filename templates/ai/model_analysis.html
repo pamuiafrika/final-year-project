@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+
+{% block title %}ML Model Analysis - StegoDetect AI{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+  <h1 class="text-3xl font-bold text-gray-800 mb-6">ML Model Performance Analysis</h1>
+
+  <div class="bg-white p-6 rounded-lg shadow-md mb-8">
+    <h2 class="text-xl font-semibold text-gray-700 mb-4">Model Overview</h2>
+    <p class="text-gray-600">
+      This section provides insights into the performance and characteristics of the machine learning models used for steganography detection (XGBoost and Wide & Deep).
+      Detailed metrics, historical performance, and model versioning information would be displayed here.
+    </p>
+
+    <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="bg-gray-50 p-4 rounded-md">
+        <h3 class="text-lg font-semibold text-gray-800 mb-2">XGBoost Model</h3>
+        <p class="text-gray-700"><strong>Current Version:</strong> 1.0.1</p>
+        <p class="text-gray-700"><strong>Last Trained:</strong> 2024-06-15</p>
+        <p class="text-gray-700"><strong>Accuracy (on test set):</strong> 97.2%</p>
+        <p class="text-gray-700"><strong>F1-Score (on test set):</strong> 0.95</p>
+        <p class="text-gray-700"><strong>Model Features:</strong> <span class="text-sm text-gray-500">Tree-based, highly interpretable for some features.</span></p>
+        <button class="mt-4 bg-secondary text-white px-4 py-2 rounded-md hover:bg-primary transition duration-300">
+            View Detailed Metrics
+        </button>
+      </div>
+      <div class="bg-gray-50 p-4 rounded-md">
+        <h3 class="text-lg font-semibold text-gray-800 mb-2">Wide & Deep Model</h3>
+        <p class="text-gray-700"><strong>Current Version:</strong> 1.0.0</p>
+        <p class="text-gray-700"><strong>Last Trained:</strong> 2024-06-10</p>
+        <p class="text-gray-700"><strong>Accuracy (on test set):</strong> 96.8%</p>
+        <p class="text-gray-700"><strong>F1-Score (on test set):</strong> 0.94</p>
+        <p class="text-gray-700"><strong>Model Features:</strong> <span class="text-sm text-gray-500">Combines memorization and generalization for robust predictions.</span></p>
+         <button class="mt-4 bg-secondary text-white px-4 py-2 rounded-md hover:bg-primary transition duration-300">
+            View Detailed Metrics
+        </button>
+      </div>
+    </div>
+
+    <div class="mt-8">
+      <h3 class="text-lg font-semibold text-gray-800 mb-2">Ensemble Model Strategy</h3>
+      <p class="text-gray-700">
+        The system uses an ensemble approach, combining the predictions of the XGBoost and Wide & Deep models.
+        This strategy enhances overall robustness and accuracy by leveraging the strengths of both models.
+        The final "ensemble prediction" is derived from the average of their probabilities.
+      </p>
+    </div>
+
+    <div class="mt-8">
+      <h3 class="text-lg font-semibold text-gray-800 mb-4">Historical Performance Trends</h3>
+      <div class="bg-gray-50 p-4 rounded-md">
+        <canvas id="modelPerformanceChart" width="800" height="400"></canvas>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const ctx = document.getElementById('modelPerformanceChart').getContext('2d');
+    const modelPerformanceChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+            datasets: [
+                {
+                    label: 'XGBoost Accuracy',
+                    data: [95.0, 95.5, 96.0, 96.5, 97.0, 97.2],
+                    borderColor: 'rgb(54, 162, 235)', // A shade of blue
+                    tension: 0.1
+                },
+                {
+                    label: 'Wide & Deep Accuracy',
+                    data: [94.5, 95.0, 95.5, 96.0, 96.5, 96.8],
+                    borderColor: 'rgb(255, 99, 132)', // A shade of red
+                    tension: 0.1
+                },
+                 {
+                    label: 'Ensemble Accuracy',
+                    data: [95.2, 95.7, 96.2, 96.7, 97.1, 97.5],
+                    borderColor: 'var(--accent)', // Using the accent color for ensemble
+                    borderWidth: 2,
+                    tension: 0.1,
+                    fill: false
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Model Accuracy Over Time'
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: false,
+                    title: {
+                        display: true,
+                        text: 'Accuracy (%)'
+                    }
+                }
+            }
+        }
+    });
+});
+</script>
+{% endblock %}

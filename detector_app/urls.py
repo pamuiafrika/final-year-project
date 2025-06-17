@@ -12,6 +12,8 @@ urlpatterns = [
     path('analysis/<int:pk>/report/', views.download_report, name='download_report'),
     path('analysis/<int:pk>/reanalyze/', views.reanalyze_pdf, name='reanalyze_pdf'),
     path('api/analysis/<int:pk>/status/', views.api_analysis_status, name='api_analysis_status'),
+    path('model/analysis/', views.model_analysis, name='model_analysis'),
+    path('system/performance/', views.system_performance, name='system_performance'),
 ]
 
 

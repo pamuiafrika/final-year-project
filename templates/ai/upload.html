@@ -1,0 +1,342 @@
+{% extends 'base.html' %}
+
+{% block title %}Upload PDF - Steganography Detection Tool{% endblock %}
+{% block page_title %}Upload PDF{% endblock %}
+{% block content %}
+<div class="max-w-6xl mx-auto">
+    <!-- Upload Form Card -->
+    <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
+        <div class="text-center mb-8">
+            <div class="flex justify-center mb-4">
+                <div class="bg-[var(--primary)] p-5 rounded-full">
+                    <i class="bx bx-upload text-4xl text-white"></i>
+                </div>
+            </div>
+            <h1 class="text-3xl font-bold text-[var(--primary)] mb-2">PDF Steganography Detection</h1>
+            <p class="text-gray-600">Upload a PDF file to analyze for hidden steganographic content</p>
+        </div>
+
+        <!-- Upload Form -->
+        <form id="uploadForm" enctype="multipart/form-data" class="space-y-6">
+            {% csrf_token %}
+            
+            <!-- File Drop Zone -->
+            <div id="dropZone" class="border-2 border-dashed border-gray-300 rounded-lg p-12 text-center transition-colors hover:border-[var(--secondary)] hover:bg-gray-50">
+                <div class="space-y-4">
+                    <i class="bx bx-cloud-upload text-6xl text-gray-400"></i>
+                    <div>
+                        <p class="text-xl font-medium text-gray-700">Drop your PDF file here</p>
+                        <p class="text-gray-500">or click to browse</p>
+                    </div>
+                    <input type="file" id="pdfFile" name="pdf_file" accept=".pdf" class="hidden" required>
+                    <button type="button" onclick="document.getElementById('pdfFile').click()" class="bg-[var(--primary)] text-white px-6 py-3 rounded-lg hover:bg-[var(--secondary)] transition-colors">
+                        Select File
+                    </button>
+                </div>
+            </div>
+
+            <!-- File Info -->
+            <div id="fileInfo" class="hidden bg-gray-50 rounded-lg p-4">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center space-x-3">
+                        <i class="bx bx-file-blank text-2xl text-red-500"></i>
+                        <div>
+                            <p id="fileName" class="font-medium text-gray-900"></p>
+                            <p id="fileSize" class="text-sm text-gray-500"></p>
+                        </div>
+                    </div>
+                    <button type="button" onclick="clearFile()" class="text-red-500 hover:text-red-700">
+                        <i class="bx bx-x text-xl"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Upload Button -->
+            <div class="text-center">
+                <button type="submit" id="uploadBtn" class="bg-[var(--accent)] text-white px-8 py-4 rounded-lg font-medium hover:bg-red-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                    <i class="bx bx-search-alt mr-2"></i>
+                    Analyze PDF
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Progress Card -->
+    <div id="progressCard" class="hidden bg-white rounded-xl shadow-lg p-8 mb-8">
+        <div class="text-center">
+            <div class="mb-4">
+                <div class="inline-flex items-center justify-center w-16 h-16 bg-blue-100 rounded-full">
+                    <i class="bx bx-loader-alt text-2xl text-blue-600 animate-spin"></i>
+                </div>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-900 mb-2">Processing PDF...</h3>
+            <p class="text-gray-600 mb-4">Extracting features and analyzing for steganographic content</p>
+            <div class="w-full bg-gray-200 rounded-full h-2">
+                <div class="bg-blue-600 h-2 rounded-full animate-pulse" style="width: 45%"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Results Card -->
+    <div id="resultsCard" class="hidden bg-white rounded-xl shadow-lg p-8">
+        <div class="text-center mb-6">
+            <div id="resultIcon" class="mb-4"></div>
+            <h3 id="resultTitle" class="text-2xl font-bold mb-2"></h3>
+            <p id="resultDescription" class="text-gray-600"></p>
+        </div>
+
+        <!-- Detailed Results -->
+        <div id="detailedResults" class="space-y-6">
+            <!-- Overall Assessment -->
+            <div class="bg-gray-50 rounded-lg p-6">
+                <h4 class="text-lg font-semibold text-gray-900 mb-4">Analysis Results</h4>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-[var(--primary)]" id="ensembleConfidence"></div>
+                        <div class="text-sm text-gray-500">Confidence Score</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-[var(--secondary)]" id="riskLevel"></div>
+                        <div class="text-sm text-gray-500">Risk Level</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-green-600" id="processingTime"></div>
+                        <div class="text-sm text-gray-500">Processing Time</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Model Predictions -->
+            <div class="bg-gray-50 rounded-lg p-6">
+                <h4 class="text-lg font-semibold text-gray-900 mb-4">Model Predictions</h4>
+                <div class="space-y-4">
+                    <div class="flex justify-between items-center">
+                        <span class="font-medium">XGBoost Model</span>
+                        <div class="flex items-center space-x-2">
+                            <span id="xgboostProb" class="text-sm font-medium"></span>
+                            <div class="w-32 bg-gray-200 rounded-full h-2">
+                                <div id="xgboostBar" class="bg-blue-600 h-2 rounded-full"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="font-medium">Wide & Deep Model</span>
+                        <div class="flex items-center space-x-2">
+                            <span id="wideDeepProb" class="text-sm font-medium"></span>
+                            <div class="w-32 bg-gray-200 rounded-full h-2">
+                                <div id="wideDeepBar" class="bg-purple-600 h-2 rounded-full"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="flex justify-center space-x-4">
+                <button onclick="resetForm()" class="bg-gray-500 text-white px-6 py-2 rounded-lg hover:bg-gray-600 transition-colors">
+                    <i class="bx bx-refresh mr-2"></i>
+                    Analyze Another File
+                </button>
+                <button onclick="viewDetails()" class="bg-[var(--primary)] text-white px-6 py-2 rounded-lg hover:bg-[var(--secondary)] transition-colors">
+                    <i class="bx bx-detail mr-2"></i>
+                    View Details
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+let currentUploadId = null;
+
+document.addEventListener('DOMContentLoaded', function() {
+    const dropZone = document.getElementById('dropZone');
+    const fileInput = document.getElementById('pdfFile');
+    const uploadForm = document.getElementById('uploadForm');
+
+    // Drag and drop functionality
+    dropZone.addEventListener('dragover', function(e) {
+        e.preventDefault();
+        dropZone.classList.add('border-[var(--secondary)]', 'bg-gray-50');
+    });
+
+    dropZone.addEventListener('dragleave', function(e) {
+        e.preventDefault();
+        dropZone.classList.remove('border-[var(--secondary)]', 'bg-gray-50');
+    });
+
+    dropZone.addEventListener('drop', function(e) {
+        e.preventDefault();
+        dropZone.classList.remove('border-[var(--secondary)]', 'bg-gray-50');
+        
+        const files = e.dataTransfer.files;
+        if (files.length > 0 && files[0].type === 'application/pdf') {
+            fileInput.files = files;
+            showFileInfo(files[0]);
+        } else {
+            Swal.fire('Error', 'Please drop a valid PDF file', 'error');
+        }
+    });
+
+    // File input change
+    fileInput.addEventListener('change', function(e) {
+        if (e.target.files.length > 0) {
+            showFileInfo(e.target.files[0]);
+        }
+    });
+
+    // Form submission
+    uploadForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        uploadFile();
+    });
+});
+
+function showFileInfo(file) {
+    const fileName = document.getElementById('fileName');
+    const fileSize = document.getElementById('fileSize');
+    const fileInfo = document.getElementById('fileInfo');
+
+    fileName.textContent = file.name;
+    fileSize.textContent = formatFileSize(file.size);
+    fileInfo.classList.remove('hidden');
+}
+
+function clearFile() {
+    document.getElementById('pdfFile').value = '';
+    document.getElementById('fileInfo').classList.add('hidden');
+}
+
+function formatFileSize(bytes) {
+    if (bytes === 0) return '0 Bytes';
+    const k = 1024;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+}
+
+async function uploadFile() {
+    const formData = new FormData();
+    const fileInput = document.getElementById('pdfFile');
+    
+    if (!fileInput.files[0]) {
+        Swal.fire('Error', 'Please select a file', 'error');
+        return;
+    }
+
+    formData.append('pdf_file', fileInput.files[0]);
+    
+    // Show progress
+    document.getElementById('progressCard').classList.remove('hidden');
+    document.getElementById('uploadBtn').disabled = true;
+
+    try {
+        const response = await fetch('/upload/', {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+            }
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            currentUploadId = data.upload_id;
+            
+            if (data.existing) {
+                checkPredictionStatus();
+            } else {
+                // Poll for results
+                setTimeout(checkPredictionStatus, 2000);
+            }
+        } else {
+            throw new Error(data.error || 'Upload failed');
+        }
+    } catch (error) {
+        document.getElementById('progressCard').classList.add('hidden');
+        document.getElementById('uploadBtn').disabled = false;
+        Swal.fire('Error', error.message, 'error');
+    }
+}
+
+async function checkPredictionStatus() {
+    if (!currentUploadId) return;
+
+    try {
+        const response = await fetch(`/api/status/${currentUploadId}/`);
+        const data = await response.json();
+
+        if (data.status === 'completed') {
+            showResults(data.prediction);
+        } else if (data.status === 'processing') {
+            setTimeout(checkPredictionStatus, 3000);
+        } else {
+            throw new Error(data.message || 'Processing failed');
+        }
+    } catch (error) {
+        document.getElementById('progressCard').classList.add('hidden');
+        document.getElementById('uploadBtn').disabled = false;
+        Swal.fire('Error', error.message, 'error');
+    }
+}
+
+function showResults(prediction) {
+    document.getElementById('progressCard').classList.add('hidden');
+    
+    const resultsCard = document.getElementById('resultsCard');
+    const resultIcon = document.getElementById('resultIcon');
+    const resultTitle = document.getElementById('resultTitle');
+    const resultDescription = document.getElementById('resultDescription');
+
+    // Set result display based on prediction
+    if (prediction.is_suspicious) {
+        resultIcon.innerHTML = `
+            <div class="inline-flex items-center justify-center w-16 h-16 bg-red-100 rounded-full">
+                <i class="bx bx-error text-3xl text-red-600"></i>
+            </div>
+        `;
+        resultTitle.textContent = 'Steganography Detected!';
+        resultTitle.className = 'text-2xl font-bold mb-2 text-red-600';
+        resultDescription.textContent = 'This PDF file appears to contain hidden steganographic content.';
+    } else {
+        resultIcon.innerHTML = `
+            <div class="inline-flex items-center justify-center w-16 h-16 bg-green-100 rounded-full">
+                <i class="bx bx-check text-3xl text-green-600"></i>
+            </div>
+        `;
+        resultTitle.textContent = 'Clean PDF File';
+        resultTitle.className = 'text-2xl font-bold mb-2 text-green-600';
+        resultDescription.textContent = 'No steganographic content detected in this PDF file.';
+    }
+
+    // Fill in detailed results
+    document.getElementById('ensembleConfidence').textContent = (prediction.ensemble_confidence * 100).toFixed(1) + '%';
+    document.getElementById('riskLevel').textContent = prediction.risk_level;
+    document.getElementById('processingTime').textContent = prediction.processing_time_ms + 'ms';
+
+    // Model predictions
+    document.getElementById('xgboostProb').textContent = (prediction.xgboost_probability * 100).toFixed(1) + '%';
+    document.getElementById('xgboostBar').style.width = (prediction.xgboost_probability * 100) + '%';
+    
+    document.getElementById('wideDeepProb').textContent = (prediction.wide_deep_probability * 100).toFixed(1) + '%';
+    document.getElementById('wideDeepBar').style.width = (prediction.wide_deep_probability * 100) + '%';
+
+    resultsCard.classList.remove('hidden');
+}
+
+function resetForm() {
+    document.getElementById('uploadForm').reset();
+    document.getElementById('fileInfo').classList.add('hidden');
+    document.getElementById('resultsCard').classList.add('hidden');
+    document.getElementById('uploadBtn').disabled = false;
+    currentUploadId = null;
+}
+
+function viewDetails() {
+    if (currentUploadId) {
+        window.location.href = `/upload/${currentUploadId}/`;
+    }
+}
+</script>
+{% endblock %}

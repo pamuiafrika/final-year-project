@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% block title %}Batch Upload - StegoDetect AI{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+  <h1 class="text-3xl font-bold text-gray-800 mb-6">Batch Upload PDFs for Detection</h1>
+
+  <div class="bg-white p-6 rounded-lg shadow-md mb-8">
+    <h2 class="text-xl font-semibold text-gray-700 mb-4">Upload Multiple Files</h2>
+    <form id="batchUploadForm" method="POST" class="space-y-4" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div>
+        <label for="pdf_files" class="block text-sm font-medium text-gray-700">Select PDF Files (Max 50MB per file):</label>
+        <input
+          type="file"
+          name="pdf_files"
+          id="pdf_files"
+          accept=".pdf"
+          multiple
+          class="mt-1 py-2 px-2 block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
+        />
+        <p class="mt-1 text-xs text-gray-500">You can select multiple PDF files.</p>
+      </div>
+      <button
+        type="submit"
+        class="bg-secondary text-white px-6 py-2 rounded-md hover:bg-primary transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-opacity-50"
+      >
+        <i class="fas fa-upload mr-2"></i> Upload & Analyze All
+      </button>
+    </form>
+
+    {% comment %}
+    The `initial_error_results` context variable is used when the view redirects back to this page
+    because no files were successfully queued for processing.
+    {% endcomment %}
+    {% if initial_error_results %}
+    <div id="immediateUploadResults" class="mt-6">
+        <h3 class="text-xl font-semibold text-gray-700 mb-4">Immediate Upload Errors</h3>
+        <div class="space-y-4">
+            {% for result in initial_error_results %}
+            <div class="p-4 border border-gray-200 rounded-md bg-white shadow-sm">
+                <p class="font-semibold text-gray-800">{{ result.filename }}</p>
+                <div class="flex items-center mt-2 text-red-600">
+                    <i class="fas fa-times-circle mr-2"></i>
+                    <span>Error: {{ result.message }}</span>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+  </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const batchUploadForm = document.getElementById('batchUploadForm');
+
+    batchUploadForm.addEventListener('submit', function(e) {
+        const fileInput = document.getElementById('pdf_files');
+        const files = fileInput.files;
+
+        if (files.length === 0) {
+            e.preventDefault();
+            Swal.fire('Error', 'Please select at least one PDF file to upload.', 'error');
+            return;
+        }
+
+        // Client-side validation for file type and size
+        for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+            if (!file.name.toLowerCase().endsWith('.pdf')) {
+                e.preventDefault();
+                Swal.fire('Error', `File '${file.name}' is not a PDF. Please upload only PDF files.`, 'error');
+                return;
+            }
+            if (file.size > 50 * 1024 * 1024) { // 50 MB
+                e.preventDefault();
+                Swal.fire('Error', `File '${file.name}' is too large. Max 50MB per file.`, 'error');
+                return;
+            }
+        }
+
+        // Disable button and show loading state
+        const submitButton = batchUploadForm.querySelector('button[type="submit"]');
+        submitButton.disabled = true;
+        submitButton.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Uploading & Redirecting...';
+    });
+});
+</script>
+{% endblock %}

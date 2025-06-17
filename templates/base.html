@@ -1,155 +1,255 @@
 <!DOCTYPE html>
 <html lang="en" @click.away="profileOpen = false; notifOpen = false">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{% block title %}Steganography Detection Tool{% endblock %}</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Boxicons -->
-    <link
-      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
-      rel="stylesheet"
-    />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
-    <!-- Animate.css -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
-    />
-    <!-- Google Fonts -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Space+Grotesk:wght@400;600&display=swap"
-      rel="stylesheet"
-    />
-    <!-- SweetAlert2 -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    
-    <style>
-      :root {
-        --primary: #2c3e50;   /* Dark blue-gray - main color */
-        --secondary: #3498db; /* Bright blue - interactive elements */
-        --accent: #ee5b4a;    /* Red - alerts and highlights */
-        --light: #ecf0f1;     /* Light gray - background */
-        --dark: #1a252f;      /* Very dark blue - headers/navbar */
-      }
-      .bg-primary { background-color: var(--primary); }
-        .bg-secondary { background-color: var(--secondary); }
-        .bg-accent { background-color: #ee5b4a; }
-        .bg-light { background-color: var(--light); }
-        .bg-dark { background-color: var(--dark); }
 
-        .text-primary { color: var(--primary); }
-        .text-secondary { color: var(--secondary); }
-        .text-accent { color: var(--accent); }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}Steganography Detection Tool{% endblock %}</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+  <!-- Boxicons -->
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+  <!-- Animate.css -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Space+Grotesk:wght@400;600&family=Sora:wght@400;600&display=swap"
+    rel="stylesheet" />
 
-        .border-primary { border-color: var(--primary); }
-        .border-secondary { border-color: var(--secondary); }
-        .border-accent { border-color: var(--accent); }
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.13.3/cdn.min.js" defer></script>
+  <!-- SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-        .hover\:bg-primary:hover { background-color: var(--primary); }
-        .hover\:bg-secondary:hover { background-color: var(--secondary); }
+  <style>
+    :root {
+      --primary: #2c3e50;
+      /* Dark blue-gray - main color */
+      --secondary: #3498db;
+      /* Bright blue - interactive elements */
+      --accent: #ee5b4a;
+      /* Red - alerts and highlights */
+      --light: #ecf0f1;
+      /* Light gray - background */
+      --dark: #1a252f;
+      /* Very dark blue - headers/navbar */
+    }
 
-      body {
-        font-family: "Space Grotesk", sans-serif;
-      }
-      h1,
-      h2,
-      h3 {
-        font-family: "Montserrat", sans-serif;
-      }
-      [x-cloak] {
-        display: none !important;
-      }
-      .text-accent{
-        color:  #ee5b4a;
-      }
-      .bg-blue{
-        background-color:  #2c3e50;
-      }
-      .bg-blue-dark{
-        background-color:  #1a252f;
-      }
-    </style>
+    .bg-primary {
+      background-color: var(--primary);
+    }
 
-  </head>
-  <body
-    class="bg-gray-100 text-gray-900"
-    x-data="{ sidebarOpen: false, profileOpen: false, notifOpen: false }"
-  >
+    .bg-secondary {
+      background-color: var(--secondary);
+    }
+
+    .bg-accent {
+      background-color: #ee5b4a;
+    }
+
+    .bg-light {
+      background-color: var(--light);
+    }
+
+    .bg-dark {
+      background-color: var(--dark);
+    }
+
+    .text-primary {
+      color: var(--primary);
+    }
+
+    .text-secondary {
+      color: var(--secondary);
+    }
+
+    .text-accent {
+      color: var(--accent);
+    }
+
+    .border-primary {
+      border-color: var(--primary);
+    }
+
+    .border-secondary {
+      border-color: var(--secondary);
+    }
+
+    .border-accent {
+      border-color: var(--accent);
+    }
+
+    .hover\:bg-primary:hover {
+      background-color: var(--primary);
+    }
+
+    .hover\:bg-secondary:hover {
+      background-color: var(--secondary);
+    }
+
+    body {
+      font-family: "Sora", sans-serif;
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: "Montserrat", sans-serif;
+    }
+
+    [x-cloak] {
+      display: none !important;
+    }
+
+    .text-accent {
+      color: #ee5b4a;
+    }
+
+    .bg-blue {
+      background-color: #2c3e50;
+    }
+
+    .bg-blue-dark {
+      background-color: #1a252f;
+    }
+
+    .profile-dropdown {
+      transform: translateY(-10px);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .profile-dropdown.show {
+      transform: translateY(0);
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .avatar {
+      background: linear-gradient(135deg, var(--accent), #8b5cf6);
+    }
+
+    .dropdown-item:hover {
+      background-color: var(--primary);
+      transform: translateX(2px);
+    }
+
+    .notification-dropdown {
+      transform: translateY(-10px);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .notification-dropdown.show {
+      transform: translateY(0);
+      opacity: 1;
+      visibility: visible;
+    }
+  </style>
+
+</head>
+
+<body class="bg-gray-100 text-gray-900" x-data="{ 
+      sidebarOpen: false, 
+      profileOpen: false, 
+      notifOpen: false,
+      user: {
+        name: '{{ user.get_full_name|default:user.username }}',
+        email: '{{ user.email }}',
+        avatar: '{{ user.get_full_name|default:user.username|first|upper }}{{ user.last_name|first|upper|default:"" }}'
+      },
+      logout() {
+        Swal.fire({
+          title: 'Are you sure?',
+          text: 'You will be logged out of your account.',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#ee5b4a',
+          cancelButtonColor: '#3498db',
+          confirmButtonText: 'Yes, logout!'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location.href = '{% url "accounts:logout" %}'; } }); } }">
   {% block extra_css %}
   {% endblock %}
-    <!-- Sidebar: Fixed on left on medium and up; overlays on smaller screens -->
-    <aside
-      class="fixed inset-y-0 left-0 w-64 bg-[var(--dark)] text-white transform transition-transform duration-300 ease-in-out z-50"
-      :class="{'-translate-x-full': !sidebarOpen, 'translate-x-0': sidebarOpen}"
-      x-cloak
-    >
-      <div class="p-2 space-y-6">
-        <div class="flex items-center space-x-4 mt-11">
-          <i
-            class="bx bx-shield-quarter text-3xl text-[var(--accent)] animate__animated animate__pulse animate__infinite"
-          ></i>
-          <span class="text-xl font-semibold">StegoDetect AI</span>
-          <!-- Only show the toggle on small screens -->
-          <button
-            @click="sidebarOpen = !sidebarOpen"
-            class="block md:hidden text-2xl focus:outline-none"
-          >
-            <i class="bx bx-menu"></i>
-          </button>
-        </div>
-        <nav class="space-y-2">
-          <a
-            href="{% url 'pdf_detector:dashboard' %}"
-            class="flex items-center px-3 py-2 rounded-md hover:bg-[var(--primary)] hover:text-[var(--accent)] transition"
-          >
-            <i class="bx bx-home text-xl mr-3"></i> Dashboard
-          </a>
-          <a
-            href="{% url 'pdf_detector:upload_pdf' %}"
-            class="flex items-center px-3 py-2 rounded-md hover:bg-[var(--primary)] hover:text-[var(--accent)] transition"
-          >
-            <i class="bx bx-search-alt text-xl mr-3"></i> Detection
-          </a>
-            <a
-            href="{% url 'pdf_detector:analysis_list' %}"
-            class="flex items-center px-3 py-2 rounded-md hover:bg-[var(--primary)] hover:text-[var(--accent)] transition"
-            >
-            <i class="bx bx-analyse text-xl mr-3"></i> Analyses
-            </a>
-          <a
-            href="{% url 'pdf_stego:home' %}"
-            class="flex items-center px-3 py-2 rounded-md hover:bg-[var(--primary)] hover:text-[var(--accent)] transition"
-          >
-            <i class="bx bx-hide text-xl mr-3"></i> PDF Stego Tool
-          </a>
-          <a
-            href="reports.html"
-            class="flex items-center px-3 py-2 rounded-md hover:bg-[var(--primary)] hover:text-[var(--accent)] transition"
-          >
-            <i class="bx bx-bar-chart-alt-2 text-xl mr-3"></i> Reports
-          </a>
-          <a
-            href="settings.html"
-            class="flex items-center px-3 py-2 rounded-md hover:bg-[var(--primary)] hover:text-[var(--accent)] transition"
-          >
-            <i class="bx bx-cog text-xl mr-3"></i> Settings
-          </a>
-        </nav>
+  <!-- Sidebar: Fixed on left on medium and up; overlays on smaller screens -->
+  <aside
+    class="fixed inset-y-0 left-0 w-64 bg-[var(--dark)] text-white transform transition-transform duration-300 ease-in-out z-50"
+    :class="{'-translate-x-full': !sidebarOpen, 'translate-x-0': sidebarOpen}" x-cloak>
+    <div class="p-2 py-5 space-y-6">
+      <div class="flex items-center space-x-4 mt-11">
+        <i
+          class="bx bx-shield-quarter text-3xl text-[var(--accent)] animate__animated animate__pulse animate__infinite"></i>
+        <span class="text-xl font-semibold">StegoDetect AI</span>
+        <!-- Only show the toggle on small screens -->
+        <button @click="sidebarOpen = !sidebarOpen" class="block md:hidden text-2xl focus:outline-none">
+          <i class="bx bx-menu"></i>
+        </button>
       </div>
-    </aside>
+      <nav class="space-y-2">
+        <a href="{% url 'ai:dashboard' %}"
+          class="flex items-center px-3 py-2 rounded-md hover:bg-[var(--primary)] hover:text-[var(--accent)] transition">
+          <i class="bx bx-home text-xl mr-3"></i> Dashboard
+        </a>
+        <a href="{% url 'pdf_detector:upload_pdf' %}"
+          class="flex items-center px-3 py-2 rounded-md hover:bg-[var(--primary)] hover:text-[var(--accent)] transition">
+          <i class="bx bx-search-alt text-xl mr-3"></i> Detection
+        </a>
+        <a href="{% url 'pdf_detector:analysis_list' %}"
+          class="flex items-center px-3 py-2 rounded-md hover:bg-[var(--primary)] hover:text-[var(--accent)] transition">
+          <i class="bx bx-analyse text-xl mr-3"></i> Analyses
+        </a>
+        <div x-data="{ mlModelOpen: false }" class="relative">
+          <button @click="mlModelOpen = !mlModelOpen"
+            class="flex items-center justify-between w-full px-3 py-2 rounded-md hover:bg-[var(--primary)] hover:text-[var(--accent)] transition">
+            <div class="flex items-center">
+              <i class="bx bx-brain text-xl mr-3"></i> ML Model
+            </div>
+            <i class="bx bx-chevron-down" :class="{'transform rotate-180': mlModelOpen}"></i>
+          </button>
+          <div x-show="mlModelOpen" class="pl-6 mt-2 space-y-1">
+            <a href="{% url 'ai:ml_dashboard' %}"
+              class="flex items-center px-4 py-2 text-gray-300 hover:text-white hover:bg-gray-700 rounded-lg transition-colors {% if request.resolver_match.url_name == 'ml_dashboard' %}bg-primary text-white{% endif %}">
+              <i class="fas fa-tachometer-alt mr-3"></i>Overview
+            </a>
+            <a href="{% url 'ai:model_list' %}"
+              class="flex items-center px-4 py-2 text-gray-300 hover:text-white hover:bg-gray-700 rounded-lg transition-colors {% if 'model' in request.resolver_match.url_name %}bg-primary text-white{% endif %}">
+              <i class="fas fa-brain mr-3"></i>Models
+            </a>
+            <a href="{% url 'ai:training_session_list' %}"
+              class="flex items-center px-4 py-2 text-gray-300 hover:text-white hover:bg-gray-700 rounded-lg transition-colors {% if 'training' in request.resolver_match.url_name %}bg-primary text-white{% endif %}">
+              <i class="fas fa-cogs mr-3"></i>Training
+            </a>
+            <a href="{% url 'ai:dataset_list' %}"
+              class="flex items-center px-4 py-2 text-gray-300 hover:text-white hover:bg-gray-700 rounded-lg transition-colors {% if 'dataset' in request.resolver_match.url_name %}bg-primary text-white{% endif %}">
+              <i class="fas fa-database mr-3"></i>Datasets
+            </a>
+            <a href="{% url 'ai:predict' %}"
+              class="flex items-center px-4 py-2 text-gray-300 hover:text-white hover:bg-gray-700 rounded-lg transition-colors {% if request.resolver_match.url_name == 'predict' %}bg-primary text-white{% endif %}">
+              <i class="fas fa-search mr-3"></i>Predict
+            </a>
+          </div>
+        </div>
+        <a href="{% url 'pdf_detector:system_performance' %}"
+          class="flex items-center px-3 py-2 rounded-md hover:bg-[var(--primary)] hover:text-[var(--accent)] transition">
+          <i class="bx bx-bar-chart-alt-2 text-xl mr-3"></i> System Performance
+        </a>
+        <a href=""
+          class="flex items-center px-3 py-2 rounded-md hover:bg-[var(--primary)] hover:text-[var(--accent)] transition">
+          <i class="bx bx-cog text-xl mr-3"></i> Settings
+        </a>
+      </nav>
+    </div>
+  </aside>
 
-    <!-- Main Content: Adjusts its margin on medium screens when sidebar is visible -->
-    <div
-      class="flex flex-col flex-1 transition-all duration-300 p-6 overflow-auto"
-      :class="{'md:ml-64': sidebarOpen}"
-    >
-      <!-- Header -->
-      <header
-        class="bg-[var(--dark)] text-white flex items-center justify-between px-6 py-3 rounded-lg shadow-md mb-4"
-      >
-        <!-- Sidebar Toggle Button -->
+  <!-- Main Content: Adjusts its margin on medium screens when sidebar is visible -->
+  <div class="flex flex-col flex-1 transition-all duration-300 p-6 overflow-auto" :class="{'md:ml-64': sidebarOpen}">
+    <!-- Header -->
+    <header class="bg-[var(--dark)] text-white flex items-center justify-between px-6 py-3 rounded-lg shadow-md mb-4">
+      <!-- Sidebar Toggle Button -->
       <div class="flex items-center justify-start space-x-4 space-y-0">
         <button @click="sidebarOpen = !sidebarOpen" class="text-2xl focus:outline-none space-y-4">
           <i class="bx bx-menu"></i>
@@ -158,117 +258,230 @@
         <h2 class="text-2xl font-semibold">StegoDetect AI</h2>
       </div>
 
-        <!-- Right Side Controls -->
-        <div class="flex items-center space-x-4 relative">
-          <!-- Notification Button -->
-          <div class="relative">
-            <button
-              @click.stop="notifOpen = !notifOpen"
-              class="p-2 text-[var(--light)] hover:text-[var(--secondary)] transition"
-            >
-              <i class="bx bx-bell"></i>
-            </button>
-            <!-- Notification Dropdown -->
-            <div
-              x-show="notifOpen"
-              x-transition
-              class="absolute right-0 mt-2 w-64 bg-white text-black rounded shadow z-50 p-4 space-y-2"
-            >
-              <div class="text-sm font-semibold">Notifications</div>
-              <div class="text-sm border-b pb-2">
-                📄 No Notifications
-                <span class="font-medium">Now</span>
+      <!-- Right Side Controls -->
+      <div class="flex items-center space-x-4 relative">
+        <!-- Notification Button -->
+        <div class="relative">
+          <button @click.stop="notifOpen = !notifOpen"
+            class="p-2 text-[var(--light)] hover:text-[var(--secondary)] transition relative">
+            <i class="bx bx-bell text-xl"></i>
+            <!-- Notification badge -->
+            <span
+              class="absolute -top-1 -right-1 bg-[var(--accent)] text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+              3
+            </span>
+          </button>
+          <!-- Notification Dropdown -->
+          <div
+            class="notification-dropdown absolute right-0 mt-2 w-80 bg-white text-gray-900 rounded-lg shadow-lg border z-50"
+            :class="notifOpen ? 'show' : ''">
+            <div class="p-4 border-b">
+              <div class="flex items-center justify-between">
+                <h3 class="font-semibold text-lg">Notifications</h3>
+                <button @click="notifOpen = false" class="text-gray-500 hover:text-gray-700">
+                  <i class="bx bx-x text-xl"></i>
+                </button>
               </div>
             </div>
-          </div>
-          <!-- Profile Dropdown -->
-          <div class="relative">
-            <button @click.stop="profileOpen = !profileOpen">
-              <img
-                src="https://builder.bootstrapmade.com/static/img/profile/profile-square-1.webp"
-                class="h-12 w-12 rounded-full border-2 border-[var(--dark)]"
-                alt="Profile"
-              />
-            </button>
-            <div
-              x-show="profileOpen"
-              x-transition
-              class="absolute right-0 mt-2 w-40 bg-white text-black rounded shadow overflow-hidden z-50"
-            >
-              <a href="#" class="block px-4 py-2 hover:bg-gray-100">Account</a>
-              <a href="#" class="block px-4 py-2 hover:bg-gray-100">Logout</a>
+            <div class="max-h-64 overflow-y-auto">
+              <div class="p-3 border-b hover:bg-gray-50 cursor-pointer">
+                <div class="flex items-start space-x-3">
+                  <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
+                    <i class="bx bx-check text-white text-sm"></i>
+                  </div>
+                  <div class="flex-1">
+                    <p class="text-sm font-medium">Analysis Complete</p>
+                    <p class="text-xs text-gray-500">PDF analysis finished successfully</p>
+                    <p class="text-xs text-gray-400 mt-1">2 minutes ago</p>
+                  </div>
+                </div>
+              </div>
+              <div class="p-3 border-b hover:bg-gray-50 cursor-pointer">
+                <div class="flex items-start space-x-3">
+                  <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
+                    <i class="bx bx-upload text-white text-sm"></i>
+                  </div>
+                  <div class="flex-1">
+                    <p class="text-sm font-medium">Upload Successful</p>
+                    <p class="text-xs text-gray-500">New document uploaded</p>
+                    <p class="text-xs text-gray-400 mt-1">5 minutes ago</p>
+                  </div>
+                </div>
+              </div>
+              <div class="p-3 hover:bg-gray-50 cursor-pointer">
+                <div class="flex items-start space-x-3">
+                  <div class="w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center">
+                    <i class="bx bx-warning text-white text-sm"></i>
+                  </div>
+                  <div class="flex-1">
+                    <p class="text-sm font-medium">System Update</p>
+                    <p class="text-xs text-gray-500">New features available</p>
+                    <p class="text-xs text-gray-400 mt-1">1 hour ago</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="p-3 border-t text-center">
+              <a href="#" class="text-sm text-[var(--secondary)] hover:underline">View all notifications</a>
             </div>
           </div>
         </div>
-      </header>
 
-      <!-- Page Content: Detection Form -->
-      <main class="py-4">
-        <!-- CONTENT -->
-        {% if messages %}
-        <div class="mb-4">
-          {% for message in messages %}
+        <!-- Profile Dropdown -->
+        {% if user.is_authenticated %}
+        <div class="relative">
+          <button @click.stop="profileOpen = !profileOpen"
+            class="flex items-center space-x-3 p-2 rounded-lg hover:bg-[var(--primary)] transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-[var(--accent)] focus:ring-opacity-50">
+            <!-- Avatar -->
+            <div
+              class="avatar w-10 h-10 rounded-full flex items-center justify-center text-white font-semibold text-sm">
+              <span x-text="user.avatar"></span>
+            </div>
+
+            <!-- User info (hidden on mobile) -->
+            <div class="hidden sm:block text-left">
+              <div class="text-sm font-medium text-white" x-text="user.name"></div>
+              <div class="text-xs text-gray-300" x-text="user.email"></div>
+            </div>
+
+            <!-- Dropdown arrow -->
+            <i class="bx bx-chevron-down text-lg transition-transform duration-200"
+              :class="profileOpen ? 'rotate-180' : ''"></i>
+          </button>
+
+          <!-- Dropdown menu -->
           <div
-            class="p-4 mb-2 rounded {% if message.tags == 'error' %}bg-red-100 text-red-700{% elif message.tags == 'success' %}bg-green-100 text-green-700{% else %}bg-blue-100 text-blue-700{% endif %}"
-          >
-            {{ message }}
+            class="profile-dropdown absolute right-0 mt-2 w-64 bg-white text-gray-900 rounded-lg shadow-lg border z-50"
+            :class="profileOpen ? 'show' : ''">
+            <!-- User info header -->
+            <div class="p-4 border-b">
+              <div class="flex items-center space-x-3">
+                <div class="avatar w-12 h-12 rounded-full flex items-center justify-center text-white font-semibold">
+                  <span x-text="user.avatar"></span>
+                </div>
+                <div>
+                  <div class="font-medium text-gray-900" x-text="user.name"></div>
+                  <div class="text-sm text-gray-500" x-text="user.email"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Menu items -->
+            <div class="py-2">
+              <a href="#"
+                class="dropdown-item flex items-center space-x-3 px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 transition-all duration-200">
+                <i class="bx bx-user text-lg text-gray-500"></i>
+                <span>View Profile</span>
+              </a>
+
+              <a href="#"
+                class="dropdown-item flex items-center space-x-3 px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 transition-all duration-200">
+                <i class="bx bx-cog text-lg text-gray-500"></i>
+                <span>Settings</span>
+              </a>
+
+              <a href="#"
+                class="dropdown-item flex items-center space-x-3 px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 transition-all duration-200">
+                <i class="bx bx-help-circle text-lg text-gray-500"></i>
+                <span>Help & Support</span>
+              </a>
+
+              <div class="border-t my-2"></div>
+
+              <button @click="logout()"
+                class="dropdown-item w-full flex items-center space-x-3 px-4 py-3 text-sm text-red-600 hover:bg-red-50 transition-all duration-200">
+                <i class="bx bx-log-out text-lg"></i>
+                <span>Logout</span>
+              </button>
+            </div>
           </div>
-          {% endfor %}
         </div>
-        {% endif %} 
-        {% block content %}{% endblock %}
-        <!-- END OF CONTENT -->
+        {% else %}
+        <!-- Login button for non-authenticated users -->
+        <a href="{% url 'accounts:login' %}"
+          class="bg-[var(--accent)] hover:bg-red-600 text-white px-4 py-2 rounded-lg transition-colors duration-200">
+          Login
+        </a>
+        {% endif %}
+      </div>
+    </header>
 
-        <!-- Footer -->
-        <footer class="mt-8 text-center text-gray-500 text-sm">
-          &copy; {% now "Y" %} StegoDetect AI. All rights reserved.
-        </footer>
-      </main>
-    </div>
+    <!-- Page Content: Detection Form -->
+    <main class="">
+      <!-- CONTENT -->
+      {% if messages %}
+      <div class="mb-4">
+        {% for message in messages %}
+        <div
+          class="p-4 mb-2 rounded {% if message.tags == 'error' %}bg-red-100 text-red-700{% elif message.tags == 'success' %}bg-green-100 text-green-700{% else %}bg-blue-100 text-blue-700{% endif %}">
+          {{ message }}
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
 
-    <!-- AlpineJS for interactivity -->
-    <script
-      src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"
-      defer
-    ></script>
-    
-    <!-- Custom JS -->
-    <script>
-        // Initialize tooltips globally
-        document.addEventListener('DOMContentLoaded', function() {
-            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-                return new bootstrap.Tooltip(tooltipTriggerEl);
-            });
+      
+      <div class="bg-white shadow-sm border-b rounded-lg mb-4">
+        <div class="px-6 py-4">
+          <div class="flex justify-between items-center">
+            <h1 class="text-2xl font-semibold text-gray-900">{% block page_title %}Dashboard{% endblock %}</h1>
+            <div class="flex space-x-2">
+              {% block page_actions %}{% endblock %}
+            </div>
+          </div>
+        </div>
+      </div>
+      {% block content %}{% endblock %}
+      <!-- END OF CONTENT -->
+
+      <!-- Footer -->
+      <footer class="mt-8 text-center text-gray-500 text-sm">
+        &copy; {% now "Y" %} StegoDetect AI. All rights reserved.
+      </footer>
+    </main>
+  </div>
+
+  <!-- AlpineJS for interactivity -->
+  <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+
+  <!-- Custom JS -->
+  <script>
+    // Initialize tooltips globally
+    document.addEventListener('DOMContentLoaded', function () {
+      var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+      var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+      });
+    });
+
+    // Auto-hide alerts after 5 seconds
+    document.addEventListener('DOMContentLoaded', function () {
+      setTimeout(function () {
+        var alerts = document.querySelectorAll('.alert');
+        alerts.forEach(function (alert) {
+          var bsAlert = new bootstrap.Alert(alert);
+          bsAlert.close();
         });
-        
-        // Auto-hide alerts after 5 seconds
-        document.addEventListener('DOMContentLoaded', function() {
-            setTimeout(function() {
-                var alerts = document.querySelectorAll('.alert');
-                alerts.forEach(function(alert) {
-                    var bsAlert = new bootstrap.Alert(alert);
-                    bsAlert.close();
-                });
-            }, 5000);
+      }, 5000);
+    });
+
+    // Add loading state to buttons
+    document.addEventListener('DOMContentLoaded', function () {
+      var forms = document.querySelectorAll('form');
+      forms.forEach(function (form) {
+        form.addEventListener('submit', function () {
+          var submitBtn = form.querySelector('button[type="submit"], input[type="submit"]');
+          if (submitBtn) {
+            submitBtn.disabled = true;
+            if (submitBtn.innerHTML) {
+              submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Processing...';
+            }
+          }
         });
-        
-        // Add loading state to buttons
-        document.addEventListener('DOMContentLoaded', function() {
-            var forms = document.querySelectorAll('form');
-            forms.forEach(function(form) {
-                form.addEventListener('submit', function() {
-                    var submitBtn = form.querySelector('button[type="submit"], input[type="submit"]');
-                    if (submitBtn) {
-                        submitBtn.disabled = true;
-                        if (submitBtn.innerHTML) {
-                            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Processing...';
-                        }
-                    }
-                });
-            });
-        });
-    </script>
-    
-  </body>
+      });
+    });
+  </script>
+
+</body>
+
 </html>

@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% block title %}All Analyses - StegoDetect AI{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+  <h1 class="text-3xl font-bold text-gray-800 mb-6">All Completed Analyses</h1>
+
+  {% if uploads %} {# Assuming 'uploads' context from PDFUploadListView #}
+  <div class="bg-white shadow-md rounded-lg overflow-hidden">
+    <table class="min-w-full leading-normal">
+      <thead>
+        <tr>
+          <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+            File Name
+          </th>
+          <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+            Analyzed At
+          </th>
+          <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+            Prediction
+          </th>
+          <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+            Confidence
+          </th>
+          <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+            Risk
+          </th>
+          <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+            Actions
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for upload in uploads %}
+        {% if upload.processed and upload.prediction %} {# Only show truly processed files with results #}
+        <tr>
+          <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+            <p class="text-gray-900 whitespace-no-wrap">{{ upload.file_name }}</p>
+          </td>
+          <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+            <p class="text-gray-900 whitespace-no-wrap">{{ upload.prediction.created_at|date:"Y-m-d H:i" }}</p>
+          </td>
+          <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+            <p class="text-gray-900 whitespace-no-wrap">
+                {% if upload.prediction.ensemble_prediction == 1 %}
+                    <span class="text-accent font-semibold">Suspicious</span>
+                {% else %}
+                    <span class="text-green-600 font-semibold">Clean</span>
+                {% endif %}
+            </p>
+          </td>
+          <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+            <p class="text-gray-900 whitespace-no-wrap">{{ upload.prediction.ensemble_confidence|floatformat:2 }}</p>
+          </td>
+          <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+            <p class="text-gray-900 whitespace-no-wrap">{{ upload.prediction.risk_level }}</p>
+          </td>
+          <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+            <a href="{% url 'pdf_detector:upload_detail' upload.id %}" class="text-secondary hover:text-primary transition-colors duration-200">
+              View Details
+            </a>
+          </td>
+        </tr>
+        {% endif %}
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="px-5 py-5 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between">
+    <div class="flex items-center space-x-2">
+      {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}" class="px-3 py-1 rounded-md border border-gray-300 hover:bg-gray-100">Previous</a>
+      {% endif %}
+
+      <span class="text-sm text-gray-700">
+        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+      </span>
+
+      {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}" class="px-3 py-1 rounded-md border border-gray-300 hover:bg-gray-100">Next</a>
+      {% endif %}
+    </div>
+  </div>
+
+  {% else %}
+  <div class="bg-white p-6 rounded-lg shadow-md text-center">
+    <p class="text-gray-600 text-lg">No completed analyses available yet.</p>
+    <a href="{% url 'pdf_detector:upload_pdf' %}" class="mt-4 inline-block bg-secondary text-white px-6 py-2 rounded-md hover:bg-primary transition">
+      Upload a PDF to Analyze
+    </a>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

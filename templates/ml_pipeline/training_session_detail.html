@@ -1,0 +1,181 @@
+{% extends 'base.html' %}
+
+{% block title %}Training Session: {{ session.name }}{% endblock %}
+
+{% block page_title %}Training Session: {{ session.name }}{% endblock %}
+
+{% block page_actions %}
+{% if session.status == 'pending' %}
+<a href="{% url 'ai:start_training' session.id %}"
+    class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-success">
+    <i class="fas fa-play-circle mr-2"></i> Start Training
+</a>
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div class="bg-white shadow-md rounded-lg p-6">
+        <h3 class="text-lg font-semibold text-gray-900 mb-4">Session Details</h3>
+        <dl class="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-2 text-sm text-gray-700">
+            <div>
+                <dt class="font-medium text-gray-500">Name:</dt>
+                <dd>{{ session.name }}</dd>
+            </div>
+            <div>
+                <dt class="font-medium text-gray-500">Status:</dt>
+                <dd>
+                    <span
+                        class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {% if session.status == 'completed' %}bg-green-100 text-green-800{% elif session.status == 'running' %}bg-blue-100 text-blue-800{% elif session.status == 'failed' %}bg-red-100 text-red-800{% else %}bg-gray-100 text-gray-800{% endif %}">
+                        {{ session.get_status_display }}
+                    </span>
+                </dd>
+            </div>
+            <div>
+                <dt class="font-medium text-gray-500">Created By:</dt>
+                <dd>{{ session.created_by.username }}</dd>
+            </div>
+            <div>
+                <dt class="font-medium text-gray-500">Created At:</dt>
+                <dd>{{ session.created_at|date:"M d, Y H:i" }}</dd>
+            </div>
+            <div>
+                <dt class="font-medium text-gray-500">Completed At:</dt>
+                <dd>{{ session.completed_at|date:"M d, Y H:i"|default:"N/A" }}</dd>
+            </div>
+            {% if session.training_data_file %}
+            <div>
+                <dt class="font-medium text-gray-500">Training Data File:</dt>
+                <dd><a href="{{ session.training_data_file.url }}" class="text-primary hover:underline" download>Download</a></dd>
+            </div>
+            {% endif %}
+            {% if session.data_shape %}
+            <div>
+                <dt class="font-medium text-gray-500">Data Shape:</dt>
+                <dd>{{ session.data_shape.rows }} rows, {{ session.data_shape.columns }} columns</dd>
+            </div>
+            {% endif %}
+            {% if session.class_distribution %}
+            <div>
+                <dt class="font-medium text-gray-500">Class Distribution:</dt>
+                <dd>
+                    {% for label, count in session.class_distribution.items %}
+                    {{ label }}: {{ count }}{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                </dd>
+            </div>
+            {% endif %}
+            <div>
+                <dt class="font-medium text-gray-500">Test Size:</dt>
+                <dd>{{ session.test_size }}</dd>
+            </div>
+            <div>
+                <dt class="font-medium text-gray-500">Random State:</dt>
+                <dd>{{ session.random_state }}</dd>
+            </div>
+            <div>
+                <dt class="font-medium text-gray-500">Stratify:</dt>
+                <dd>{{ session.stratify|yesno:"Yes,No" }}</dd>
+            </div>
+            {% if session.error_message %}
+            <div class="sm:col-span-2">
+                <dt class="font-medium text-gray-500">Error Message:</dt>
+                <dd class="text-red-600">{{ session.error_message }}</dd>
+            </div>
+            {% endif %}
+        </dl>
+    </div>
+
+    <div class="bg-white shadow-md rounded-lg p-6">
+        <h3 class="text-lg font-semibold text-gray-900 mb-4">Models Trained in this Session</h3>
+        {% if models %}
+        <ul class="space-y-3">
+            {% for model in models %}
+            <li class="p-3 border rounded-md">
+                <a href="{% url 'ai:model_detail' model.id %}" class="text-primary hover:underline font-medium">
+                    {{ model.name }} ({{ model.get_model_type_display }})
+                </a>
+                <p class="text-sm text-gray-600">Status: 
+                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
+                        {% if model.status == 'completed' %}bg-green-100 text-green-800
+                        {% elif model.status == 'training' %}bg-blue-100 text-blue-800
+                        {% elif model.status == 'failed' %}bg-red-100 text-red-800{% endif %}">
+                        {{ model.get_status_display }}
+                    </span>
+                </p>
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p class="text-gray-600">No models have been trained in this session yet.</p>
+        {% endif %}
+    </div>
+
+    <div class="bg-white shadow-md rounded-lg p-6 col-span-full">
+        <h3 class="text-lg font-semibold text-gray-900 mb-4">Training Visualizations</h3>
+        {% if visualizations %}
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {% for viz in visualizations %}
+            <div class="border rounded-md p-3">
+                <h4 class="font-medium text-gray-800 mb-2">{{ viz.title }} ({{ viz.get_chart_type_display }})</h4>
+                {% if viz.chart_image %}
+                <img src="{{ viz.chart_image.url }}" alt="{{ viz.title }}" class="w-full h-auto rounded-md object-cover">
+                {% else %}
+                <p class="text-sm text-gray-600">No image available. Chart data can be used to recreate.</p>
+                {% endif %}
+                <p class="text-xs text-gray-500 mt-2">Generated: {{ viz.created_at|date:"M d, Y H:i" }}</p>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p class="text-gray-600">No visualizations generated for this session yet.</p>
+        {% endif %}
+    </div>
+</div>
+
+{% if session.status == 'running' %}
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const sessionId = {{ session.id }};
+        const statusElement = document.querySelector('dd span'); // Assuming the status span is the first dd span for simplicity
+
+        function checkTrainingStatus() {
+            fetch(`/api/training/${sessionId}/status/`)
+                .then(response => response.json())
+                .then(data => {
+                    // Update status display
+                    statusElement.textContent = data.status.charAt(0).toUpperCase() + data.status.slice(1);
+                    statusElement.className = `px-2 inline-flex text-xs leading-5 font-semibold rounded-full `;
+                    if (data.status === 'completed') {
+                        statusElement.classList.add('bg-green-100', 'text-green-800');
+                        location.reload(); // Reload page to update other elements like "Start Training" button
+                    } else if (data.status === 'running') {
+                        statusElement.classList.add('bg-blue-100', 'text-blue-800');
+                    } else if (data.status === 'failed') {
+                        statusElement.classList.add('bg-red-100', 'text-red-800');
+                        const errorMessageElement = document.querySelector('.error-message'); // Find where error message is displayed
+                        if (errorMessageElement) {
+                            errorMessageElement.textContent = data.error_message;
+                        }
+                    } else {
+                        statusElement.classList.add('bg-gray-100', 'text-gray-800');
+                    }
+
+                    // If training is still running, poll again
+                    if (data.status === 'running') {
+                        setTimeout(checkTrainingStatus, 5000); // Poll every 5 seconds
+                    }
+                })
+                .catch(error => console.error('Error fetching training status:', error));
+        }
+
+        // Start polling if session is running on page load
+        if (statusElement.textContent.trim().toLowerCase() === 'running') {
+            checkTrainingStatus();
+        }
+    });
+</script>
+{% endblock %}
+{% endif %}
+{% endblock %}

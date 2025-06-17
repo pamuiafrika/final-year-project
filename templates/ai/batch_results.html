@@ -1,0 +1,258 @@
+{% extends 'base.html' %}
+
+{% block title %}Batch Upload Results - StegoDetect AI{% endblock %}
+
+{% block content %}
+{% csrf_token %}
+<div class="container mx-auto px-4 py-8">
+  <h1 class="text-3xl font-bold text-gray-800 mb-6">Batch Upload Status & Results</h1>
+
+  <div class="bg-white p-6 rounded-lg shadow-md mb-8">
+    <h2 class="text-xl font-semibold text-gray-700 mb-4">File Processing Progress</h2>
+    <div id="fileStatusContainer" class="space-y-4">
+      <!-- File statuses will be dynamically added here by JavaScript -->
+    </div>
+
+    <div class="mt-8 text-center">
+      <a href="{% url 'ai:batch_upload' %}" class="bg-primary text-white px-6 py-2 rounded-md hover:bg-secondary transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50">
+        <i class="fas fa-plus-circle mr-2"></i> Upload More Files
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- Safely embed initial results JSON outside of direct script execution -->
+<script id="initialResultsData" type="application/json">
+    {{ initial_results_json|safe }} {# Use |safe as it's within a script tag, already JSON-encoded #}
+</script>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const fileStatusContainer = document.getElementById('fileStatusContainer');
+    const filePollIntervals = {}; // To store polling intervals for each file
+    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+    // --- CRITICAL DATA PARSING LOGIC ---
+    let initialResults = [];
+    try {
+        // Retrieve the JSON string from the dedicated script tag
+        const rawJsonString = document.getElementById('initialResultsData').textContent;
+        console.log("Raw JSON string from Django (from script tag):", rawJsonString); // DIAGNOSTIC: Log the raw string
+
+        // Attempt to parse the JSON string
+        initialResults = JSON.parse(rawJsonString);
+        console.log("Parsed initialResults:", initialResults); // DIAGNOSTIC: Log the parsed object
+    } catch (e) {
+        console.error("Error parsing initialResults JSON:", e); // DIAGNOSTIC: Log any parsing errors
+        fileStatusContainer.innerHTML = '<p class="text-red-600 font-semibold">Error loading initial file statuses. Please check your browser\'s console for details.</p>';
+        return; // Stop execution if parsing fails
+    }
+    // --- END CRITICAL DATA PARSING LOGIC ---
+
+
+    if (initialResults.length === 0) {
+        fileStatusContainer.innerHTML = '<p class="text-gray-600">No files were queued for processing or an error occurred during upload.</p>';
+        return;
+    }
+
+    // Initialize display for each file and start polling if necessary
+    initialResults.forEach(result => {
+        addFileStatusPlaceholder(result.filename, result.upload_id, result.status, result.message, result.prediction);
+        // Only poll if the file is not yet completed or in an error state
+        if (result.status !== 'completed' && result.status !== 'error') {
+            pollStatusForFile(result.upload_id, result.filename);
+        }
+    });
+
+    /**
+     * Adds an initial status placeholder for a file to the DOM, including a progress bar.
+     * @param {string} filename - The name of the file.
+     * @param {string} uploadId - The UUID of the upload.
+     * @param {string} initialStatus - The initial status ('queued', 'success', 'duplicate', 'error', 'completed').
+     * @param {string} initialMessage - An initial message for the file.
+     * @param {object|null} initialPrediction - Prediction data if already completed.
+     */
+    function addFileStatusPlaceholder(filename, uploadId, initialStatus, initialMessage, initialPrediction = null) {
+        const fileDiv = document.createElement('div');
+        fileDiv.id = `status-${uploadId.replace(/[^a-zA-Z0-9]/g, '-')}`;
+        fileDiv.className = 'p-4 border border-gray-200 rounded-md bg-white shadow-sm';
+
+        let statusIcon = '';
+        let statusText = '';
+        let statusColor = '';
+        let detailLinkHidden = 'hidden';
+        let resultDetailsHidden = 'hidden';
+        let progressBarHidden = ''; // Control visibility of the progress bar
+        let resultHtml = '';
+
+        if (initialStatus === 'error') {
+            statusIcon = '<i class="fas fa-times-circle mr-2"></i>';
+            statusText = `Error: ${initialMessage}`;
+            statusColor = 'text-red-600';
+            progressBarHidden = 'hidden'; // Hide progress bar on error
+        } else if (initialStatus === 'duplicate') {
+            statusIcon = '<i class="fas fa-exclamation-triangle mr-2"></i>';
+            statusText = `File already exists: ${initialMessage}`;
+            statusColor = 'text-yellow-600';
+            if (initialPrediction) { // If duplicate and already processed
+                resultDetailsHidden = '';
+                detailLinkHidden = '';
+                resultHtml = getPredictionDisplayHtml(initialPrediction);
+                statusIcon = '<i class="fas fa-check-circle mr-2"></i>';
+                statusColor = initialPrediction.is_suspicious ? 'text-accent' : 'text-green-600';
+                statusText = 'Analysis Complete (Existing File)';
+                progressBarHidden = 'hidden';
+            }
+        } else if (initialStatus === 'completed') {
+            statusIcon = '<i class="fas fa-check-circle mr-2"></i>';
+            statusColor = initialPrediction.is_suspicious ? 'text-accent' : 'text-green-600';
+            statusText = 'Analysis Complete';
+            resultDetailsHidden = '';
+            detailLinkHidden = '';
+            resultHtml = getPredictionDisplayHtml(initialPrediction);
+            progressBarHidden = 'hidden';
+        } else { // 'queued' or 'success' (meaning it's processing or about to start)
+            statusIcon = '<i class="fas fa-spinner fa-spin mr-2"></i>';
+            statusText = `Queued for processing...`;
+            statusColor = 'text-blue-600';
+            progressBarHidden = ''; // Show progress bar if processing
+        }
+
+        fileDiv.innerHTML = `
+            <p class="font-semibold text-gray-800">${filename}</p>
+            <div class="flex items-center mt-2 ${statusColor} processing-message-wrapper">
+                ${statusIcon}
+                <span class="processing-message">${statusText}</span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-2.5 mt-2 ${progressBarHidden} progress-bar-container">
+                <div class="bg-blue-400 h-2.5 rounded-full animate-pulse-fast" style="width: 100%;"></div>
+            </div>
+            <div class="result-details mt-2 text-sm ${resultDetailsHidden}">
+                ${resultHtml}
+            </div>
+            <a href="{% url 'ai:upload_detail' '00000000-0000-0000-0000-000000000000' %}".replace('00000000-0000-0000-0000-000000000000', uploadId)} class="detail-link text-secondary hover:underline mt-2 ${detailLinkHidden}">View Full Details <i class="bx bx-right-arrow-alt"></i></a>
+        `;
+        fileStatusContainer.appendChild(fileDiv);
+    }
+
+    /**
+     * Polls the server for the status of a specific file upload.
+     * @param {string} uploadId - The UUID of the upload to poll.
+     * @param {string} filename - The filename associated with the upload.
+     */
+    async function pollStatusForFile(uploadId, filename) {
+        let checks = 0;
+        const maxChecks = 100; // Max 100 checks * 3 seconds = 300 seconds (5 minutes)
+        const fileDivId = `status-${uploadId.replace(/[^a-zA-Z0-9]/g, '-')}`;
+        const fileDiv = document.getElementById(fileDivId);
+        if (!fileDiv) return;
+
+        const processingMessageWrapper = fileDiv.querySelector('.processing-message-wrapper');
+        const processingMessage = fileDiv.querySelector('.processing-message');
+        const progressBarContainer = fileDiv.querySelector('.progress-bar-container');
+        const resultDetails = fileDiv.querySelector('.result-details');
+        const detailLink = fileDiv.querySelector('.detail-link');
+
+        filePollIntervals[uploadId] = setInterval(async () => {
+            console.log(`Polling attempt ${checks} for file ${filename}`); // Track polling attempts
+            checks++;
+            if (checks > maxChecks) {
+                console.log(`Polling timed out for ${filename} after ${maxChecks} attempts`); // Log timeout
+                clearInterval(filePollIntervals[uploadId]);
+                processingMessageWrapper.classList.remove('text-blue-600', 'text-gray-600', 'text-green-600', 'text-accent');
+                processingMessageWrapper.classList.add('text-yellow-600');
+                processingMessage.innerHTML = `<i class="fas fa-hourglass-half mr-2"></i> Processing timed out. Please check Analyses later.`;
+                progressBarContainer.classList.add('hidden');
+                return;
+            }
+
+            processingMessageWrapper.classList.remove('text-red-600', 'text-yellow-600', 'text-green-600', 'text-accent', 'text-blue-600');
+            processingMessageWrapper.classList.add('text-gray-600');
+            processingMessage.innerHTML = `<i class="fas fa-spinner fa-spin mr-2"></i> Processing file... (${checks}/${maxChecks} checks)`;
+            progressBarContainer.classList.remove('hidden');
+
+            try {
+                console.log(`Fetching status for uploadId: ${uploadId}`); // Log API request
+                const response = await fetch(`/ai/api/status/${uploadId}/`, {
+                    method: 'GET',
+                    headers: {
+                        'X-CSRFToken': csrfToken,
+                        'Accept': 'application/json'
+                    },
+                });
+                
+                if (!response.ok) {
+                    console.error(`API Error: ${response.status} - ${response.statusText}`); // Log API errors
+                    const errorText = await response.text();
+                    console.error('Error response:', errorText);
+                    throw new Error(`Failed to fetch status: ${response.status} ${response.statusText}`);
+                }
+                
+                const data = await response.json();
+                console.log(`Status response for ${filename}:`, data); // Log API response data
+
+                if (data.status === 'completed') {
+                    console.log(`Processing completed for ${filename}`); // Log completion
+                    clearInterval(filePollIntervals[uploadId]);
+                    processingMessageWrapper.classList.add('hidden');
+                    progressBarContainer.classList.add('hidden');
+                    displayFileResult(resultDetails, data.prediction, uploadId, detailLink);
+                    detailLink.classList.remove('hidden');
+                } else if (data.status === 'processing') {
+                    console.log(`Still processing ${filename}`); // Log processing state
+                } else {
+                    console.error(`Error status received for ${filename}:`, data.message); // Log error status
+                    clearInterval(filePollIntervals[uploadId]);
+                    processingMessageWrapper.classList.remove('text-blue-600', 'text-gray-600', 'text-green-600', 'text-accent');
+                    processingMessageWrapper.classList.add('text-red-600');
+                    processingMessage.innerHTML = `<i class="fas fa-times-circle mr-2"></i> Error: ${data.message || 'Unknown error during processing.'}`;
+                    progressBarContainer.classList.add('hidden');
+                }
+            } catch (error) {
+                console.error(`Polling failed for ${filename}:`, error); // Log fetch errors
+                clearInterval(filePollIntervals[uploadId]);
+                processingMessageWrapper.classList.remove('text-blue-600', 'text-gray-600', 'text-green-600', 'text-accent');
+                processingMessageWrapper.classList.add('text-red-600');
+                processingMessage.innerHTML = `<i class="fas fa-times-circle mr-2"></i> Failed to get status: ${error.message}`;
+                progressBarContainer.classList.add('hidden');
+            }
+        }, 3000);
+    }
+
+    /**
+     * Updates the DOM with the final prediction results for a file.
+     * @param {HTMLElement} resultDetailsDiv - The div to populate with results.
+     * @param {object} prediction - The prediction data from the server.
+     * @param {string} uploadId - The UUID of the upload.
+     * @param {HTMLElement} detailLinkElement - The link element to update href.
+     */
+    function displayFileResult(resultDetailsDiv, prediction, uploadId, detailLinkElement) {
+        resultDetailsDiv.classList.remove('hidden');
+        resultDetailsDiv.innerHTML = getPredictionDisplayHtml(prediction);
+
+        detailLinkElement.href = `{% url 'ai:upload_detail' '00000000-0000-0000-0000-000000000000' %}".replace('00000000-0000-0000-0000-000000000000', uploadId);
+        detailLinkElement.classList.remove('hidden');
+    }
+
+    /**
+     * Generates the HTML string for displaying prediction details.
+     * @param {object} prediction - The prediction data.
+     * @returns {string} HTML string.
+     */
+    function getPredictionDisplayHtml(prediction) {
+        const isSuspicious = prediction.ensemble_prediction === 1;
+        const statusClass = isSuspicious ? 'font-bold text-accent' : 'font-bold text-green-600';
+        return `
+            <p><strong>Status:</strong> <span class="${statusClass}">${isSuspicious ? 'Suspicious (Steganography Detected)' : 'Clean PDF'}</span></p>
+            <p><strong>Confidence:</strong> ${(prediction.ensemble_confidence * 100).toFixed(2)}%</p>
+            <p><strong>Risk Level:</strong> ${prediction.risk_level}</p>
+            <p><strong>Processing Time:</strong> ${(prediction.processing_time_ms / 1000).toFixed(2)} seconds</p>
+        `;
+    }
+});
+</script>
+
+{% endblock %}

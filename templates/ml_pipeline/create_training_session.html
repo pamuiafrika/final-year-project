@@ -1,0 +1,126 @@
+
+<!-- templates/
+ /create_training_session.html -->
+{% extends 'base.html' %}
+
+{% block page_title %}Create Training Session{% endblock %}
+
+{% block page_actions %}
+<a href="{% url 'ai:training_session_list' %}" 
+   class="inline-flex items-center px-4 py-2 bg-gray-600 text-white text-sm font-medium rounded-md hover:bg-gray-700 transition-colors">
+    <i class="fas fa-arrow-left mr-2"></i>Back to Training Sessions
+</a>
+{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto">
+    <div class="bg-white rounded-lg shadow-sm border border-gray-200">
+        <div class="px-6 py-4 border-b border-gray-200">
+            <h3 class="text-lg font-medium text-gray-900">New Training Session</h3>
+        </div>
+        <div class="p-6">
+            <form method="post" enctype="multipart/form-data" class="space-y-6">
+                {% csrf_token %}
+                
+                <div>
+                    <label for="{{ form.name.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                        Session Name <span class="text-red-500">*</span>
+                    </label>
+                    <input type="text" 
+                           name="{{ form.name.name }}" 
+                           id="{{ form.name.id_for_label }}"
+                           class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary sm:text-sm"
+                           {% if form.name.value %}value="{{ form.name.value }}"{% endif %}
+                           required>
+                    {% if form.name.errors %}
+                        <p class="mt-1 text-sm text-red-600">{{ form.name.errors.0 }}</p>
+                    {% endif %}
+                </div>
+
+                <div>
+                    <label for="{{ form.training_data_file.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                        Training Data File <span class="text-red-500">*</span>
+                    </label>
+                    <input type="file" 
+                           name="{{ form.training_data_file.name }}" 
+                           id="{{ form.training_data_file.id_for_label }}"
+                           class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary sm:text-sm"
+                           accept=".csv"
+                           required>
+                    <p class="mt-1 text-sm text-gray-500">
+                        Upload a CSV file containing PDF features and labels.
+                    </p>
+                    {% if form.training_data_file.errors %}
+                        <p class="mt-1 text-sm text-red-600">{{ form.training_data_file.errors.0 }}</p>
+                    {% endif %}
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="{{ form.test_size.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                            Test Size
+                        </label>
+                        <input type="number" 
+                               name="{{ form.test_size.name }}" 
+                               id="{{ form.test_size.id_for_label }}"
+                               step="0.01"
+                               min="0.1"
+                               max="0.5"
+                               class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary sm:text-sm"
+                               {% if form.test_size.value %}value="{{ form.test_size.value }}"{% endif %}>
+                        <p class="mt-1 text-sm text-gray-500">
+                            Proportion of data to use for testing (0.1 - 0.5)
+                        </p>
+                        {% if form.test_size.errors %}
+                            <p class="mt-1 text-sm text-red-600">{{ form.test_size.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+                    <div>
+                        <label for="{{ form.random_state.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                            Random State
+                        </label>
+                        <input type="number" 
+                               name="{{ form.random_state.name }}" 
+                               id="{{ form.random_state.id_for_label }}"
+                               class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary sm:text-sm"
+                               {% if form.random_state.value %}value="{{ form.random_state.value }}"{% endif %}>
+                        <p class="mt-1 text-sm text-gray-500">
+                            Seed for reproducible results
+                        </p>
+                        {% if form.random_state.errors %}
+                            <p class="mt-1 text-sm text-red-600">{{ form.random_state.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div>
+                    <div class="flex items-center">
+                        <input type="checkbox" 
+                               name="{{ form.stratify.name }}" 
+                               id="{{ form.stratify.id_for_label }}"
+                               class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded"
+                               {% if form.stratify.value %}checked{% endif %}>
+                        <label for="{{ form.stratify.id_for_label }}" class="ml-2 block text-sm text-gray-900">
+                            Use Stratified Split
+                        </label>
+                    </div>
+                    <p class="mt-1 text-sm text-gray-500">
+                        Maintain class distribution in train/test split
+                    </p>
+                </div>
+
+                <div class="flex justify-end space-x-3 pt-6 border-t border-gray-200">
+                    <a href="{% url 'ai:training_session_list' %}" 
+                       class="px-4 py-2 bg-gray-300 text-gray-700 text-sm font-medium rounded-md hover:bg-gray-400 transition-colors">
+                        Cancel
+                    </a>
+                    <button type="submit" 
+                            class="inline-flex items-center px-4 py-2 bg-primary text-white text-sm font-medium rounded-md hover:bg-blue-600 transition-colors">
+                        <i class="fas fa-plus mr-2"></i>Create Session
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

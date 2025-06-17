@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en" @click.away="profileOpen = false; notifOpen = false">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Django Auth App{% endblock %}</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Boxicons -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Space+Grotesk:wght@400;600&family=Sora:wght@400;600&display=swap" rel="stylesheet" />
+    <!-- Alpine.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.13.3/cdn.min.js" defer></script>
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <style>
+        :root {
+            --primary: #2c3e50;   /* Dark blue-gray - main color */
+            --secondary: #3498db; /* Bright blue - interactive elements */
+            --accent: #ee5b4a;    /* Red - alerts and highlights */
+            --light: #ecf0f1;     /* Light gray - background */
+            --dark: #1a252f;      /* Very dark blue - headers/navbar */
+        }
+        .bg-primary { background-color: var(--primary); }
+        .bg-secondary { background-color: var(--secondary); }
+        .bg-accent { background-color: #ee5b4a; }
+        .bg-light { background-color: var(--light); }
+        .bg-dark { background-color: var(--dark); }
+
+        .text-primary { color: var(--primary); }
+        .text-secondary { color: var(--secondary); }
+        .text-accent { color: var(--accent); }
+
+        .border-primary { border-color: var(--primary); }
+        .border-secondary { border-color: var(--secondary); }
+        .border-accent { border-color: var(--accent); }
+
+        .hover\:bg-primary:hover { background-color: var(--primary); }
+        .hover\:bg-secondary:hover { background-color: var(--secondary); }
+
+        body {
+            font-family: "Sora", sans-serif;
+        }
+        h1, h2, h3 {
+            font-family: "Montserrat", sans-serif;
+        }
+        [x-cloak] {
+            display: none !important;
+        }
+        .text-accent {
+            color: #ee5b4a;
+        }
+        .bg-blue {
+            background-color: #2c3e50;
+        }
+        .bg-blue-dark {
+            background-color: #1a252f;
+        }
+        .profile-dropdown {
+            transform: translateY(-10px);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease-in-out;
+        }
+        .profile-dropdown.show {
+            transform: translateY(0);
+            opacity: 1;
+            visibility: visible;
+        }
+        .avatar {
+            background: linear-gradient(135deg, var(--accent), #8b5cf6);
+        }
+        .dropdown-item:hover {
+            background-color: var(--primary);
+            transform: translateX(2px);
+        }
+        .notification-dropdown {
+            transform: translateY(-10px);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease-in-out;
+        }
+        .notification-dropdown.show {
+            transform: translateY(0);
+            opacity: 1;
+            visibility: visible;
+        }
+    </style>
+</head>
+<body class="bg-light min-h-screen" x-data="{ profileOpen: false, notifOpen: false }">
+    <!-- Navigation Bar -->
+    {% if user.is_authenticated %}
+    <nav class="bg-dark shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <h1 class="text-white text-xl font-bold">AI Dashboard</h1>
+                    </div>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <!-- Profile Dropdown -->
+                    <div class="relative" x-data="{ open: false }">
+                        <button @click="open = !open" class="flex items-center space-x-3 text-white hover:text-gray-300 transition duration-200">
+                            <div class="avatar w-8 h-8 rounded-full flex items-center justify-center text-white font-semibold">
+                                {{ user.first_name.0|default:user.username.0|upper }}
+                            </div>
+                            <span class="hidden md:block">{{ user.get_full_name|default:user.username }}</span>
+                            <i class="bx bx-chevron-down"></i>
+                        </button>
+                        
+                        <div x-show="open" @click.away="open = false" x-transition class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 z-50">
+                            <a href="{% url 'ai:dashboard' %}" class="dropdown-item block px-4 py-2 text-gray-800 hover:text-white transition duration-200">
+                                <i class="bx bx-dashboard mr-2"></i>Dashboard
+                            </a>
+                            <hr class="my-1">
+                            <a href="{% url 'accounts:logout' %}" class="dropdown-item block px-4 py-2 text-gray-800 hover:text-white transition duration-200">
+                                <i class="bx bx-log-out mr-2"></i>Logout
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    {% endif %}
+
+    <!-- Main Content -->
+    <main class="{% if not user.is_authenticated %}flex items-center justify-center min-h-screen{% else %}py-8{% endif %}">
+        <!-- Messages -->
+        {% if messages %}
+        <div class="fixed top-4 right-4 z-50 space-y-2">
+            {% for message in messages %}
+            <div class="animate__animated animate__fadeInRight px-6 py-4 rounded-lg shadow-lg text-white {% if message.tags == 'success' %}bg-green-500{% elif message.tags == 'error' %}bg-accent{% elif message.tags == 'info' %}bg-secondary{% else %}bg-primary{% endif %}">
+                <div class="flex items-center">
+                    <i class="bx {% if message.tags == 'success' %}bx-check-circle{% elif message.tags == 'error' %}bx-error-circle{% else %}bx-info-circle{% endif %} mr-2"></i>
+                    {{ message }}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        {% block content %}
+        {% endblock %}
+    </main>
+</body>
+</html>

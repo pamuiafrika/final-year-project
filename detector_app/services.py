@@ -19,7 +19,7 @@ class DjangoPDFAnalysisService:
                           os.path.join(settings.MEDIA_ROOT, 'analysis_cache'))
         
         self.detector =PDFSteganoDetector(
-            ml_model_path='/home/d3bugger/Projects/FINAL YEAR PROJECT/src/detector_app/ai/ml/models/01_model.pkl',
+            ml_model_path='/home/d3bugger/Projects/FINAL YEAR PROJECT/src/ml_models/stegov2/v02_model.pkl',
             cache_dir=cache_dir
         )
     

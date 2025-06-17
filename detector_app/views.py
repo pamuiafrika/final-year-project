@@ -231,39 +231,98 @@ def dashboard(request):
 
 @login_required
 def upload_pdf(request):
-    """Handle PDF file upload."""
+    """Unified view to handle PDF upload and analysis."""
     if request.method == 'POST':
         form = PDFUploadForm(request.POST, request.FILES)
         if form.is_valid():
             pdf_file = request.FILES['pdf_file']
-            
-            # Create PDFAnalysis record
+
+            # Create both analysis and scan result records
             analysis = PDFAnalysis.objects.create(
                 user=request.user,
                 pdf_file=pdf_file,
                 original_filename=pdf_file.name,
                 file_size=pdf_file.size,
+                model_version='StegV1:latest',
             )
-            
-            # Start analysis (sync or async)
+
+
+
+            scan_result = PDFScanResult.objects.create(
+                id=analysis.id,
+                user=request.user,
+                file=pdf_file,
+                original_filename=pdf_file.name,
+                file_size=pdf_file.size,
+                status='PROCESSING'
+            )
+
+            technique = form.cleaned_data.get('technique', 'auto')
+
             if getattr(settings, 'USE_ASYNC_ANALYSIS', False):
-                # Queue for background processing
-                analyze_pdf_async.delay(analysis.id, form.cleaned_data.get('technique', 'auto'))
-                messages.success(request, f'PDF uploaded successfully. Analysis queued.')
-            else:
-                # Synchronous analysis
-                try:
-                    service = DjangoPDFAnalysisService()
-                    service.analyze_pdf(analysis, form.cleaned_data.get('technique', 'auto'))
-                    messages.success(request, f'PDF analyzed successfully. Risk Level: {analysis.risk_level_display}')
-                except Exception as e:
-                    messages.error(request, f'Analysis failed: {str(e)}')
-            
-            return redirect('pdf_detector:analysis_detail', pk=analysis.id)
+                # Queue background processing
+                analyze_pdf_async.delay(analysis.id, technique)
+                messages.success(request, 'PDF uploaded successfully. Analysis has been queued.')
+                return redirect('pdf_detector:analysis_detail', pk=analysis.id)
+
+            try:
+                # Run sync analysis using both detector and analysis service
+                detector = get_detector()
+                result = detector.predict(scan_result.file)
+
+                # --- Populate scan result ---
+                scan_result.status = 'COMPLETED'
+                scan_result.is_malicious = result['is_malicious']
+                scan_result.ensemble_probability = result['ensemble_probability']
+                scan_result.confidence_percentage = result['confidence']
+                scan_result.risk_level = result['risk_level']
+                scan_result.completed_at = timezone.now()
+
+                individual = result.get('individual_predictions', {})
+                features = result.get('extracted_features', {})
+
+                scan_result.attention_probability = individual.get('attention', {}).get('probability')
+                scan_result.deep_ff_probability = individual.get('deep_ff', {}).get('probability')
+                scan_result.wide_deep_probability = individual.get('wide_deep', {}).get('probability')
+
+                scan_result.pdf_pages = features.get('pages', 0)
+                scan_result.metadata_size = features.get('metadata_size', 0)
+                scan_result.suspicious_count = features.get('suspicious_count', 0)
+                scan_result.javascript_elements = features.get('JS', 0) + features.get('Javascript', 0)
+                scan_result.auto_actions = features.get('AA', 0) + features.get('OpenAction', 0)
+                scan_result.embedded_files = features.get('EmbeddedFile', 0)
+
+                scan_result.extracted_features = features
+                scan_result.individual_predictions = individual
+                scan_result.save()
+
+                # Run technical feature analysis
+                service = DjangoPDFAnalysisService()
+                service.analyze_pdf(analysis, technique)
+
+                messages.success(
+                    request,
+                    f'PDF analysis completed successfully.'
+                    
+                )
+                return redirect('pdf_detector:analysis_detail', pk=analysis.id)
+
+            except Exception as e:
+                logger.error(f"Analysis failed: {str(e)}")
+
+                scan_result.status = 'FAILED'
+                scan_result.error_message = str(e)
+                scan_result.completed_at = timezone.now()
+                scan_result.save()
+
+                messages.error(request, f'Analysis failed: {str(e)}')
+                return redirect('pdf_detector:dashboard')
     else:
         form = PDFUploadForm()
-    
+
     return render(request, 'detector_app/upload.html', {'form': form})
+
+
 
 @login_required
 def analysis_list(request):
@@ -300,6 +359,7 @@ def analysis_list(request):
 def analysis_detail(request, pk):
     """Detailed view of a specific PDF analysis."""
     analysis = get_object_or_404(PDFAnalysis, pk=pk, user=request.user)
+    mal_analysis = get_object_or_404(PDFScanResult, pk=pk, user=request.user)
     
     # Get raw indicator data for debugging
     raw_indicators = list(analysis.indicators.all().values())
@@ -318,7 +378,8 @@ def analysis_detail(request, pk):
     context = {
         'analysis': analysis,
         'indicators_by_category': indicators_by_category,
-        'features_data': json.loads(analysis.features_data) if analysis.features_data else {}
+        'features_data': json.loads(analysis.features_data) if analysis.features_data else {},
+        'malicious_data': mal_analysis,
     }
     
     return render(request, 'detector_app/analysis_detail.html', context)
@@ -372,3 +433,30 @@ def api_analysis_status(request, pk):
     }
     
     return JsonResponse(data)
+
+
+def model_analysis(request):
+    return render(request, 'detector_app/model.html')
+
+def system_performance(request):
+    return render(request, 'detector_app/system.html')
+
+
+
+
+from channels.layers import get_channel_layer
+from asgiref.sync import async_to_sync
+
+def notify_scan_status(scan_id, status, message=''):
+    channel_layer = get_channel_layer()
+    async_to_sync(channel_layer.group_send)(
+        f'scan_{scan_id}',
+        {
+            'type': 'scan_status_update',
+            'status': status,
+            'message': message,
+        }
+    )
+
+
+# notify_scan_status(scan_result.id, 'COMPLETED', 'Scan completed successfully.')

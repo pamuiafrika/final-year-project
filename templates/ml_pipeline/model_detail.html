@@ -1,0 +1,213 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ model.name }} Details{% endblock %}
+
+{% block page_title %}Model: {{ model.name }}{% endblock %}
+
+{% block content %}
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="bg-white shadow-md rounded-lg p-6 col-span-1 md:col-span-2">
+        <h3 class="text-lg font-semibold text-gray-900 mb-4">Model Information</h3>
+        <dl class="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-2 text-sm text-gray-700">
+            <div>
+                <dt class="font-medium text-gray-500">Name:</dt>
+                <dd>{{ model.name }}</dd>
+            </div>
+            <div>
+                <dt class="font-medium text-gray-500">Type:</dt>
+                <dd>{{ model.get_model_type_display }}</dd>
+            </div>
+            <div>
+                <dt class="font-medium text-gray-500">Status:</dt>
+                <dd>
+                    <span
+                        class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {% if model.status == 'completed' %}bg-green-100 text-green-800{% elif model.status == 'training' %}bg-blue-100 text-blue-800{% elif model.status == 'failed' %}bg-red-100 text-red-800{% endif %}">
+                        {{ model.get_status_display }}
+                    </span>
+                </dd>
+            </div>
+            <div>
+                <dt class="font-medium text-gray-500">Created By:</dt>
+                <dd>{{ model.created_by.username }}</dd>
+            </div>
+            <div>
+                <dt class="font-medium text-gray-500">Created At:</dt>
+                <dd>{{ model.created_at|date:"M d, Y H:i" }}</dd>
+            </div>
+            <div>
+                <dt class="font-medium text-gray-500">Last Updated:</dt>
+                <dd>{{ model.updated_at|date:"M d, Y H:i" }}</dd>
+            </div>
+            {% if model.training_duration %}
+            <div>
+                <dt class="font-medium text-gray-500">Training Duration:</dt>
+                <dd>{{ model.training_duration|floatformat:2 }} seconds</dd>
+            </div>
+            {% endif %}
+            {% if model.model_file %}
+            <div class="mb-3">
+                <dt class="font-medium text-gray-500 mb-3">Model File:</dt>
+                <dd><a href="{{ model.model_file.url }}" class="py-3 px-4 bg-primary text-white rounded-lg hover:bg-secondary transition-colors" download>Download</a></dd>
+            </div>
+            {% endif %}
+            {% if model.preprocessor_file %}
+            <div>
+                <dt class="font-medium text-gray-500">Preprocessor File:</dt>
+                <dd><a href="{{ model.preprocessor_file.url }}" class="text-primary hover:underline" download>Download</a></dd>
+            </div>
+            {% endif %}
+            <div class="sm:col-span-2">
+                <dt class="font-medium text-gray-500">Description:</dt>
+                <dd>{{ model.description|default:"N/A" }}</dd>
+            </div>
+        </dl>
+        
+        {% if model.hyperparameters %}
+        <div class="mt-4">
+            <h4 class="text-md font-semibold text-gray-800 mb-2">Hyperparameters:</h4>
+            <pre class="bg-gray-100 p-3 rounded-md text-sm overflow-auto">{{ model.hyperparameters|json_script:"hyperparameters-data" }}</pre>
+        </div>
+        {% endif %}
+        
+        {% if model.feature_columns %}
+        <div class="mt-4">
+            <h4 class="text-md font-semibold text-gray-800 mb-2">Feature Columns:</h4>
+            <ul class="list-disc list-inside text-sm text-gray-700 max-h-40 overflow-y-auto bg-gray-100 p-3 rounded-md">
+                {% for feature in model.feature_columns %}
+                <li>{{ feature }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="bg-white shadow-md rounded-lg p-6 col-span-1">
+        <h3 class="text-lg font-semibold text-gray-900 mb-4">Evaluations</h3>
+        {% if evaluations %}
+        <ul class="space-y-4">
+            {% for evaluation in evaluations %}
+            <li class="border-b pb-4 last:pb-0 last:border-b-0">
+                <p class="text-sm font-semibold text-gray-800">Evaluated on: {{ evaluation.created_at|date:"M d, Y H:i" }}</p>
+                <p class="text-sm text-gray-700">Train Accuracy: {{ evaluation.train_accuracy|default:"N/A"|floatformat:4 }}</p>
+                <p class="text-sm text-gray-700">Test Accuracy: {{ evaluation.test_accuracy|default:"N/A"|floatformat:4 }}</p>
+                <p class="text-sm text-gray-700">Test AUC: {{ evaluation.test_auc|default:"N/A"|floatformat:4 }}</p>
+                {% if evaluation.classification_report %}
+                <div class="mt-2 text-xs">
+                    <h5 class="font-medium text-gray-600">Classification Report:</h5>
+                    <pre class="bg-gray-50 p-2 rounded overflow-auto max-h-24">{{ evaluation.classification_report|json_script:"classification-report-data" }}</pre>
+                </div>
+                {% endif %}
+                {% if evaluation.feature_importance %}
+                <div class="mt-2 text-xs">
+                    <h5 class="font-medium text-gray-600">Feature Importance (Top 10):</h5>
+                    <ul class="bg-gray-50 p-2 rounded list-disc list-inside max-h-24 overflow-y-auto">
+                        {% for feature, importance in evaluation.feature_importance.items|dictsortreversed:"1"|slice:":10" %}
+                            <li>{{ feature }}: {{ importance|floatformat:4 }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p class="text-gray-600">No evaluations available for this model.</p>
+        {% endif %}
+    </div>
+
+    <div class="bg-white shadow-md rounded-lg p-6 col-span-full">
+        <h3 class="text-lg font-semibold text-gray-900 mb-4">Visualizations</h3>
+        {% if visualizations %}
+        <div class="grid grid-cols-3 gap-4">
+            {% for viz in visualizations %}
+            <div class="border rounded-md p-3">
+                <h4 class="font-medium text-gray-800 mb-2">{{ viz.title }} ({{ viz.get_chart_type_display }})</h4>
+                {% if viz.chart_image %}
+                <img src="{{ viz.chart_image.url }}" alt="{{ viz.title }}" class="w-full h-auto rounded-md object-cover">
+                {% else %}
+                <p class="text-sm text-gray-600">No image available. Chart data can be used to recreate.</p>
+                {% endif %}
+                <p class="text-xs text-gray-500 mt-2">Generated: {{ viz.created_at|date:"M d, Y H:i" }}</p>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p class="text-gray-600">No visualizations available for this model.</p>
+        {% endif %}
+    </div>
+
+    <div class="bg-white shadow-md rounded-lg p-6 col-span-full">
+        <h3 class="text-lg font-semibold text-gray-900 mb-4">Recent Predictions (Last 10)</h3>
+        {% if recent_predictions %}
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Predicted At
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            XGBoost Prediction
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            XGBoost Probability
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Wide & Deep Prediction
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Wide & Deep Probability
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Made By
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    {% for prediction in recent_predictions %}
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                            {{ prediction.created_at|date:"M d, Y H:i" }}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                            {{ prediction.xgboost_prediction|default:"N/A" }}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                            {{ prediction.xgboost_probability|default:"N/A"|floatformat:4 }}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                            {{ prediction.wide_deep_prediction|default:"N/A" }}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                            {{ prediction.wide_deep_probability|default:"N/A"|floatformat:4 }}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            {{ prediction.created_by.username|default:"N/A" }}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p class="text-gray-600">No recent predictions for this model.</p>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const hpPre = document.querySelector('#hyperparameters-data');
+        if (hpPre) {
+            const data = JSON.parse(hpPre.textContent);
+            hpPre.textContent = JSON.stringify(data, null, 2);
+        }
+
+        const crPre = document.querySelector('#classification-report-data');
+        if (crPre) {
+            const data = JSON.parse(crPre.textContent);
+            crPre.textContent = JSON.stringify(data, null, 2);
+        }
+    });
+</script>
+{% endblock %}

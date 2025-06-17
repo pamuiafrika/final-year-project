@@ -1,0 +1,376 @@
+{% extends 'accounts/base.html' %}
+
+{% block title %}Register - StegoDetect AI{% endblock %}
+
+{% block content %}
+<div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-md w-full space-y-8">
+    <!-- Header -->
+    <div class="text-center">
+      <div class="flex justify-center mb-6">
+        <div class="bg-[var(--dark)] p-4 rounded-full">
+          <i class="bx bx-shield-quarter text-4xl text-[var(--accent)]"></i>
+        </div>
+      </div>
+      <h2 class="text-3xl font-bold text-[var(--dark)] mb-2">Create Account</h2>
+      <p class="text-gray-600">Join StegoDetect AI and start detecting hidden content</p>
+    </div>
+
+    <!-- Registration Form -->
+    <div class="bg-white rounded-lg shadow-lg p-8 border border-gray-200">
+      <form method="post" action="{% url 'accounts:register' %}" class="space-y-6" x-data="{ 
+        showPassword1: false,
+        showPassword2: false,
+        loading: false,
+        passwordStrength: 0,
+        checkPasswordStrength(password) {
+          let strength = 0;
+          if (password.length >= 8) strength++;
+          if (/[A-Z]/.test(password)) strength++;
+          if (/[a-z]/.test(password)) strength++;
+          if (/[0-9]/.test(password)) strength++;
+          if (/[^A-Za-z0-9]/.test(password)) strength++;
+          this.passwordStrength = strength;
+        },
+        submitForm(event) {
+          event.preventDefault();  // Prevent default form submission
+          this.loading = true;
+          
+          // Validate passwords match
+          const password1 = document.querySelector('#id_password1').value;
+          const password2 = document.querySelector('#id_password2').value;
+          if (password1 !== password2) {
+            alert('Passwords do not match!');
+            this.loading = false;
+            return;
+          }
+          
+          // Validate terms checkbox
+          const terms = document.querySelector('#terms');
+          if (!terms.checked) {
+            alert('Please accept the terms and conditions');
+            this.loading = false;
+            return;
+          }
+          
+          // If validation passes, submit the form
+          event.target.closest('form').submit();
+        }
+      }">
+        {% csrf_token %}
+        
+        <!-- Username Field -->
+        <div class="space-y-2">
+          <label for="{{ form.username.id_for_label }}" class="block text-sm font-semibold text-[var(--dark)]">
+            <i class="bx bx-user mr-2 text-[var(--secondary)]"></i>Username
+          </label>
+          <div class="relative">
+            {{ form.username }}
+            <i class="bx bx-user absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+          </div>
+          {% if form.username.errors %}
+            <div class="text-red-600 text-sm mt-1">
+              {% for error in form.username.errors %}
+                <p class="flex items-center">
+                  <i class="bx bx-error-circle mr-1"></i>{{ error }}
+                </p>
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
+
+        <!-- Name Fields Row -->
+        <div class="grid grid-cols-2 gap-4">
+          <!-- First Name -->
+          <div class="space-y-2">
+            <label for="{{ form.first_name.id_for_label }}" class="block text-sm font-semibold text-[var(--dark)]">
+              <i class="bx bx-id-card mr-2 text-[var(--secondary)]"></i>First Name
+            </label>
+            <div class="relative">
+              {{ form.first_name }}
+              <i class="bx bx-id-card absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+            </div>
+            {% if form.first_name.errors %}
+              <div class="text-red-600 text-sm mt-1">
+                {% for error in form.first_name.errors %}
+                  <p class="flex items-center">
+                    <i class="bx bx-error-circle mr-1"></i>{{ error }}
+                  </p>
+                {% endfor %}
+              </div>
+            {% endif %}
+          </div>
+
+          <!-- Last Name -->
+          <div class="space-y-2">
+            <label for="{{ form.last_name.id_for_label }}" class="block text-sm font-semibold text-[var(--dark)]">
+              <i class="bx bx-id-card mr-2 text-[var(--secondary)]"></i>Last Name
+            </label>
+            <div class="relative">
+              {{ form.last_name }}
+              <i class="bx bx-id-card absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+            </div>
+            {% if form.last_name.errors %}
+              <div class="text-red-600 text-sm mt-1">
+                {% for error in form.last_name.errors %}
+                  <p class="flex items-center">
+                    <i class="bx bx-error-circle mr-1"></i>{{ error }}
+                  </p>
+                {% endfor %}
+              </div>
+            {% endif %}
+          </div>
+        </div>
+
+        <!-- Email Field -->
+        <div class="space-y-2">
+          <label for="{{ form.email.id_for_label }}" class="block text-sm font-semibold text-[var(--dark)]">
+            <i class="bx bx-envelope mr-2 text-[var(--secondary)]"></i>Email Address
+          </label>
+          <div class="relative">
+            {{ form.email }}
+            <i class="bx bx-envelope absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+          </div>
+          {% if form.email.errors %}
+            <div class="text-red-600 text-sm mt-1">
+              {% for error in form.email.errors %}
+                <p class="flex items-center">
+                  <i class="bx bx-error-circle mr-1"></i>{{ error }}
+                </p>
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
+
+        <!-- Password Field -->
+        <div class="space-y-2">
+          <label for="{{ form.password1.id_for_label }}" class="block text-sm font-semibold text-[var(--dark)]">
+            <i class="bx bx-lock mr-2 text-[var(--secondary)]"></i>Password
+          </label>
+          <div class="relative">
+            <input 
+              :type="showPassword1 ? 'text' : 'password'"
+              name="{{ form.password1.name }}"
+              id="{{ form.password1.id_for_label }}"
+              @input="checkPasswordStrength($event.target.value)"
+              class="w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--secondary)] focus:border-transparent transition-all duration-200"
+              placeholder="Create a strong password"
+              required
+            >
+            <i class="bx bx-lock absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+            <button 
+              type="button" 
+              @click="showPassword1 = !showPassword1"
+              class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-[var(--secondary)] transition-colors"
+            >
+              <i class="bx" :class="showPassword1 ? 'bx-hide' : 'bx-show'"></i>
+            </button>
+          </div>
+          
+          <!-- Password Strength Indicator -->
+          <div class="mt-2">
+            <div class="flex space-x-1">
+              <div class="h-2 flex-1 rounded-full" :class="{
+                'bg-red-500': passwordStrength >= 1,
+                'bg-gray-200': passwordStrength < 1
+              }"></div>
+              <div class="h-2 flex-1 rounded-full" :class="{
+                'bg-orange-500': passwordStrength >= 2,
+                'bg-gray-200': passwordStrength < 2
+              }"></div>
+              <div class="h-2 flex-1 rounded-full" :class="{
+                'bg-yellow-500': passwordStrength >= 3,
+                'bg-gray-200': passwordStrength < 3
+              }"></div>
+              <div class="h-2 flex-1 rounded-full" :class="{
+                'bg-green-500': passwordStrength >= 4,
+                'bg-gray-200': passwordStrength < 4
+              }"></div>
+              <div class="h-2 flex-1 rounded-full" :class="{
+                'bg-green-600': passwordStrength >= 5,
+                'bg-gray-200': passwordStrength < 5
+              }"></div>
+            </div>
+            <p class="text-xs mt-1" :class="{
+              'text-red-600': passwordStrength <= 2,
+              'text-yellow-600': passwordStrength === 3,
+              'text-green-600': passwordStrength >= 4
+            }">
+              <span x-show="passwordStrength <= 2">Weak password</span>
+              <span x-show="passwordStrength === 3">Medium password</span>
+              <span x-show="passwordStrength >= 4">Strong password</span>
+            </p>
+          </div>
+          
+          {% if form.password1.errors %}
+            <div class="text-red-600 text-sm mt-1">
+              {% for error in form.password1.errors %}
+                <p class="flex items-center">
+                  <i class="bx bx-error-circle mr-1"></i>{{ error }}
+                </p>
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
+
+        <!-- Confirm Password Field -->
+        <div class="space-y-2">
+          <label for="{{ form.password2.id_for_label }}" class="block text-sm font-semibold text-[var(--dark)]">
+            <i class="bx bx-lock-alt mr-2 text-[var(--secondary)]"></i>Confirm Password
+          </label>
+          <div class="relative">
+            <input 
+              :type="showPassword2 ? 'text' : 'password'"
+              name="{{ form.password2.name }}"
+              id="{{ form.password2.id_for_label }}"
+              class="w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--secondary)] focus:border-transparent transition-all duration-200"
+              placeholder="Confirm your password"
+              required
+            >
+            <i class="bx bx-lock-alt absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+            <button 
+              type="button" 
+              @click="showPassword2 = !showPassword2"
+              class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-[var(--secondary)] transition-colors"
+            >
+              <i class="bx" :class="showPassword2 ? 'bx-hide' : 'bx-show'"></i>
+            </button>
+          </div>
+          {% if form.password2.errors %}
+            <div class="text-red-600 text-sm mt-1">
+              {% for error in form.password2.errors %}
+                <p class="flex items-center">
+                  <i class="bx bx-error-circle mr-1"></i>{{ error }}
+                </p>
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
+
+        <!-- Terms and Conditions -->
+        <div class="flex items-start">
+          <input type="checkbox" id="terms" name="terms" required class="h-4 w-4 text-[var(--secondary)] focus:ring-[var(--secondary)] border-gray-300 rounded mt-1">
+          <label for="terms" class="ml-2 block text-sm text-gray-700">
+            I agree to the 
+            <a href="#" class="text-[var(--secondary)] hover:text-[var(--primary)] transition-colors">Terms of Service</a>
+            and 
+            <a href="#" class="text-[var(--secondary)] hover:text-[var(--primary)] transition-colors">Privacy Policy</a>
+          </label>
+        </div>
+
+        <!-- Submit Button -->
+        <button 
+          type="submit"
+          @click="submitForm"
+          :disabled="loading"
+          class="w-full bg-[var(--secondary)] hover:bg-[var(--primary)] text-white font-semibold py-3 px-4 rounded-lg transition-all duration-200 transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--secondary)] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+        >
+          <span x-show="!loading" class="flex items-center justify-center">
+            <i class="bx bx-user-plus mr-2"></i>Create Account
+          </span>
+          <span x-show="loading" class="flex items-center justify-center">
+            <i class="bx bx-loader-alt animate-spin mr-2"></i>Creating Account...
+          </span>
+        </button>
+
+        <!-- Divider -->
+        <div class="relative my-6">
+          <div class="absolute inset-0 flex items-center">
+            <div class="w-full border-t border-gray-300"></div>
+          </div>
+          <div class="relative flex justify-center text-sm">
+            <span class="px-2 bg-white text-gray-500">Already have an account?</span>
+          </div>
+        </div>
+
+        <!-- Login Link -->
+        <div class="text-center">
+          <p class="text-gray-600">
+            <a href="{% url 'accounts:login' %}" 
+               class="font-semibold text-[var(--secondary)] hover:text-[var(--primary)] transition-colors">
+              Sign In Instead
+            </a>
+          </p>
+        </div>
+      </form>
+    </div>
+
+    <!-- Additional Info -->
+    <div class="text-center text-sm text-gray-500">
+      <p>Your account will be secured with enterprise-grade encryption</p>
+    </div>
+  </div>
+</div>
+
+<style>
+/* Custom styles for form inputs */
+input[type="text"], input[type="password"], input[type="email"] {
+  width: 100%;
+  padding: 12px 12px 12px 40px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: all 0.2s ease-in-out;
+  background-color: #ffffff;
+}
+
+/* For name fields in grid, adjust padding */
+.grid input[type="text"] {
+  padding: 12px 12px 12px 40px;
+}
+
+input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus {
+  outline: none;
+  border-color: var(--secondary);
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+  transform: translateY(-1px);
+}
+
+input[type="text"]:hover, input[type="password"]:hover, input[type="email"]:hover {
+  border-color: #9ca3af;
+}
+
+/* Error state */
+input.error {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+/* Loading animation */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Add error styling to inputs with errors
+  const errorInputs = document.querySelectorAll('input');
+  errorInputs.forEach(input => {
+    const errorDiv = input.parentNode.parentNode.querySelector('.text-red-600');
+    if (errorDiv) {
+      input.classList.add('error');
+    }
+  });
+  
+  // Auto-focus first input
+  const firstInput = document.querySelector('input[type="text"], input[type="email"]');
+  if (firstInput) {
+    firstInput.focus();
+  }
+});
+</script>
+{% endblock %}

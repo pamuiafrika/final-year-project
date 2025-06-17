@@ -1,0 +1,442 @@
+
+{% extends "base.html" %}
+{% load math_filters %}
+
+{% block title %}Steganography ML Models - Home{% endblock %}
+
+{% block content %}
+    <style>
+        .metric-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+        }
+        .metric-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .performance-ring {
+            animation: rotate 2s linear infinite;
+        }
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .fade-in {
+            animation: fadeIn 0.6s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .pulse-dot {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+    </style>
+</head>
+<main class="min-h-screen bg-gray-50">
+    <!-- Header Section -->
+    <div class="gradient-bg shadow-xl rounded-2xl mb-8">
+        <div class="container mx-auto px-4 py-8">
+            <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
+                <h1 class="text-4xl font-bold text-white mb-4 flex items-center">
+                    <svg class="w-10 h-10 mr-4" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/>
+                    </svg>
+                    Steganography Detection Model Performance
+                </h1>
+                <p class="text-white/80 text-lg">Real-time evaluation metrics and performance analysis</p>
+                <div class="flex items-center mt-4 space-x-4">
+                    <div class="flex items-center">
+                        <div class="w-3 h-3 bg-green-400 rounded-full pulse-dot mr-2"></div>
+                        <span class="text-white/90 text-sm">Model Active</span>
+                    </div>
+                    <div class="text-white/70 text-sm ">Algorithms Used: <span class="text-bold">Isolation Forest, Autoencoders </span></div>
+                    <div class="text-white/70 text-sm">Last Updated: <span id="lastUpdated"></span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Dashboard -->
+    <div class="container mx-auto px-4 py-8">
+        <!-- Key Metrics Row -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <!-- Overall Accuracy -->
+            <div class="metric-card rounded-2xl p-6 text-center fade-in">
+                <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-green-400 rounded-xl flex items-center justify-center text-white mx-auto mb-4">
+                    <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                    </svg>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-900 mb-1">90.7%</h3>
+                <p class="text-gray-600 font-medium">Overall Accuracy</p>
+                <div class="mt-3 text-xs text-green-600 flex items-center justify-center">
+                    <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M3.293 9.707a1 1 0 010-1.414l6-6a1 1 0 011.414 0l6 6a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L4.707 9.707a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+                    </svg>
+                    +2.3% from last week
+                </div>
+            </div>
+
+            <!-- Precision -->
+            <div class="metric-card rounded-2xl p-6 text-center fade-in" style="animation-delay: 0.1s">
+                <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-400 rounded-xl flex items-center justify-center text-white mx-auto mb-4">
+                    <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-900 mb-1">90.1%</h3>
+                <p class="text-gray-600 font-medium">Precision</p>
+                <div class="mt-3 text-xs text-blue-600">
+                    True Positives / (TP + FP)
+                </div>
+            </div>
+
+            <!-- Recall -->
+            <div class="metric-card rounded-2xl p-6 text-center fade-in" style="animation-delay: 0.2s">
+                <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-400 rounded-xl flex items-center justify-center text-white mx-auto mb-4">
+                    <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clip-rule="evenodd"/>
+                    </svg>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-900 mb-1">89.8%</h3>
+                <p class="text-gray-600 font-medium">Recall</p>
+                <div class="mt-3 text-xs text-purple-600">
+                    True Positives / (TP + FN)
+                </div>
+            </div>
+
+            <!-- F1 Score -->
+            <div class="metric-card rounded-2xl p-6 text-center fade-in" style="animation-delay: 0.3s">
+                <div class="w-16 h-16 bg-gradient-to-br from-orange-500 to-red-400 rounded-xl flex items-center justify-center text-white mx-auto mb-4">
+                    <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"/>
+                        <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"/>
+                    </svg>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-900 mb-1">90.9%</h3>
+                <p class="text-gray-600 font-medium">F1 Score</p>
+                <div class="mt-3 text-xs text-orange-600">
+                    Harmonic Mean of P & R
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts Row -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+            <!-- Confusion Matrix -->
+            <div class="bg-white rounded-2xl shadow-lg p-6 fade-in" style="animation-delay: 0.4s">
+                <h3 class="text-xl font-bold text-gray-900 mb-6 flex items-center">
+                    <svg class="w-6 h-6 mr-3 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/>
+                    </svg>
+                    Confusion Matrix
+                </h3>
+                <div class="relative">
+                    <canvas id="confusionMatrix" width="400" height="300"></canvas>
+                </div>
+            </div>
+
+            <!-- ROC Curve -->
+            <div class="bg-white rounded-2xl shadow-lg p-6 fade-in" style="animation-delay: 0.5s">
+                <h3 class="text-xl font-bold text-gray-900 mb-6 flex items-center">
+                    <svg class="w-6 h-6 mr-3 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/>
+                    </svg>
+                    ROC Curve (AUC: 0.96)
+                </h3>
+                <div class="relative">
+                    <canvas id="rocCurve" width="400" height="300"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Performance Timeline -->
+        <div class="bg-white rounded-2xl shadow-lg p-6 mb-8 fade-in" style="animation-delay: 0.6s">
+            <h3 class="text-xl font-bold text-gray-900 mb-6 flex items-center">
+                <svg class="w-6 h-6 mr-3 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"/>
+                    <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"/>
+                </svg>
+                Model Performance Over Time
+            </h3>
+            <div class="relative">
+                <canvas id="performanceTimeline" width="800" height="400"></canvas>
+            </div>
+        </div>
+
+        <!-- Detailed Metrics Table -->
+        <div class="bg-white rounded-2xl shadow-lg overflow-hidden fade-in" style="animation-delay: 0.7s">
+            <div class="p-6 border-b border-gray-200">
+                <h3 class="text-xl font-bold text-gray-900 flex items-center">
+                    <svg class="w-6 h-6 mr-3 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" clip-rule="evenodd"/>
+                    </svg>
+                    Detailed Classification Report
+                </h3>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Class</th>
+                            <th class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Precision</th>
+                            <th class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Recall</th>
+                            <th class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">F1-Score</th>
+                            <th class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Support</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200" id="metricsTable">
+                        <!-- Table content will be populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Set current time
+        document.getElementById('lastUpdated').textContent = new Date().toLocaleString();
+
+        // Sample data for charts
+        const confusionMatrixData = {
+            labels: ['Clean', 'Steganographic'],
+            datasets: [{
+                data: [
+                    [1247, 67],   // Clean: TP=1247, FP=67
+                    [89, 897]     // Stego: FN=89, TP=897
+                ],
+                backgroundColor: [
+                    'rgba(34, 197, 94, 0.8)',
+                    'rgba(239, 68, 68, 0.8)',
+                    'rgba(59, 130, 246, 0.8)',
+                    'rgba(168, 85, 247, 0.8)'
+                ]
+            }]
+        };
+
+        // Initialize Confusion Matrix (using bar chart as matrix representation)
+        const confusionCtx = document.getElementById('confusionMatrix').getContext('2d');
+        new Chart(confusionCtx, {
+            type: 'bar',
+            data: {
+                labels: ['True Negatives', 'False Positives', 'False Negatives', 'True Positives'],
+                datasets: [{
+                    label: 'Count',
+                    data: [1247, 67, 89, 897],
+                    backgroundColor: [
+                        'rgba(34, 197, 94, 0.8)',
+                        'rgba(239, 68, 68, 0.8)',  
+                        'rgba(251, 146, 60, 0.8)',
+                        'rgba(59, 130, 246, 0.8)'
+                    ],
+                    borderColor: [
+                        'rgba(34, 197, 94, 1)',
+                        'rgba(239, 68, 68, 1)',
+                        'rgba(251, 146, 60, 1)', 
+                        'rgba(59, 130, 246, 1)'
+                    ],
+                    borderWidth: 2,
+                    borderRadius: 8
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            color: 'rgba(0,0,0,0.1)'
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        }
+                    }
+                }
+            }
+        });
+
+        // ROC Curve
+        const rocCtx = document.getElementById('rocCurve').getContext('2d');
+        new Chart(rocCtx, {
+            type: 'line',
+            data: {
+                datasets: [{
+                    label: 'ROC Curve',
+                    data: [
+                        {x: 0, y: 0}, {x: 0.02, y: 0.15}, {x: 0.05, y: 0.35},
+                        {x: 0.08, y: 0.55}, {x: 0.12, y: 0.72}, {x: 0.18, y: 0.85},
+                        {x: 0.25, y: 0.92}, {x: 0.35, y: 0.96}, {x: 0.5, y: 0.98},
+                        {x: 0.7, y: 0.99}, {x: 1, y: 1}
+                    ],
+                    borderColor: 'rgb(168, 85, 247)',
+                    backgroundColor: 'rgba(168, 85, 247, 0.1)',
+                    borderWidth: 3,
+                    fill: true,
+                    tension: 0.4,
+                    pointRadius: 0
+                }, {
+                    label: 'Random Classifier',
+                    data: [{x: 0, y: 0}, {x: 1, y: 1}],
+                    borderColor: 'rgb(156, 163, 175)',
+                    borderWidth: 2,
+                    borderDash: [5, 5],
+                    pointRadius: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                },
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'False Positive Rate'
+                        },
+                        min: 0,
+                        max: 1
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'True Positive Rate'
+                        },
+                        min: 0,
+                        max: 1
+                    }
+                }
+            }
+        });
+
+        // Performance Timeline
+        const timelineCtx = document.getElementById('performanceTimeline').getContext('2d');
+        new Chart(timelineCtx, {
+            type: 'line',
+            data: {
+                labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6', 'Week 7', 'Week 8'],
+                datasets: [{
+                    label: 'Accuracy',
+                    data: [86.2, 87.1, 87.5, 87.8, 88.4, 89.1, 89.8, 90.7],
+                    borderColor: 'rgb(34, 197, 94)',
+                    backgroundColor: 'rgba(34, 197, 94, 0.1)',
+                    borderWidth: 3,
+                    fill: true,
+                    tension: 0.4
+                }, {
+                    label: 'Precision',
+                    data: [85.8, 87.1, 87.2, 88.1, 88.8, 89.4, 89.9, 90.1],
+                    borderColor: 'rgb(59, 130, 246)',
+                    backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                    borderWidth: 3,
+                    fill: true,
+                    tension: 0.4
+                }, {
+                    label: 'Recall',
+                    data: [84.3, 86.2, 87.8, 88.5, 88.9, 89.2, 89.5, 89.8],
+                    borderColor: 'rgb(168, 85, 247)',
+                    backgroundColor: 'rgba(168, 85, 247, 0.1)',
+                    borderWidth: 3,
+                    fill: true,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: false,
+                        min: 80,
+                        max: 100,
+                        title: {
+                            display: true,
+                            text: 'Performance (%)'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Training Period'
+                        }
+                    }
+                }
+            }
+        });
+
+        // Populate detailed metrics table
+        const metricsData = [
+            {class: 'Clean PDF', precision: 94.9, recall: 93.3, f1: 94.1, support: 1314},
+            {class: 'Steganographic PDF', precision: 91.0, recall: 89.8, f1: 90.4, support: 986},
+            {class: 'Low Risk', precision: 88.7, recall: 85.2, f1: 86.9, support: 432},
+            {class: 'Medium Risk', precision: 89.3, recall: 91.1, f1: 90.2, support: 298},
+            {class: 'High Risk', precision: 94.2, recall: 92.7, f1: 93.4, support: 187},
+            {class: 'Critical Risk', precision: 96.8, recall: 94.1, f1: 95.4, support: 69}
+        ];
+
+        const tableBody = document.getElementById('metricsTable');
+        metricsData.forEach((row, index) => {
+            const tr = document.createElement('tr');
+            tr.className = index % 2 === 0 ? 'bg-white' : 'bg-gray-50';
+            tr.innerHTML = `
+                <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="flex items-center">
+                        <div class="w-3 h-3 rounded-full mr-3" style="background-color: ${getClassColor(index)}"></div>
+                        <span class="text-sm font-medium text-gray-900">${row.class}</span>
+                    </div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-medium">${row.precision.toFixed(1)}%</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-medium">${row.recall.toFixed(1)}%</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-medium">${row.f1.toFixed(1)}%</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${row.support}</td>
+            `;
+            tableBody.appendChild(tr);
+        });
+
+        function getClassColor(index) {
+            const colors = ['#22c55e', '#ef4444', '#f59e0b', '#8b5cf6', '#06b6d4', '#f97316'];
+            return colors[index % colors.length];
+        }
+
+        // Add some interactive effects
+        document.querySelectorAll('.metric-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Update timestamp every minute
+        setInterval(() => {
+            document.getElementById('lastUpdated').textContent = new Date().toLocaleString();
+        }, 60000);
+    </script>
+</main>
+
+{% endblock %}

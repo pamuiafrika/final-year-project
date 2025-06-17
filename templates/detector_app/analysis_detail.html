@@ -34,9 +34,9 @@
         <div class="relative z-10">
             <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
                 <div class="mb-6 lg:mb-0">
-                    <h1 class="text-3xl lg:text-4xl font-bold mb-2 flex items-center">
+                    <h1 class="text-xl lg:text-4xl font-bold mb-2 flex items-center">
                         <i class="fas fa-file-pdf mr-4 text-accent"></i>
-                        {{ analysis.original_filename }}
+                        {{ analysis.original_filename|truncatechars:40 }}
                     </h1>
                     <p class="opacity-75 flex items-center text-sm lg:text-base">
                         <i class="fas fa-clock mr-2"></i>
@@ -99,6 +99,11 @@
                                 onclick="showTab('indicators')" id="indicators-tab-btn">
                             <i class="fas fa-exclamation-triangle mr-2"></i>
                             Indicators ({{ analysis.total_indicators }})
+                        </button>
+                        <button class="tab-btn px-6 py-3 rounded-t-lg font-semibold transition-all duration-300" 
+                                onclick="showTab('malicious')" id="malicious-tab-btn">
+                            <i class="fas fa-bug mr-2"></i>
+                            Is Malicious
                         </button>
                         <button class="tab-btn px-6 py-3 rounded-t-lg font-semibold transition-all duration-300" 
                                 onclick="showTab('features')" id="features-tab-btn">
@@ -193,6 +198,91 @@
                             {% endif %}
                         </div>
 
+                        <!-- Malicious Tab -->
+                        <div id="malicious-content" class="tab-pane hidden">
+                            {% if malicious_data %}
+                                <div class="grid grid-cols-1 md:grid-cols-1 gap-4">
+                                    <!-- Main Malicious Status Card -->
+                                    <div class="p-6 rounded-xl {% if malicious_data.is_malicious %}bg-red-50 border-2 border-red-200{% else %}bg-green-50 border-2 border-green-200{% endif %}">
+                                        <div class="flex items-center justify-between mb-4">
+                                            <h3 class="text-xl font-bold {% if malicious_data.is_malicious %}text-red-700{% else %}text-green-700{% endif %}">
+                                                <i class="fas {% if malicious_data.is_malicious %}fa-exclamation-triangle{% else %}fa-shield-alt{% endif %} mr-2"></i>
+                                                {{ malicious_data.is_malicious|yesno:"Malicious Content Detected,No Malicious Content Found" }}
+                                            </h3>
+                                            <span class="px-4 py-2 rounded-full text-sm font-semibold {% if malicious_data.is_malicious %}bg-red-200 text-red-800{% else %}bg-green-200 text-green-800{% endif %}">
+                                                Risk Level: {{ malicious_data.risk_level|default:"Unknown"|title }}
+                                            </span>
+                                        </div>
+
+                                        <!-- Confidence Scores -->
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                                            <div class="p-4 bg-white rounded-lg">
+                                                <div class="text-sm text-gray-600 mb-2">Ensemble Probability</div>
+                                                <div class="text-2xl font-bold">{{ malicious_data.ensemble_probability|mul:100|floatformat:2 }}%</div>
+                                                <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
+                                                    <div class="bg-blue-600 h-2 rounded-full" style="width: {{ malicious_data.ensemble_probability|mul:100 }}%"></div>
+                                                </div>
+                                            </div>
+                                            <div class="p-4 bg-white rounded-lg">
+                                                <div class="text-sm text-gray-600 mb-2">Confidence Level</div>
+                                                <div class="text-2xl font-bold">{{ malicious_data.confidence_percentage|floatformat:2 }}%</div>
+                                                <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
+                                                    <div class="bg-purple-600 h-2 rounded-full" style="width: {{ malicious_data.confidence_percentage }}%"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Model Predictions -->
+                                        <div class="bg-white rounded-lg p-4 mb-6">
+                                            <h4 class="font-semibold mb-4">Model Predictions</h4>
+                                            <div class="space-y-3">
+                                                <div class="flex justify-between items-center">
+                                                    <span>Attention Model</span>
+                                                    <span class="font-semibold">{{ malicious_data.attention_probability|mul:100|floatformat:2 }}%</span>
+                                                </div>
+                                                <div class="flex justify-between items-center">
+                                                    <span>Deep FF Model</span>
+                                                    <span class="font-semibold">{{ malicious_data.deep_ff_probability|mul:100|floatformat:2 }}%</span>
+                                                </div>
+                                                <div class="flex justify-between items-center">
+                                                    <span>Wide Deep Model</span>
+                                                    <span class="font-semibold">{{ malicious_data.wide_deep_probability|mul:100|floatformat:2 }}%</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Key Statistics -->
+                                        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                                            <div class="p-3 bg-white rounded-lg text-center">
+                                                <div class="text-sm text-gray-600">Pages</div>
+                                                <div class="text-xl font-bold">{{ malicious_data.pdf_pages|default:"N/A" }}</div>
+                                            </div>
+                                            <div class="p-3 bg-white rounded-lg text-center">
+                                                <div class="text-sm text-gray-600">Suspicious Elements</div>
+                                                <div class="text-xl font-bold">{{ malicious_data.suspicious_count|default:"0" }}</div>
+                                            </div>
+                                            <div class="p-3 bg-white rounded-lg text-center">
+                                                <div class="text-sm text-gray-600">JavaScript Elements</div>
+                                                <div class="text-xl font-bold">{{ malicious_data.javascript_elements|default:"0" }}</div>
+                                            </div>
+                                            <div class="p-3 bg-white rounded-lg text-center">
+                                                <div class="text-sm text-gray-600">Auto Actions</div>
+                                                <div class="text-xl font-bold">{{ malicious_data.auto_actions|default:"0" }}</div>
+                                            </div>
+                                            <div class="p-3 bg-white rounded-lg text-center">
+                                                <div class="text-sm text-gray-600">Embedded Files</div>
+                                                <div class="text-xl font-bold">{{ malicious_data.embedded_files|default:"0" }}</div>
+                                            </div>
+                                            <div class="p-3 bg-white rounded-lg text-center">
+                                                <div class="text-sm text-gray-600">Metadata Size</div>
+                                                <div class="text-xl font-bold">{{ malicious_data.metadata_size|filesizeformat }}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+
                         <!-- Recommendations Tab -->
                         {% if analysis.recommendations %}
                             <div id="recommendations-content" class="tab-pane hidden">
@@ -264,6 +354,11 @@
             <div class="bg-white rounded-2xl shadow-xl p-6">
                 <h6 class="text-lg font-bold text-gray-800 mb-4">File Statistics</h6>
                 <div class="space-y-4">
+
+                    <div class="text-center p-4 bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg">
+                        <div class="text-xl font-bold text-primary">{{ malicious_data.original_filename }}</div>
+                        <div class="text-xs text-gray-500 uppercase tracking-wider">File Name</div>
+                    </div>
                     <div class="text-center p-4 bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg">
                         <div class="text-2xl font-bold text-primary">{{ analysis.file_size|filesizeformat }}</div>
                         <div class="text-xs text-gray-500 uppercase tracking-wider">File Size</div>
@@ -274,12 +369,12 @@
                         <div class="text-xs text-gray-500 uppercase tracking-wider">Total Indicators</div>
                     </div>
                     
-                    {% if analysis.ml_anomaly_score %}
+                    <!-- {% if analysis.ml_anomaly_score %}
                     <div class="text-center p-4 bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg">
                         <div class="text-2xl font-bold text-primary">{{ analysis.ml_anomaly_score|floatformat:2 }}</div>
                         <div class="text-xs text-gray-500 uppercase tracking-wider">ML Anomaly Score</div>
                     </div>
-                    {% endif %}
+                    {% endif %} -->
                     
                     {% if analysis.analysis_duration %}
                     <div class="text-center p-4 bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg">

@@ -695,8 +695,8 @@ def example_training_workflow():
     """
     
     # Configuration
-    CLEAN_PDF_DIR = "/home/d3bugger/Projects/FINAL YEAR PROJECT/src/datasets/clean"  # Directory with clean PDF files
-    MODEL_OUTPUT = "/home/d3bugger/Projects/FINAL YEAR PROJECT/src/detector_app/ai/ml/models/01_model.pkl"
+    CLEAN_PDF_DIR = "/home/d3bugger/Documents/Datasets/Pdf"  # Directory with clean PDF files
+    MODEL_OUTPUT = "/home/d3bugger/Projects/FINAL YEAR PROJECT/src/ml_models/stegov2/v02_model.pkl"
     
     
     try:

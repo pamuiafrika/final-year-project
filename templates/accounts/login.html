@@ -1,0 +1,199 @@
+{% extends 'accounts/base.html' %}
+
+{% block title %}Login - StegoDetect AI{% endblock %}
+
+{% block content %}
+<div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-md w-full space-y-8">
+    <!-- Header -->
+    <div class="text-center">
+      <div class="flex justify-center mb-6">
+        <div class="bg-[var(--dark)] p-4 rounded-full">
+          <i class="bx bx-shield-quarter text-4xl text-[var(--accent)]"></i>
+        </div>
+      </div>
+      <h2 class="text-3xl font-bold text-[var(--dark)] mb-2">Welcome Back</h2>
+      <p class="text-gray-600">Sign in to your StegoDetect AI account</p>
+    </div>
+
+    <!-- Login Form -->
+    <div class="bg-white rounded-lg shadow-lg p-8 border border-gray-200">
+      <form method="post" action="{% url 'accounts:login' %}" class="space-y-6" x-data="{ 
+        showPassword: false,
+        loading: false,
+        submitForm(event) {
+          this.loading = true;
+          event.target.closest('form').submit();
+        }
+      }">
+        {% csrf_token %}
+        
+        <!-- Username Field -->
+        <div class="space-y-2">
+          <label for="{{ form.username.id_for_label }}" class="block text-sm font-semibold text-[var(--dark)]">
+            <i class="bx bx-user mr-2 text-[var(--secondary)]"></i>Username
+          </label>
+          <div class="relative">
+            {{ form.username }}
+            <i class="bx bx-user absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+          </div>
+          {% if form.username.errors %}
+            <div class="text-red-600 text-sm mt-1">
+              {% for error in form.username.errors %}
+                <p class="flex items-center">
+                  <i class="bx bx-error-circle mr-1"></i>{{ error }}
+                </p>
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
+
+        <!-- Password Field -->
+        <div class="space-y-2">
+          <label for="{{ form.password.id_for_label }}" class="block text-sm font-semibold text-[var(--dark)]">
+            <i class="bx bx-lock mr-2 text-[var(--secondary)]"></i>Password
+          </label>
+          <div class="relative">
+            <input 
+              :type="showPassword ? 'text' : 'password'"
+              name="{{ form.password.name }}"
+              id="{{ form.password.id_for_label }}"
+              class="w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--secondary)] focus:border-transparent transition-all duration-200"
+              placeholder="Enter your password"
+              required
+            >
+            <i class="bx bx-lock absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+            <button 
+              type="button" 
+              @click="showPassword = !showPassword"
+              class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-[var(--secondary)] transition-colors"
+            >
+              <i class="bx" :class="showPassword ? 'bx-hide' : 'bx-show'"></i>
+            </button>
+          </div>
+          {% if form.password.errors %}
+            <div class="text-red-600 text-sm mt-1">
+              {% for error in form.password.errors %}
+                <p class="flex items-center">
+                  <i class="bx bx-error-circle mr-1"></i>{{ error }}
+                </p>
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
+
+        <!-- Remember Me & Forgot Password -->
+        <div class="flex items-center justify-between">
+          <div class="flex items-center">
+            <input type="checkbox" id="remember-me" name="remember-me" class="h-4 w-4 text-[var(--secondary)] focus:ring-[var(--secondary)] border-gray-300 rounded">
+            <label for="remember-me" class="ml-2 block text-sm text-gray-700">Remember me</label>
+          </div>
+          <a href="#" class="text-sm text-[var(--secondary)] hover:text-[var(--primary)] transition-colors">
+            Forgot password?
+          </a>
+        </div>
+
+        <!-- Submit Button -->
+        <button 
+          type="submit"
+          @click="submitForm"
+          :disabled="loading"
+          class="w-full bg-[var(--secondary)] hover:bg-[var(--primary)] text-white font-semibold py-3 px-4 rounded-lg transition-all duration-200 transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--secondary)] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+        >
+          <span x-show="!loading" class="flex items-center justify-center">
+            <i class="bx bx-log-in mr-2"></i>Sign In
+          </span>
+          <span x-show="loading" class="flex items-center justify-center">
+            <i class="bx bx-loader-alt animate-spin mr-2"></i>Signing In...
+          </span>
+        </button>
+
+        <!-- Divider -->
+        <div class="relative my-6">
+          <div class="absolute inset-0 flex items-center">
+            <div class="w-full border-t border-gray-300"></div>
+          </div>
+          <div class="relative flex justify-center text-sm">
+            <span class="px-2 bg-white text-gray-500">New to StegoDetect AI?</span>
+          </div>
+        </div>
+
+        <!-- Register Link -->
+        <div class="text-center">
+          <p class="text-gray-600">
+            Don't have an account? 
+            <a href="{% url 'accounts:register' %}" 
+               class="font-semibold text-[var(--secondary)] hover:text-[var(--primary)] transition-colors">
+              Create Account
+            </a>
+          </p>
+        </div>
+      </form>
+    </div>
+
+    <!-- Additional Info -->
+    <div class="text-center text-sm text-gray-500">
+      <p>Secure login powered by advanced encryption</p>
+    </div>
+  </div>
+</div>
+
+<style>
+/* Custom styles for form inputs */
+input[type="text"], input[type="password"], input[type="email"] {
+  width: 100%;
+  padding: 12px 12px 12px 40px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: all 0.2s ease-in-out;
+  background-color: #ffffff;
+}
+
+input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus {
+  outline: none;
+  border-color: var(--secondary);
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+  transform: translateY(-1px);
+}
+
+input[type="text"]:hover, input[type="password"]:hover, input[type="email"]:hover {
+  border-color: #9ca3af;
+}
+
+/* Error state */
+input.error {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+/* Loading animation */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Add error styling to inputs with errors
+  const errorInputs = document.querySelectorAll('input');
+  errorInputs.forEach(input => {
+    const errorDiv = input.parentNode.parentNode.querySelector('.text-red-600');
+    if (errorDiv) {
+      input.classList.add('error');
+    }
+  });
+  
+  // Auto-focus first input
+  const firstInput = document.querySelector('input[type="text"], input[type="email"]');
+  if (firstInput) {
+    firstInput.focus();
+  }
+});
+</script>
+{% endblock %}

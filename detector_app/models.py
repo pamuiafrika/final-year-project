@@ -27,10 +27,11 @@ class PDFScanResult(models.Model):
         ('PROCESSING', 'Processing'),
         ('COMPLETED', 'Completed'),
         ('FAILED', 'Failed'),
+        ('QUEUED', 'Queued'),
     ]
     
     # Basic info
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    id = models.BigAutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='pdf_scans')
     file = models.FileField(upload_to='pdf_uploads/%Y/%m/%d/', max_length=500)
     original_filename = models.CharField(max_length=255)
@@ -88,6 +89,7 @@ class PDFAnalysis(models.Model):
         ('HIGH_RISK', 'High Risk - Strong evidence of steganography'),
     ]
     
+    id = models.BigAutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='pdf_analyses')
     pdf_file = models.FileField(upload_to='pdf_uploads/%Y/%m/%d/')
     original_filename = models.CharField(max_length=255)

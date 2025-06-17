@@ -1,0 +1,361 @@
+{% extends 'base.html' %}
+
+{% block title %}Upload History - Steganography Detection Tool{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="flex justify-between items-center mb-8">
+        <div>
+            <h1 class="text-3xl font-bold text-[var(--primary)]">Upload History</h1>
+            <p class="text-gray-600 mt-2">View all PDF files analyzed for steganographic content</p>
+        </div>
+        <div class="flex space-x-3">
+            <a href="{% url 'ai:upload_pdf' %}" class="bg-[var(--secondary)] text-white px-4 py-2 rounded-lg hover:bg-[var(--primary)] transition-colors">
+                <i class="bx bx-plus mr-2"></i>New Analysis
+            </a>
+            <a href="{% url 'ai:batch_upload' %}" class="bg-[var(--accent)] text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-colors">
+                <i class="bx bx-upload mr-2"></i>Batch Upload
+            </a>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div class="bg-white rounded-xl shadow-lg p-6">
+            <div class="flex items-center">
+                <div class="bg-blue-100 p-3 rounded-full">
+                    <i class="bx bx-file text-2xl text-blue-600"></i>
+                </div>
+                <div class="ml-4">
+                    <h3 class="text-2xl font-bold text-gray-900">{{ total_uploads|default:0 }}</h3>
+                    <p class="text-gray-600">Total Files</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-lg p-6">
+            <div class="flex items-center">
+                <div class="bg-green-100 p-3 rounded-full">
+                    <i class="bx bx-check text-2xl text-green-600"></i>
+                </div>
+                <div class="ml-4">
+                    <h3 class="text-2xl font-bold text-gray-900">{{ processed_uploads|default:0 }}</h3>
+                    <p class="text-gray-600">Processed</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-lg p-6">
+            <div class="flex items-center">
+                <div class="bg-red-100 p-3 rounded-full">
+                    <i class="bx bx-error text-2xl text-red-600"></i>
+                </div>
+                <div class="ml-4">
+                    <h3 class="text-2xl font-bold text-gray-900">{{ suspicious_files|default:0 }}</h3>
+                    <p class="text-gray-600">Suspicious</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-lg p-6">
+            <div class="flex items-center">
+                <div class="bg-yellow-100 p-3 rounded-full">
+                    <i class="bx bx-time text-2xl text-yellow-600"></i>
+                </div>
+                <div class="ml-4">
+                    <h3 class="text-2xl font-bold text-gray-900">
+                        {% if average_processing_time %}{{ average_processing_time|floatformat:0 }}ms{% else %}0ms{% endif %}
+                    </h3>
+                    <p class="text-gray-600">Avg Processing</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+        <form method="GET" id="filterForm" class="flex flex-wrap items-center justify-between gap-4">
+            <div class="flex items-center space-x-4">
+                <div>
+                    <label for="statusFilter" class="block text-sm font-medium text-gray-700 mb-1">Status</label>
+                    <select name="status" id="statusFilter" class="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-[var(--secondary)] focus:border-transparent">
+                        <option value="">All Files</option>
+                        <option value="clean" {% if current_status_filter == 'clean' %}selected{% endif %}>Clean Files</option>
+                        <option value="suspicious" {% if current_status_filter == 'suspicious' %}selected{% endif %}>Suspicious Files</option>
+                        <option value="processing" {% if current_status_filter == 'processing' %}selected{% endif %}>Processing</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="dateFilter" class="block text-sm font-medium text-gray-700 mb-1">Date Range</label>
+                    <select name="date" id="dateFilter" class="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-[var(--secondary)] focus:border-transparent">
+                        <option value="">All Time</option>
+                        <option value="today" {% if current_date_filter == 'today' %}selected{% endif %}>Today</option>
+                        <option value="week" {% if current_date_filter == 'week' %}selected{% endif %}>This Week</option>
+                        <option value="month" {% if current_date_filter == 'month' %}selected{% endif %}>This Month</option>
+                    </select>
+                </div>
+            </div>
+            <div class="flex items-center space-x-3">
+                <div class="relative">
+                    <input type="text" name="search" id="searchInput" placeholder="Search files..." value="{{ current_search_query }}" class="border border-gray-300 rounded-lg pl-10 pr-4 py-2 focus:ring-2 focus:ring-[var(--secondary)] focus:border-transparent">
+                    <i class="bx bx-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                </div>
+                <button type="submit" id="applyFilters" class="bg-[var(--secondary)] text-white px-4 py-2 rounded-lg hover:bg-[var(--primary)] transition-colors">
+                    Apply Filters
+                </button>
+                <a href="{% url 'ai:analysis_list' %}" class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors">
+                    <i class="bx bx-refresh mr-2"></i>Clear
+                </a>
+                <button type="button" onclick="exportData()" class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors">
+                    <i class="bx bx-download mr-2"></i>Export
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">File</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Risk Level</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Confidence</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Upload Date</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Size</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200" id="uploadTableBody">
+                    {% for upload in uploads %}
+                    <tr class="hover:bg-gray-50 upload-row"
+                        data-status="{% if not upload.processed %}processing{% elif upload.prediction.is_suspicious %}suspicious{% else %}clean{% endif %}"
+                        data-filename="{{ upload.file_name|lower }}"
+                        data-date="{{ upload.uploaded_at|date:'Y-m-d' }}">
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0">
+                                    <i class="bx bx-file-blank text-2xl text-red-500"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <div class="text-sm font-medium text-gray-900">{{ upload.file_name }}</div>
+                                    <div class="text-sm text-gray-500">{{ upload.file_hash|truncatechars:16 }}</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            {% if upload.processed %}
+                                {% if upload.prediction.is_suspicious %}
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                                        <i class="bx bx-error mr-1"></i>
+                                        Suspicious
+                                    </span>
+                                {% else %}
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                        <i class="bx bx-check mr-1"></i>
+                                        Clean
+                                    </span>
+                                {% endif %}
+                            {% else %}
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+                                    <i class="bx bx-loader-alt mr-1 animate-spin"></i>
+                                    Processing
+                                </span>
+                            {% endif %}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            {% if upload.processed and upload.prediction %}
+                                <span class="text-sm font-medium
+                                    {% if upload.prediction.risk_level == 'High' %}text-red-600
+                                    {% elif upload.prediction.risk_level == 'Medium' %}text-yellow-600
+                                    {% else %}text-green-600
+                                    {% endif %}">
+                                    {{ upload.prediction.risk_level }}
+                                </span>
+                            {% else %}
+                                <span class="text-sm text-gray-400">-</span>
+                            {% endif %}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            {% if upload.processed and upload.prediction %}
+                                <div class="flex items-center">
+                                    <div class="w-16 bg-gray-200 rounded-full h-2 mr-2">
+                                        <div class="bg-[var(--secondary)] h-2 rounded-full" style="width: {{ upload.prediction.ensemble_confidence|floatformat:0 }}%"></div>
+                                    </div>
+                                    <span class="text-sm text-gray-900">{{ upload.prediction.ensemble_confidence|floatformat:1 }}%</span>
+                                </div>
+                            {% else %}
+                                <span class="text-sm text-gray-400">-</span>
+                            {% endif %}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            {{ upload.uploaded_at|date:"M d, Y H:i" }}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            {{ upload.file_size|filesizeformat }}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                            <div class="flex items-center space-x-2">
+                                <a href="{% url 'ai:upload_detail' upload.id %}" class="text-[var(--secondary)] hover:text-[var(--primary)]">
+                                    <i class="bx bx-detail" title="View Details"></i>
+                                </a>
+                                {% if upload.processed and upload.prediction %}
+                                <button onclick="downloadReport('{{ upload.id }}')" class="text-green-600 hover:text-green-900">
+                                    <i class="bx bx-download" title="Download Report"></i>
+                                </button>
+                                {% endif %}
+                                <button onclick="deleteUpload('{{ upload.id }}')" class="text-red-600 hover:text-red-900">
+                                    <i class="bx bx-trash" title="Delete"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="7" class="px-6 py-12 text-center">
+                            <div class="flex flex-col items-center">
+                                <i class="bx bx-file text-6xl text-gray-300 mb-4"></i>
+                                <h3 class="text-lg font-medium text-gray-900 mb-2">No files found</h3>
+                                <p class="text-gray-500 mb-4">
+                                    {% if current_status_filter or current_date_filter or current_search_query %}
+                                        Try adjusting your filters or search term.
+                                    {% else %}
+                                        Start by uploading a PDF file for analysis
+                                    {% endif %}
+                                </p>
+                                {% if not current_status_filter and not current_date_filter and not current_search_query %}
+                                <a href="{% url 'ai:upload_pdf' %}" class="bg-[var(--secondary)] text-white px-4 py-2 rounded-lg hover:bg-[var(--primary)] transition-colors">
+                                    <i class="bx bx-plus mr-2"></i>Upload First File
+                                </a>
+                                {% endif %}
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        {% if is_paginated %}
+        <div class="bg-white px-4 py-3 border-t border-gray-200 sm:px-6">
+            <div class="flex items-center justify-between">
+                <div class="flex-1 flex justify-between sm:hidden">
+                    {% if page_obj.has_previous %}
+                        <a href="?page={{ page_obj.previous_page_number }}{% if current_status_filter %}&status={{ current_status_filter }}{% endif %}{% if current_date_filter %}&date={{ current_date_filter }}{% endif %}{% if current_search_query %}&search={{ current_search_query }}{% endif %}" class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                            Previous
+                        </a>
+                    {% endif %}
+                    {% if page_obj.has_next %}
+                        <a href="?page={{ page_obj.next_page_number }}{% if current_status_filter %}&status={{ current_status_filter }}{% endif %}{% if current_date_filter %}&date={{ current_date_filter }}{% endif %}{% if current_search_query %}&search={{ current_search_query }}{% endif %}" class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                            Next
+                        </a>
+                    {% endif %}
+                </div>
+                <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+                    <div>
+                        <p class="text-sm text-gray-700">
+                            Showing
+                            <span class="font-medium">{{ page_obj.start_index }}</span>
+                            to
+                            <span class="font-medium">{{ page_obj.end_index }}</span>
+                            of
+                            <span class="font-medium">{{ page_obj.paginator.count }}</span>
+                            results
+                        </p>
+                    </div>
+                    <div>
+                        <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+                            {% if page_obj.has_previous %}
+                                <a href="?page={{ page_obj.previous_page_number }}{% if current_status_filter %}&status={{ current_status_filter }}{% endif %}{% if current_date_filter %}&date={{ current_date_filter }}{% endif %}{% if current_search_query %}&search={{ current_search_query }}{% endif %}" class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                                    <span class="sr-only">Previous</span>
+                                    <i class="bx bx-chevron-left h-5 w-5"></i>
+                                </a>
+                            {% endif %}
+
+                            {% for i in paginator.page_range %}
+                                <a href="?page={{ i }}{% if current_status_filter %}&status={{ current_status_filter }}{% endif %}{% if current_date_filter %}&date={{ current_date_filter }}{% endif %}{% if current_search_query %}&search={{ current_search_query }}{% endif %}" class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 {% if i == page_obj.number %}bg-gray-100{% endif %}">
+                                    {{ i }}
+                                </a>
+                            {% endfor %}
+
+                            {% if page_obj.has_next %}
+                                <a href="?page={{ page_obj.next_page_number }}{% if current_status_filter %}&status={{ current_status_filter }}{% endif %}{% if current_date_filter %}&date={{ current_date_filter }}{% endif %}{% if current_search_query %}&search={{ current_search_query }}{% endif %}" class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                                    <span class="sr-only">Next</span>
+                                    <i class="bx bx-chevron-right h-5 w-5"></i>
+                                </a>
+                            {% endif %}
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Auto-refresh for processing files (optional)
+        const processingFilesExist = document.querySelector('.upload-row[data-status="processing"]');
+        if (processingFilesExist) {
+            console.log("Processing files detected, enabling auto-refresh.");
+            setInterval(() => {
+                console.log("Auto-refreshing table...");
+                window.location.reload();
+            }, 30000);
+        }
+
+        // Allow Enter key to submit form
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('filterForm').submit();
+            }
+        });
+
+        window.downloadReport = function(uploadId) {
+            Swal.fire({
+                title: 'Download Report',
+                text: 'This feature will download a detailed analysis report for this file. (Backend integration needed)',
+                icon: 'info',
+                confirmButtonColor: '#28a745'
+            });
+            //  TODO: Implement download logic
+        };
+
+        window.deleteUpload = function(uploadId) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // TODO: Implement deletion logic
+                    Swal.fire(
+                        'Deleted!',
+                        'Your file has been deleted.',
+                        'success'
+                    ).then(() => {
+                        location.reload();
+                    });
+                }
+            });
+        };
+
+        window.exportData = function() {
+             Swal.fire({
+                title: 'Export Data',
+                text: 'This feature will allow you to export the current table data (filtered or all) to a CSV or Excel file. (Backend integration needed)',
+                icon: 'info',
+                confirmButtonColor: '#007bff'
+            });
+            // TODO: Implement export logic
+        };
+    });
+</script>
+{% endblock %}

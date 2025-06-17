@@ -74,11 +74,10 @@ class PDFSteganoDetector:
                 logger.warning("Failed to load ML model: %s", e)
         
         if self.ml_model is None:
-            # RECOMMENDATION: Better IsolationForest parameters
             self.ml_model = IsolationForest(
-                contamination=0.05,  # Expect 5% anomalies
+                contamination=0.05,  
                 random_state=42, 
-                n_estimators=200,    # More trees for stability
+                n_estimators=200,   
                 max_samples='auto',
                 bootstrap=True
             )
@@ -175,7 +174,7 @@ class PDFSteganoDetector:
         
         return training_info
 
-    # RECOMMENDATION 3: Fix argument compatibility issue
+    
     def analyze_pdf(self, pdf_path: str, focus_technique: str = 'auto', skip_ml: bool = False) -> Dict[str, Any]:
         """Analyze a PDF file for steganography using specified or all techniques."""
         self.indicators.clear()
@@ -191,17 +190,17 @@ class PDFSteganoDetector:
                 except ValueError:
                     logger.debug("PDF content is not base64 encoded, proceeding with raw content")
 
-            # FIXED: Argument compatibility for all analysis methods
+            
             analyses = [
                 ('object_stream', lambda: self._analyze_object_streams(pdf_content, pdf_path)),
                 ('metadata', lambda: self._analyze_metadata(pdf_content, pdf_path)),
-                ('font_glyph', lambda: self._analyze_fonts_glyphs(pdf_content, pdf_path)),  # FIXED
+                ('font_glyph', lambda: self._analyze_fonts_glyphs(pdf_content, pdf_path)), 
                 ('entropy', lambda: self._analyze_entropy_patterns(pdf_content)),
                 ('embedded', lambda: self._scan_embedded_files(pdf_content, pdf_path)),
                 ('layers', lambda: self._detect_invisible_layers(pdf_content, pdf_path)),
             ]
 
-            # RECOMMENDATION 4: Parallel processing for performance
+           
             if focus_technique == 'auto':
                 self._parallel_analysis(analyses)
             else:
@@ -210,7 +209,7 @@ class PDFSteganoDetector:
                         analysis_func()
 
             self._detect_concealed_pngs(pdf_content)
-            self._enhanced_png_detection(pdf_content)  # RECOMMENDATION: Enhanced PNG detection
+            self._enhanced_png_detection(pdf_content)  
             
             if not skip_ml:
                 self._ml_anomaly_detection()
@@ -221,7 +220,7 @@ class PDFSteganoDetector:
             logger.error("PDF analysis failed: %s", e)
             return {"error": str(e), "indicators": [], "ml_score": None}
 
-    # RECOMMENDATION 4: Parallel processing implementation
+    
     def _parallel_analysis(self, analyses: List) -> None:
         """Execute analysis methods in parallel for better performance."""
         with ThreadPoolExecutor(max_workers=4) as executor:
@@ -236,7 +235,7 @@ class PDFSteganoDetector:
                 except Exception as e:
                     logger.error(f"Analysis {technique} failed: {e}")
 
-    # RECOMMENDATION 5: Enhanced PNG detection with LSB analysis
+    
     def _enhanced_png_detection(self, pdf_content: bytes) -> None:
         """Enhanced PNG detection with LSB steganography analysis."""
         try:
@@ -246,7 +245,7 @@ class PDFSteganoDetector:
             while (pos := pdf_content.find(self.PNG_SIGNATURE, offset)) != -1:
                 png_data = self._extract_png_at_offset(pdf_content, pos)
                 if png_data and len(png_data) > 33:
-                    # Analyze PNG for LSB patterns
+                    
                     lsb_suspicious = self._analyze_png_lsb_patterns(png_data)
                     chunk_anomalies = self._analyze_png_chunk_ordering(png_data)
                     
@@ -257,7 +256,7 @@ class PDFSteganoDetector:
                         "lsb_suspicious": lsb_suspicious,
                         "chunk_anomalies": chunk_anomalies
                     })
-                offset = pos + 8  # Skip ahead more efficiently
+                offset = pos + 8  
 
             if png_matches:
                 high_risk_pngs = [p for p in png_matches 
@@ -786,7 +785,7 @@ class PDFSteganoDetector:
                     category="ml_anomaly",
                     severity="HIGH",
                     description=f"ML model detected anomalous patterns (score: {anomaly_score:.3f})",
-                    confidence=min(abs(anomaly_score), 1.0),
+                    confidence=min(abs(anomaly_score), 1.0),  # Clamp confidence between 0 and 1
                     technical_details={
                         "anomaly_score": anomaly_score,
                         "feature_vector": feature_vector.tolist(),
@@ -953,7 +952,7 @@ def main():
     parser.add_argument('pdf_path', help='Path to the PDF file to analyze')
     args = parser.parse_args()
 
-    detector = PDFSteganoDetector(ml_model_path='/home/d3bugger/Projects/FINAL YEAR PROJECT/src/detector_app/ai/ml/models/01_model.pkl')
+    detector = PDFSteganoDetector(ml_model_path='/home/d3bugger/Projects/FINAL YEAR PROJECT/src/ml_models/stegov2/v02_model.pkl')
     pdf_path = args.pdf_path
 
     try:

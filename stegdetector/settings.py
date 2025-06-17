@@ -26,11 +26,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'accounts',
     'pdf_parser',
     'pdf_stego',
     'detector_app',
+    'ai', 
     'django_celery_results',
     'rest_framework',
+    'channels',
 ]
 
 MIDDLEWARE = [
@@ -62,6 +65,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'stegdetector.wsgi.application'
 
+ASGI_APPLICATION = 'stegdetector.asgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
@@ -161,16 +165,36 @@ LOGGING = {
             'filename': LOG_DIR / 'django.log',
             'formatter': 'verbose',
         },
+        'console': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose',
+        }
     },
 
     'root': {
-        'handlers': ['file'],
+        'handlers': ['file', 'console'],
         'level': 'INFO',
     },
 
     'loggers': {
         'django': {
-            'handlers': ['file'],
+            'handlers': ['file', 'console'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+        'django.server': {
+            'handlers': ['file', 'console'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+        'django.request': {
+            'handlers': ['file', 'console'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+        'ai': {
+            'handlers': ['file', 'console'],
             'level': 'INFO',
             'propagate': True,
         },
@@ -189,16 +213,18 @@ LOGGING = {
 }
 
 
+
 # Celery Configuration
-CELERY_BROKER_URL = 'redis://localhost:6379/0'
-CELERY_RESULT_BACKEND = 'django-db'
+CELERY_BROKER_URL = 'redis://localhost:6379/0' # Or your RabbitMQ URL
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
-CELERY_TIMEZONE = TIME_ZONE
+CELERY_TIMEZONE = 'Africa/Dar_es_Salaam' # Your timezone
+CELERY_ENABLE_UTC = True
 
 # ML Model Settings
-MODELS_DIR = os.path.join(BASE_DIR, 'detector_app', 'ml', 'models')
+MODELS_DIR = os.path.join(BASE_DIR, 'ai', 'models')
 ML_MODEL_DIR = os.path.join(BASE_DIR, 'detector_app', 'ml', 'models')
 DATASET_DIR = os.path.join(BASE_DIR, 'datasets')
 UPLOAD_DIR = os.path.join(MEDIA_ROOT, 'uploads')
@@ -227,3 +253,17 @@ CACHES = {
         'LOCATION': 'pdf-detector-cache',
     }
 }
+
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [("127.0.0.1", 6379)],
+        },
+    },
+}
+
+
+LOGIN_REDIRECT_URL = 'ai:ml_dashboard'
+LOGOUT_REDIRECT_URL = 'accounts:login'
